@@ -30,9 +30,9 @@ export default route(function (/* { store, ssrContext } */) {
   const store = useStorageStore()
 
   Router.beforeEach((to) => {
-    if (!!store.isLogged && !to.meta.requiresAuth) {
+    if (!!store.isAuthenticated && !to.meta.auth) {
       return { name: 'home' }
-    } else if (!store.isLogged && to.meta.requiresAuth) {
+    } else if (!store.isAuthenticated && !!to.meta.auth) {
       return { name: 'login' }
     }
   })

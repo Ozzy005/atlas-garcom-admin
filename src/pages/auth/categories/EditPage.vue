@@ -20,22 +20,22 @@
 <script setup>
 import notify from 'src/composables/notify'
 import FormPage from './FormPage.vue'
-import { useStorageStore } from 'src/stores/storage'
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
-const store = useStorageStore()
 const router = useRouter()
-const route = useRoute()
 
-const form = store.get('categories', route.params.id)
+const form = ref({
+  name: null,
+  description: null
+})
 
 const handleSubmit = () => {
   try {
-    const { message } = store.edit('categories', route.params.id, form)
     router.push({ name: 'categories' })
-    notify.success(message)
-  } catch ({ message }) {
-    notify.error(message)
+    notify.success()
+  } catch (error) {
+    notify.error(error)
   }
 }
 

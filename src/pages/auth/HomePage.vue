@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
-    <div class="text-h6">
+    <div class="text-h6"
+      v-if="!!store.user">
       Seja bem vindo {{ store.user.name }} !
     </div>
   </q-page>

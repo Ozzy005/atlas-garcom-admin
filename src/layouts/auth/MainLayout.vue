@@ -10,7 +10,7 @@
           @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          Curso Vue 3 por Dix Digital
+          Atlas Garçom
         </q-toolbar-title>
 
         <q-btn-dropdown flat
@@ -50,17 +50,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import { useStorageStore } from 'src/stores/storage'
 import { useRouter } from 'vue-router'
+import notify from 'src/composables/notify'
 
 const router = useRouter()
 const store = useStorageStore()
 
 const essentialLinks = [
   {
-    title: 'Painel',
+    title: 'Home',
     icon: 'home',
     link: 'home'
   },
@@ -68,23 +69,37 @@ const essentialLinks = [
     title: 'Categorias',
     icon: 'category',
     link: 'categories'
-  },
-  {
-    title: 'Produtos',
-    icon: 'mdi-shopping',
-    link: 'products'
   }
 ]
 
 const leftDrawerOpen = ref(false)
 
-function toggleLeftDrawer () {
+const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
-function handleLogout () {
-  store.logout()
-  router.push({ name: 'login' })
+const handleLogout = () => {
+  try {
+    store.logout()
+    store.isAuthenticated = false
+    store.user = null
+    router.push({ name: 'login' })
+  } catch (error) {
+    notify.error(error)
+    store.isAuthenticated = false
+    store.user = null
+    router.push({ name: 'login' })
+  }
 }
+
+onBeforeMount(async () => {
+  if (!store.user) {
+    try {
+      await store.getUser()
+    } catch (error) {
+      notify.error(error)
+    }
+  }
+})
 
 </script>

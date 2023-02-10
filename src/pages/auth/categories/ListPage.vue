@@ -9,7 +9,7 @@
           :to="{ name: 'categories-create' }" />
       </div>
       <div class="q-mt-md">
-        <q-table :rows="store.database['categories']"
+        <q-table :rows="rows"
           :columns="columns"
           row-key="name"
           flat>
@@ -41,6 +41,7 @@ import { useStorageStore } from 'src/stores/storage'
 import notify from 'src/composables/notify'
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const store = useStorageStore()
 const $q = useQuasar()
@@ -95,6 +96,8 @@ const columns = [
   }
 ]
 
+const rows = ref([])
+
 const handleEdit = (category) => {
   router.push({ name: 'categories-edit', params: { id: category.id } })
 }
@@ -107,10 +110,9 @@ const handleDestroy = (category) => {
     persistent: true
   }).onOk(() => {
     try {
-      const { message } = store.destroy('categories', category.id)
-      notify.success(message)
-    } catch ({ message }) {
-      notify.error(message)
+      notify.success()
+    } catch (error) {
+      notify.error(error)
     }
   })
 }

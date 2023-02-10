@@ -21,10 +21,8 @@
 import notify from 'src/composables/notify'
 import { ref } from 'vue'
 import FormPage from './FormPage.vue'
-import { useStorageStore } from 'src/stores/storage'
 import { useRouter } from 'vue-router'
 
-const store = useStorageStore()
 const router = useRouter()
 
 const form = ref({
@@ -34,11 +32,10 @@ const form = ref({
 
 const handleSubmit = () => {
   try {
-    const { message } = store.create('categories', form.value)
     router.push({ name: 'categories' })
-    notify.success(message)
-  } catch ({ message }) {
-    notify.error(message)
+    notify.success()
+  } catch (error) {
+    notify.error(error)
   }
 }
 

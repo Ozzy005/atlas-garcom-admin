@@ -16,9 +16,8 @@ module.exports = configure(function (ctx) {
       // fix: true,
       // include = [],
       // exclude = [],
-      // rawOptions = {},
-      warnings: true,
-      errors: true
+      warnings: false,
+      errors: false
     },
 
     // https://v2.quasar.dev/quasar-cli/prefetch-feature
@@ -67,7 +66,7 @@ module.exports = configure(function (ctx) {
       publicPath: ctx.dev ? '/' : '/admin',
       // analyze: true,
       env: {
-        api: ctx.dev ? 'https://localhost:3000' : 'https://atlasgarcom.com'
+        api: ctx.dev ? 'http://localhost:8000' : 'https://atlasgarcom.com'
       }
       // rawDefine: {}
       // ignorePublicFolder: true,
@@ -85,8 +84,8 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
-      https: true,
-      open: true, // opens browser window automatically
+      https: false,
+      open: false, // opens browser window automatically
       port: 3000
     },
 

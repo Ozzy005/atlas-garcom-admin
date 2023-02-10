@@ -32,17 +32,20 @@ import { computed } from 'vue'
 const props = defineProps({
   data: {
     type: Object,
-    required: true
+    default: {
+      name: null,
+      description: null
+    }
   }
 })
 
 const emit = defineEmits(['update:modelValue'])
 
 const form = computed({
-  get () {
+  get() {
     return props.data
   },
-  set (value) {
+  set(value) {
     emit('update:modelValue', value)
   }
 })

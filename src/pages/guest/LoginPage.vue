@@ -30,15 +30,10 @@
               val => val.length >= 8 || 'Minímo 8 caracteres !',
             ]" />
 
-          <div>
-            <q-btn type="submit"
-              label="Entrar"
-              color="primary"
-              class="q-mr-md" />
-            <q-btn label="Cadastro"
-              color="secondary"
-              :to="{ name: 'register' }" />
-          </div>
+          <q-btn type="submit"
+            label="Entrar"
+            color="primary"
+            class="q-mr-md" />
 
         </q-form>
       </q-card-section>
@@ -61,12 +56,12 @@ const form = ref({
   password: null
 })
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   try {
-    store.login(form.value)
+    await store.login(form.value)
     router.push({ name: 'home' })
-  } catch ({ message }) {
-    notify.error(message)
+  } catch (error) {
+    notify.error(error)
   }
 }
 </script>
