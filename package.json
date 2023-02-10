@@ -7,25 +7,28 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue ./",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "build": "rm -r dist && quasar build && cp .htaccess dist/spa && cd dist && zip -r senac-portal spa/",
+    "push": "scp -P 65002 dist/senac-portal.zip u485517245@185.214.126.4:/home/u485517245/public_html"
   },
   "dependencies": {
+    "@quasar/extras": "^1.0.0",
     "axios": "^0.21.1",
     "pinia": "^2.0.11",
-    "@quasar/extras": "^1.0.0",
+    "pinia-plugin-persistedstate": "^3.0.2",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
+    "@quasar/app-vite": "^1.0.0",
+    "autoprefixer": "^10.4.2",
     "eslint": "^8.10.0",
-    "eslint-plugin-vue": "^9.0.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-n": "^15.0.0",
     "eslint-plugin-promise": "^6.0.0",
-    "@quasar/app-vite": "^1.0.0",
-    "autoprefixer": "^10.4.2",
+    "eslint-plugin-vue": "^9.0.0",
     "postcss": "^8.4.14"
   },
   "engines": {
