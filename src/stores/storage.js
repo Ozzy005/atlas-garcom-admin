@@ -14,20 +14,18 @@ export const useStorageStore = defineStore(
         return data
       } catch (error) {
         if (!!error.response) {
-          const response = error.response
-          throw response.data.message
+          throw error.response.data.message
         }
         throw error.message
       }
     }
 
-    const csrf = () => api.get('/sanctum/csrf-cookie')
+    const csrf = async () => {
+      await axios({ url: '/sanctum/csrf-cookie' })
+    }
 
     const getUser = async () => {
-      const { data } = await axios({
-        method: 'get',
-        url: '/api/user'
-      })
+      const { data } = await axios({ url: '/api/user' })
       user.value = data
     }
 
