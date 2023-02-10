@@ -2,38 +2,44 @@
   <q-page padding
     class="flex flex-center">
 
-    <q-card>
+    <q-card style="width: 500px;">
       <q-card-section>
         <div class="text-h6 text-center">Login</div>
       </q-card-section>
       <q-card-section>
-        <q-form @submit="handleSubmit"
-          class="q-gutter-md"
-          style="width: 500px;">
+        <q-form @submit="handleSubmit">
 
           <q-input label="Email"
             clearable
+            maxlength="100"
             lazy-rules="ondemand"
             v-model="form.email"
-            :rules="[
-              val => !!val || 'Email é obrigatório !',
-              val => val.length <= 100 || 'Máximo 100 caracteres !',
-            ]" />
+            :rules="[val => !!val || 'Email é obrigatório !']" />
 
-          <q-input type="password"
+          <q-input :type="isPwd ? 'password' : 'text'"
             label="Senha"
             clearable
+            maxlength="255"
             lazy-rules="ondemand"
             v-model="form.password"
             :rules="[
               val => !!val || 'Senha é obrigatória !',
               val => val.length >= 8 || 'Minímo 8 caracteres !',
-            ]" />
+            ]">
+            <template #append>
+              <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd" />
+            </template>
+          </q-input>
 
-          <q-btn type="submit"
-            label="Entrar"
-            color="primary"
-            class="q-mr-md" />
+          <q-card-actions align="center">
+            <q-btn type="submit"
+              style="width: 120px;"
+              label="Entrar"
+              color="primary"
+              no-caps />
+          </q-card-actions>
 
         </q-form>
       </q-card-section>
@@ -55,6 +61,8 @@ const form = ref({
   email: null,
   password: null
 })
+
+const isPwd = ref(true)
 
 const handleSubmit = async () => {
   try {
