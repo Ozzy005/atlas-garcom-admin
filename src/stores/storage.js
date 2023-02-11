@@ -5,6 +5,8 @@ import { api } from 'src/boot/axios'
 export const useStorageStore = defineStore(
   'storage',
   () => {
+    const userLogin = ref({ email: null, password: null })
+    const rememberMe = ref(false)
     const isAuthenticated = ref(false)
     const user = ref(null)
 
@@ -43,6 +45,11 @@ export const useStorageStore = defineStore(
         data
       })
       isAuthenticated.value = true
+      if (rememberMe.value) {
+        userLogin.value = data
+      } else {
+        userLogin.value = { email: null, password: null }
+      }
     }
 
     const logout = async () => {
@@ -54,6 +61,8 @@ export const useStorageStore = defineStore(
 
     return {
       axios,
+      userLogin,
+      rememberMe,
       isAuthenticated,
       user,
       getUser,

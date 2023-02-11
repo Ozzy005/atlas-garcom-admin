@@ -34,6 +34,9 @@
             </template>
           </q-input>
 
+          <q-checkbox v-model="store.rememberMe"
+            label="Lembrar-me" />
+
           <q-card-actions align="center">
             <q-btn type="submit"
               style="min-width: 120px;"
@@ -58,10 +61,7 @@ import { useRouter } from 'vue-router'
 const store = useStorageStore()
 const router = useRouter()
 
-const form = ref({
-  email: null,
-  password: null
-})
+const form = ref(JSON.parse(JSON.stringify(store.userLogin)))
 
 const isPwd = ref(true)
 
