@@ -14,7 +14,7 @@ const routes = [
       { path: '', name: 'home', component: () => import('src/pages/auth/HomePage.vue') },
       { path: 'users', name: 'users', component: () => import('src/pages/auth/users/ListPage.vue') },
       { path: 'users/create', name: 'users-create', component: () => import('src/pages/auth/users/CreatePage.vue') },
-      { path: 'users/:id', name: 'users-show', component: () => import('src/pages/auth/users/ShowPage.vue') },
+      { path: 'users/:id', name: 'users-view', component: () => import('src/pages/auth/users/ViewPage.vue') },
       { path: 'users/:id/edit', name: 'users-edit', component: () => import('src/pages/auth/users/EditPage.vue') }
     ],
     meta: {

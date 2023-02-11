@@ -1,17 +1,11 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <div class="row justify-between items-center">
-        <div class="text-h6">Usuários</div>
-        <q-btn style="min-width: 120px;"
-          label="Voltar"
-          color="primary"
-          no-caps
-          :to="{ name: 'users' }" />
-      </div>
+      <HeaderDefault crud="Usuários"
+        model="users" />
       <div class="q-mt-md">
         <q-form @submit="handleSubmit">
-          <FormPage :data="form" />
+          <FormPage v-model="form" />
         </q-form>
       </div>
     </q-card>
@@ -24,6 +18,7 @@ import { ref } from 'vue'
 import FormPage from './FormPage.vue'
 import { useRouter } from 'vue-router'
 import { useStorageStore } from 'src/stores/storage'
+import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
 
 const store = useStorageStore()
 const router = useRouter()

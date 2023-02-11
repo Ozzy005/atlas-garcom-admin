@@ -8,7 +8,7 @@
     <q-list>
       <q-item clickable
         v-close-popup
-        @click="handleShow(item)">
+        @click="handleView(item)">
         <q-item-section>
           <q-item-label>Visualizar</q-item-label>
         </q-item-section>
@@ -51,7 +51,7 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  data: {
+  modelValue: {
     type: Array,
     required: true
   }
@@ -61,15 +61,15 @@ const emit = defineEmits(['update:modelValue'])
 
 const rows = computed({
   get () {
-    return props.data
+    return props.modelValue
   },
   set (value) {
     emit('update:modelValue', value)
   }
 })
 
-const handleShow = (item) => {
-  router.push({ name: `${props.model}-show`, params: { id: item.id } })
+const handleView = (item) => {
+  router.push({ name: `${props.model}-view`, params: { id: item.id } })
 }
 
 const handleEdit = (item) => {

@@ -16,9 +16,9 @@
       </template>
       <template #body-cell-actions="props">
         <q-td :props="props">
-          <ActionsList :model="'users'"
+          <ActionsDefault model="users"
             :item="props.row"
-            :data="rows" />
+            v-model="rows" />
         </q-td>
       </template>
     </q-table>
@@ -30,7 +30,7 @@ import { useStorageStore } from 'src/stores/storage'
 import notify from 'src/composables/notify'
 import { ref } from 'vue'
 import helpers from 'src/utils/helpers'
-import ActionsList from 'src/components/cruds/ActionsList.vue'
+import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
 
 const store = useStorageStore()
 

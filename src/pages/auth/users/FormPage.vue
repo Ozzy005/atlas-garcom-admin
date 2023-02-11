@@ -73,7 +73,7 @@
 import { computed, ref } from 'vue'
 
 const props = defineProps({
-  data: {
+  modelValue: {
     type: Object,
     required: true
   }
@@ -83,7 +83,7 @@ const emit = defineEmits(['update:modelValue'])
 
 const form = computed({
   get () {
-    return props.data
+    return props.modelValue
   },
   set (value) {
     emit('update:modelValue', value)
