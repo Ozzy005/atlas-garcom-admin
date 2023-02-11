@@ -16,36 +16,9 @@
       </template>
       <template #body-cell-actions="props">
         <q-td :props="props">
-          <q-btn-dropdown color="primary"
-            dropdown-icon="menu"
-            size="lg"
-            no-icon-animation
-            dense
-            flat>
-            <q-list>
-              <q-item clickable
-                v-close-popup
-                @click="handleShow(props.row)">
-                <q-item-section>
-                  <q-item-label>Visualizar</q-item-label>
-                </q-item-section>
-              </q-item>
-              <q-item clickable
-                v-close-popup
-                @click="handleEdit(props.row)">
-                <q-item-section>
-                  <q-item-label>Editar</q-item-label>
-                </q-item-section>
-              </q-item>
-              <q-item clickable
-                v-close-popup
-                @click="handleDestroy(props.row)">
-                <q-item-section>
-                  <q-item-label>Excluir</q-item-label>
-                </q-item-section>
-              </q-item>
-            </q-list>
-          </q-btn-dropdown>
+          <ActionsList :model="'users'"
+            :item="props.row"
+            :data="rows" />
         </q-td>
       </template>
     </q-table>
@@ -55,14 +28,11 @@
 <script setup>
 import { useStorageStore } from 'src/stores/storage'
 import notify from 'src/composables/notify'
-import { useQuasar } from 'quasar'
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import helpers from 'src/utils/helpers'
+import ActionsList from 'src/components/cruds/ActionsList.vue'
 
 const store = useStorageStore()
-const $q = useQuasar()
-const router = useRouter()
 
 const loading = ref(false)
 const columns = [
@@ -125,29 +95,4 @@ const handleGetItems = async () => {
 }
 
 handleGetItems()
-
-const handleShow = (item) => {
-  router.push({ name: 'users-show', params: { id: item.id } })
-}
-
-const handleEdit = (item) => {
-  router.push({ name: 'users-edit', params: { id: item.id } })
-}
-
-const handleDestroy = (item) => {
-  $q.dialog({
-    title: 'Atenção !',
-    message: `Você deseja excluir o usuário ${item.name}?`,
-    cancel: true,
-    persistent: true
-  }).onOk(async () => {
-    try {
-      const { data } = await store.axios({ method: 'delete', url: `/api/users/${item.id}` })
-      rows.value = rows.value.filter(val => val.id !== item.id)
-      notify.success(data.message)
-    } catch (error) {
-      notify.error(error)
-    }
-  })
-}
 </script>
