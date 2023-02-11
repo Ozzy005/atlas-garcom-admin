@@ -2,11 +2,12 @@
   <q-page padding>
     <q-card class="q-pa-md">
       <div class="row justify-between items-center">
-        <div class="text-h6">Categorias</div>
-        <q-btn label="Voltar"
+        <div class="text-h6">Usuários</div>
+        <q-btn style="min-width: 120px;"
+          label="Voltar"
           color="primary"
           no-caps
-          @click="$router.back()" />
+          :to="{ name: 'users' }" />
       </div>
       <div class="q-mt-md">
         <q-form @submit="handleSubmit">
@@ -22,18 +23,23 @@ import notify from 'src/composables/notify'
 import { ref } from 'vue'
 import FormPage from './FormPage.vue'
 import { useRouter } from 'vue-router'
+import { useStorageStore } from 'src/stores/storage'
 
+const store = useStorageStore()
 const router = useRouter()
 
 const form = ref({
   name: null,
-  description: null
+  email: null,
+  password: null,
+  password_confirmation: null
 })
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   try {
-    router.push({ name: 'categories' })
-    notify.success()
+    const { data } = await store.axios({ method: 'post', url: '/api/users', data: form.value })
+    router.push({ name: 'users' })
+    notify.success(data.message)
   } catch (error) {
     notify.error(error)
   }

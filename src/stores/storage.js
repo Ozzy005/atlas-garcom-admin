@@ -8,13 +8,19 @@ export const useStorageStore = defineStore(
     const isAuthenticated = ref(false)
     const user = ref(null)
 
-    async function axios(config) {
+    async function axios (config) {
       try {
         const data = await api(config)
         return data
       } catch (error) {
-        if (!!error.response) {
-          throw error.response.data.message
+        if (error.response) {
+          const response = error.response
+          if (response.status === 422) {
+            const errors = response.data.errors
+            const property = Object.keys(errors)[0]
+            throw errors[property][0]
+          }
+          throw response.data.message
         }
         throw error.message
       }

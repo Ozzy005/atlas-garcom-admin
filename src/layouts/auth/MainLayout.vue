@@ -66,9 +66,9 @@ const essentialLinks = [
     link: 'home'
   },
   {
-    title: 'Categorias',
-    icon: 'category',
-    link: 'categories'
+    title: 'Usuários',
+    icon: 'person',
+    link: 'users'
   }
 ]
 

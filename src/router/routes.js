@@ -8,13 +8,14 @@ const routes = [
     ]
   },
   {
-    path: '/home',
+    path: '/',
     component: () => import('src/layouts/auth/MainLayout.vue'),
     children: [
       { path: '', name: 'home', component: () => import('src/pages/auth/HomePage.vue') },
-      { path: 'categories', name: 'categories', component: () => import('src/pages/auth/categories/ListPage.vue') },
-      { path: 'categories/create', name: 'categories-create', component: () => import('src/pages/auth/categories/CreatePage.vue') },
-      { path: 'categories/:id/edit', name: 'categories-edit', component: () => import('src/pages/auth/categories/EditPage.vue') }
+      { path: 'users', name: 'users', component: () => import('src/pages/auth/users/ListPage.vue') },
+      { path: 'users/create', name: 'users-create', component: () => import('src/pages/auth/users/CreatePage.vue') },
+      { path: 'users/:id', name: 'users-show', component: () => import('src/pages/auth/users/ShowPage.vue') },
+      { path: 'users/:id/edit', name: 'users-edit', component: () => import('src/pages/auth/users/EditPage.vue') }
     ],
     meta: {
       auth: true

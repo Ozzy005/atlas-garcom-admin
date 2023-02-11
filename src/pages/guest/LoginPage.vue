@@ -9,7 +9,8 @@
       <q-card-section>
         <q-form @submit="handleSubmit">
 
-          <q-input label="Email"
+          <q-input type="email"
+            label="Email"
             clearable
             maxlength="100"
             lazy-rules="ondemand"
@@ -19,7 +20,7 @@
           <q-input :type="isPwd ? 'password' : 'text'"
             label="Senha"
             clearable
-            maxlength="255"
+            maxlength="100"
             lazy-rules="ondemand"
             v-model="form.password"
             :rules="[
@@ -35,7 +36,7 @@
 
           <q-card-actions align="center">
             <q-btn type="submit"
-              style="width: 120px;"
+              style="min-width: 120px;"
               label="Entrar"
               color="primary"
               no-caps />
