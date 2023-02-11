@@ -25,7 +25,7 @@
 ** Início da função geradora de classes q-gap-{none,xs,sm,md,lg,xl},
 ** q-gap-x-{none,xs,sm,md,lg,xl} e q-gap-y-{none,xs,sm,md,lg,xl}
 */
-$gaps: (
+$sizes: (
   none: 0,
   xs: 4,
   sm: 8,
@@ -35,7 +35,7 @@ $gaps: (
 );
 
 @each $key,
-$value in $gaps {
+$value in $sizes {
   .q-gap-#{$key} {
     gap: #{$value}px;
   }

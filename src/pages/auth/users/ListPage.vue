@@ -15,26 +15,37 @@
           :to="{ name: 'users-create' }" />
       </template>
       <template #body-cell-actions="props">
-        <q-td :props="props"
-          class="q-gutter-x-sm">
-          <q-btn icon="visibility"
-            color="accent"
+        <q-td :props="props">
+          <q-btn-dropdown color="primary"
+            dropdown-icon="menu"
+            size="lg"
+            no-icon-animation
             dense
-            @click="handleShow(props.row)">
-            <q-tooltip>Visualizar</q-tooltip>
-          </q-btn>
-          <q-btn icon="edit"
-            color="info"
-            dense
-            @click="handleEdit(props.row)">
-            <q-tooltip>Editar</q-tooltip>
-          </q-btn>
-          <q-btn icon="delete"
-            color="negative"
-            dense
-            @click="handleDestroy(props.row)">
-            <q-tooltip>Excluir</q-tooltip>
-          </q-btn>
+            flat>
+            <q-list>
+              <q-item clickable
+                v-close-popup
+                @click="handleShow(props.row)">
+                <q-item-section>
+                  <q-item-label>Visualizar</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item clickable
+                v-close-popup
+                @click="handleEdit(props.row)">
+                <q-item-section>
+                  <q-item-label>Editar</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item clickable
+                v-close-popup
+                @click="handleDestroy(props.row)">
+                <q-item-section>
+                  <q-item-label>Excluir</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
         </q-td>
       </template>
     </q-table>
@@ -126,7 +137,7 @@ const handleEdit = (item) => {
 const handleDestroy = (item) => {
   $q.dialog({
     title: 'Atenção !',
-    message: `Você deseja deletar o usuário ${item.name}?`,
+    message: `Você deseja excluir o usuário ${item.name}?`,
     cancel: true,
     persistent: true
   }).onOk(async () => {
