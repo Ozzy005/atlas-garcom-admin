@@ -1,8 +1,8 @@
 <template>
-  <div class="row q-gap-lg">
+  <div class="row q-gap-y-lg">
 
     <q-input v-model="form.name"
-      class="col-md-6 col-xs-12"
+      class="col-12"
       label="Nome"
       clearable
       maxlength="60"
@@ -11,7 +11,7 @@
 
     <q-input v-model="form.email"
       type="email"
-      class="col-md-grow col-xs-12"
+      class="col-12"
       label="Email"
       clearable
       maxlength="100"

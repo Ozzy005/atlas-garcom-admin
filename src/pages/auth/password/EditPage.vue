@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <HeaderDefault crud="Editar Perfil"
+      <HeaderDefault crud="Editar senha"
         model="home" />
       <div class="q-mt-md">
         <q-form @submit="handleSubmit">
@@ -17,34 +17,22 @@ import notify from 'src/composables/notify'
 import FormPage from './FormPage.vue'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
 import { api } from 'src/boot/axios'
-import { useAuthStore } from 'src/stores/auth'
+import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
 
 const router = useRouter()
-const auth = useAuthStore()
 
 const form = ref({
-  name: null,
-  email: null
+  current_password: null,
+  password: null,
+  password_confirmation: null
 })
-
-const handleGetItem = async () => {
-  try {
-    const { data } = await api({ url: `/api/users/${auth.user.id}` })
-    form.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-handleGetItem()
 
 const handleSubmit = async () => {
   try {
     const { data } = await api({
       method: 'put',
-      url: `/api/users/${auth.user.id}`,
+      url: '/api/change-password',
       data: form.value
     })
     router.push({ name: 'home' })

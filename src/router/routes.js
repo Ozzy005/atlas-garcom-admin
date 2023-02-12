@@ -25,9 +25,14 @@ const routes = [
         component: () => import('src/pages/auth/HomePage.vue')
       },
       {
-        path: 'profile/:id',
+        path: 'profile',
         name: 'profile',
         component: () => import('src/pages/auth/profile/EditPage.vue')
+      },
+      {
+        path: 'change-password',
+        name: 'change-password',
+        component: () => import('src/pages/auth/password/EditPage.vue')
       },
       {
         path: 'users',

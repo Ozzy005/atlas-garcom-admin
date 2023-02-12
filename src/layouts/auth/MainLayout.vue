@@ -19,9 +19,16 @@
           <q-list>
             <q-item clickable
               v-close-popup
-              @click="router.push({ name: 'profile', params: { id: auth.user.id } })">
+              @click="router.push({ name: 'profile' })">
               <q-item-section>
                 <q-item-label>Perfil</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item clickable
+              v-close-popup
+              @click="router.push({ name: 'change-password' })">
+              <q-item-section>
+                <q-item-label>Editar senha</q-item-label>
               </q-item-section>
             </q-item>
             <q-item clickable
