@@ -7,7 +7,7 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftDrawer" />
+          @click="leftDrawerOpen = !leftDrawerOpen" />
 
         <q-toolbar-title>
           Atlas Garçom
@@ -30,17 +30,25 @@
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen"
+      class="bg-grey-3"
       show-if-above
       bordered>
-      <q-list>
-        <q-item-label header>
-          Menu
-        </q-item-label>
-
-        <EssentialLink v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link" />
-      </q-list>
+      <div class="text-h6 text-center q-my-md">Menu</div>
+      <q-tree v-model:selected="selected"
+        :nodes="nodes"
+        ref="tree"
+        node-key="name"
+        selected-color="secondary"
+        accordion>
+        <template #default-header="props">
+          <div class="row no-wrap items-center full-width">
+            <q-icon :name="props.node.icon"
+              class="q-mr-sm"
+              size="md" />
+            <div>{{ props.node.label }}</div>
+          </div>
+        </template>
+      </q-tree>
     </q-drawer>
 
     <q-page-container>
@@ -50,33 +58,15 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { ref, onBeforeMount, onMounted } from 'vue'
 import { useStorageStore } from 'src/stores/storage'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import notify from 'src/composables/notify'
 
 const router = useRouter()
+const route = useRoute()
 const store = useStorageStore()
-
-const essentialLinks = [
-  {
-    title: 'Home',
-    icon: 'home',
-    link: 'home'
-  },
-  {
-    title: 'Usuários',
-    icon: 'person',
-    link: 'users'
-  }
-]
-
 const leftDrawerOpen = ref(false)
-
-const toggleLeftDrawer = () => {
-  leftDrawerOpen.value = !leftDrawerOpen.value
-}
 
 const handleLogout = () => {
   try {
@@ -100,6 +90,84 @@ onBeforeMount(async () => {
       notify.error(error)
     }
   }
+})
+
+const handleNodeClick = (node) => {
+  if (['home'].includes(node.name)) {
+    tree.value.collapseAll()
+  }
+  router.push({ name: node.name })
+}
+
+const tree = ref(null)
+const selected = ref(null)
+const nodes = [
+  {
+    label: 'Home',
+    name: 'home',
+    names: ['home'],
+    icon: 'home',
+    handler: handleNodeClick
+  },
+  {
+    label: 'Gerenciamento',
+    name: 'management',
+    icon: 'mdi-account-cog',
+    selectable: false,
+    children: [
+      {
+        label: 'Usuários',
+        name: 'users',
+        names: ['users', 'users-create', 'users-edit', 'users-view'],
+        icon: 'mdi-account-group',
+        handler: handleNodeClick
+      },
+      {
+        label: 'Atribuições',
+        name: 'roles',
+        names: ['roles', 'roles-create', 'roles-edit', 'roles-view'],
+        icon: 'mdi-account-lock'
+      },
+      {
+        label: 'Permissões',
+        name: 'permissions',
+        names: ['permissions', 'permissions-create', 'permissions-edit', 'permissions-view'],
+        icon: 'mdi-lock'
+      }
+    ]
+  },
+  {
+    label: 'Configurações',
+    name: 'settings',
+    icon: 'mdi-cogs',
+    selectable: false,
+    children: [
+      {
+        label: 'Configuração',
+        name: 'setting',
+        names: ['setting'],
+        icon: 'mdi-cog'
+      }
+    ]
+  }
+]
+
+const walkTree = (array) => {
+  array.every((node) => {
+    if ('children' in node) {
+      walkTree(node.children)
+      if (selected.value) {
+        tree.value.setExpanded(node.name, true)
+      }
+    } else if (node.names.includes(route.name)) {
+      selected.value = node.name
+    }
+    return !selected.value
+  })
+}
+
+onMounted(() => {
+  walkTree(nodes)
 })
 
 </script>
