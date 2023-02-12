@@ -4,7 +4,7 @@
 
     <q-card style="width: 500px;">
       <q-card-section>
-        <div class="text-h6 text-center">Login</div>
+        <div class="text-h6 text-center">Enviar link de redefinição de senha</div>
       </q-card-section>
       <q-card-section>
         <q-form @submit="handleSubmit">
@@ -17,35 +17,16 @@
             v-model="form.email"
             :rules="[val => !!val || 'Email é obrigatório !']" />
 
-          <q-input :type="isPwd ? 'password' : 'text'"
-            label="Senha"
-            clearable
-            maxlength="100"
-            lazy-rules="ondemand"
-            v-model="form.password"
-            :rules="[
-              val => !!val || 'Senha é obrigatória !',
-              val => val.length >= 8 || 'Minímo 8 caracteres !',
-            ]">
-            <template #append>
-              <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd" />
-            </template>
-          </q-input>
-
-          <q-checkbox v-model="auth.rememberMe"
-            label="Lembrar-me" />
-
           <q-card-actions align="right">
             <q-btn style="min-width: 120px;"
-              label="Esqueceu sua senha?"
+              label="Voltar"
+              color="secondary"
               no-caps
-              flat
-              :to="{ name: 'forgot-password' }" />
-            <q-btn type="submit"
+              :to="{ name: 'login' }" />
+            <q-btn :loading="loading"
+              type="submit"
               style="min-width: 120px;"
-              label="Entrar"
+              label="Confirmar"
               color="primary"
               no-caps />
           </q-card-actions>
@@ -66,14 +47,16 @@ import { useRouter } from 'vue-router'
 const auth = useAuthStore()
 const router = useRouter()
 
-const form = ref(JSON.parse(JSON.stringify(auth.userLogin)))
-
-const isPwd = ref(true)
+const loading = ref(false)
+const form = ref({ email: null })
 
 const handleSubmit = async () => {
   try {
-    await auth.login(form.value)
-    router.push({ name: 'home' })
+    loading.value = true
+    const { data } = await auth.forgotPassword(form.value)
+    loading.value = false
+    router.push({ name: 'login' })
+    notify.success(data.status)
   } catch (error) {
     notify.error(error)
   }

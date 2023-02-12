@@ -19,6 +19,26 @@ export const useAuthStore = defineStore(
       user.value = data
     }
 
+    const forgotPassword = async (data) => {
+      await csrf()
+      const rsp = await api({
+        method: 'post',
+        url: '/forgot-password',
+        data
+      })
+      return rsp
+    }
+
+    const resetPassword = async (data) => {
+      await csrf()
+      const rsp = await api({
+        method: 'post',
+        url: '/reset-password',
+        data
+      })
+      return rsp
+    }
+
     const login = async (data) => {
       await csrf()
       await api({
@@ -47,6 +67,8 @@ export const useAuthStore = defineStore(
       isAuthenticated,
       user,
       getUser,
+      forgotPassword,
+      resetPassword,
       login,
       logout
     }
