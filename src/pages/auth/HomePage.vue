@@ -8,13 +8,13 @@
 </template>
 
 <script setup>
-import { onBeforeMount } from 'vue'
+import { onMounted } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import notify from 'src/composables/notify'
 
 const auth = useAuthStore()
 
-onBeforeMount(async () => {
+onMounted(async () => {
   try {
     await auth.getUser()
   } catch (error) {

@@ -135,8 +135,6 @@ const handleGetItems = async (props) => {
   }
 }
 
-onMounted(() => {
-  tableRef.value.requestServerInteraction()
-})
+onMounted(() => tableRef.value.requestServerInteraction())
 
 </script>

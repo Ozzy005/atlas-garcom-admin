@@ -16,7 +16,7 @@
 import notify from 'src/composables/notify'
 import FormPage from './FormPage.vue'
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
 
@@ -37,7 +37,7 @@ const handleGetItem = async () => {
   }
 }
 
-handleGetItem()
+onMounted(() => handleGetItem())
 
 const handleSubmit = async () => {
   try {

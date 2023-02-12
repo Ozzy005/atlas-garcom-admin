@@ -25,7 +25,7 @@
 import notify from 'src/composables/notify'
 import helpers from 'src/utils/helpers'
 import { useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
 import FieldView from 'src/components/crud/FieldView.vue'
@@ -48,6 +48,6 @@ const handleGetItem = async () => {
   }
 }
 
-handleGetItem()
+onMounted(() => handleGetItem())
 
 </script>
