@@ -7,13 +7,32 @@ import axios from 'axios'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({
+
+const axiosCreated = axios.create({
   baseURL: process.env.api,
   headers: {
     'X-Requested-With': 'XMLHttpRequest'
   },
   withCredentials: true
 })
+
+const api = async (config) => {
+  try {
+    const data = await axiosCreated(config)
+    return data
+  } catch (error) {
+    if (error.response) {
+      const response = error.response
+      if (response.status === 422) {
+        const errors = response.data.errors
+        const property = Object.keys(errors)[0]
+        throw errors[property][0]
+      }
+      throw response.data.message
+    }
+    throw error.message
+  }
+}
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api

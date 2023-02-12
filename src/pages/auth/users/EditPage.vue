@@ -17,10 +17,9 @@ import notify from 'src/composables/notify'
 import FormPage from './FormPage.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ref } from 'vue'
-import { useStorageStore } from 'src/stores/storage'
+import { api } from 'src/boot/axios'
 import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
 
-const store = useStorageStore()
 const router = useRouter()
 const route = useRoute()
 
@@ -31,7 +30,7 @@ const form = ref({
 
 const handleGetItem = async () => {
   try {
-    const { data } = await store.axios({ url: `/api/users/${route.params.id}` })
+    const { data } = await api({ url: `/api/users/${route.params.id}` })
     form.value = data.data
   } catch (error) {
     notify.error(error)
@@ -42,7 +41,7 @@ handleGetItem()
 
 const handleSubmit = async () => {
   try {
-    const { data } = await store.axios({
+    const { data } = await api({
       method: 'put',
       url: `/api/users/${route.params.id}`,
       data: form.value

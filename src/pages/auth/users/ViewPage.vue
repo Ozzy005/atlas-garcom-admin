@@ -26,11 +26,10 @@ import notify from 'src/composables/notify'
 import helpers from 'src/utils/helpers'
 import { useRoute } from 'vue-router'
 import { ref } from 'vue'
-import { useStorageStore } from 'src/stores/storage'
+import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
 import FieldView from 'src/components/crud/FieldView.vue'
 
-const store = useStorageStore()
 const route = useRoute()
 
 const form = ref({
@@ -42,7 +41,7 @@ const form = ref({
 
 const handleGetItem = async () => {
   try {
-    const { data } = await store.axios({ url: `/api/users/${route.params.id}` })
+    const { data } = await api({ url: `/api/users/${route.params.id}` })
     form.value = data.data
   } catch (error) {
     notify.error(error)

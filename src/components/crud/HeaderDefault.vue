@@ -1,7 +1,8 @@
 <template>
   <div class="row justify-between items-center">
     <div class="text-h6">{{ crud }}</div>
-    <q-btn style="min-width: 120px;"
+    <q-btn v-if="showBackBtn"
+      style="min-width: 120px;"
       label="Voltar"
       color="primary"
       no-caps
@@ -18,6 +19,10 @@ defineProps({
   model: {
     type: String,
     required: true
+  },
+  showBackBtn: {
+    type: Boolean,
+    default: true
   }
 })
 </script>

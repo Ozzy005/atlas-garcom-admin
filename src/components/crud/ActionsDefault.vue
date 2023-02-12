@@ -34,11 +34,10 @@
 <script setup>
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
-import { useStorageStore } from 'src/stores/storage'
 import notify from 'src/composables/notify'
 import { computed } from 'vue'
+import { api } from 'src/boot/axios'
 
-const store = useStorageStore()
 const $q = useQuasar()
 const router = useRouter()
 
@@ -84,7 +83,7 @@ const handleDestroy = (item) => {
     persistent: true
   }).onOk(async () => {
     try {
-      const { data } = await store.axios({ method: 'delete', url: `/api/${props.model}/${item.id}` })
+      const { data } = await api({ method: 'delete', url: `/api/${props.model}/${item.id}` })
       rows.value = rows.value.filter(val => val.id !== item.id)
       notify.success(data.message)
     } catch (error) {

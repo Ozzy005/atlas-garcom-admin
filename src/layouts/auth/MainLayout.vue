@@ -19,6 +19,13 @@
           <q-list>
             <q-item clickable
               v-close-popup
+              @click="router.push({ name: 'profile', params: { id: store.user.id } })">
+              <q-item-section>
+                <q-item-label>Perfil</q-item-label>
+              </q-item-section>
+            </q-item>
+            <q-item clickable
+              v-close-popup
               @click="handleLogout">
               <q-item-section>
                 <q-item-label>Sair</q-item-label>
@@ -58,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useStorageStore } from 'src/stores/storage'
 import { useRoute, useRouter } from 'vue-router'
 import notify from 'src/composables/notify'
@@ -81,16 +88,6 @@ const handleLogout = () => {
     router.push({ name: 'login' })
   }
 }
-
-onBeforeMount(async () => {
-  if (!store.user) {
-    try {
-      await store.getUser()
-    } catch (error) {
-      notify.error(error)
-    }
-  }
-})
 
 const handleNodeClick = (node) => {
   if (['home'].includes(node.name)) {
@@ -133,20 +130,6 @@ const nodes = [
         name: 'permissions',
         names: ['permissions', 'permissions-create', 'permissions-edit', 'permissions-view'],
         icon: 'mdi-lock'
-      }
-    ]
-  },
-  {
-    label: 'Configurações',
-    name: 'settings',
-    icon: 'mdi-cogs',
-    selectable: false,
-    children: [
-      {
-        label: 'Configuração',
-        name: 'setting',
-        names: ['setting'],
-        icon: 'mdi-cog'
       }
     ]
   }

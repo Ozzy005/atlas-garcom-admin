@@ -26,13 +26,11 @@
 </template>
 
 <script setup>
-import { useStorageStore } from 'src/stores/storage'
+import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import { ref } from 'vue'
 import helpers from 'src/utils/helpers'
 import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
-
-const store = useStorageStore()
 
 const loading = ref(false)
 const columns = [
@@ -86,7 +84,7 @@ const rows = ref([])
 const handleGetItems = async () => {
   try {
     loading.value = true
-    const { data } = await store.axios({ url: '/api/users' })
+    const { data } = await api({ url: '/api/users' })
     rows.value = data.data
     loading.value = false
   } catch (error) {

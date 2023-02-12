@@ -10,36 +10,18 @@ export const useStorageStore = defineStore(
     const isAuthenticated = ref(false)
     const user = ref(null)
 
-    async function axios (config) {
-      try {
-        const data = await api(config)
-        return data
-      } catch (error) {
-        if (error.response) {
-          const response = error.response
-          if (response.status === 422) {
-            const errors = response.data.errors
-            const property = Object.keys(errors)[0]
-            throw errors[property][0]
-          }
-          throw response.data.message
-        }
-        throw error.message
-      }
-    }
-
     const csrf = async () => {
-      await axios({ url: '/sanctum/csrf-cookie' })
+      await api({ url: '/sanctum/csrf-cookie' })
     }
 
     const getUser = async () => {
-      const { data } = await axios({ url: '/api/user' })
+      const { data } = await api({ url: '/api/user' })
       user.value = data
     }
 
     const login = async (data) => {
       await csrf()
-      await axios({
+      await api({
         method: 'post',
         url: '/login',
         data
@@ -53,14 +35,13 @@ export const useStorageStore = defineStore(
     }
 
     const logout = async () => {
-      await axios({
+      await api({
         method: 'post',
         url: '/logout'
       })
     }
 
     return {
-      axios,
       userLogin,
       rememberMe,
       isAuthenticated,

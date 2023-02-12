@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <HeaderDefault crud="Usuários"
-        model="users" />
+      <HeaderDefault crud="Editar Perfil"
+        model="home" />
       <div class="q-mt-md">
         <q-form @submit="handleSubmit">
           <FormPage v-model="form" />
@@ -14,25 +14,39 @@
 
 <script setup>
 import notify from 'src/composables/notify'
-import { ref } from 'vue'
 import FormPage from './FormPage.vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import { ref } from 'vue'
 import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
 import { api } from 'src/boot/axios'
 
 const router = useRouter()
+const route = useRoute()
 
 const form = ref({
   name: null,
-  email: null,
-  password: null,
-  password_confirmation: null
+  email: null
 })
+
+const handleGetItem = async () => {
+  try {
+    const { data } = await api({ url: `/api/users/${route.params.id}` })
+    form.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+handleGetItem()
 
 const handleSubmit = async () => {
   try {
-    const { data } = await api({ method: 'post', url: '/api/users', data: form.value })
-    router.push({ name: 'users' })
+    const { data } = await api({
+      method: 'put',
+      url: `/api/users/${route.params.id}`,
+      data: form.value
+    })
+    router.push({ name: 'home' })
     notify.success(data.message)
   } catch (error) {
     notify.error(error)
