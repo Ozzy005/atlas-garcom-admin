@@ -1,22 +1,22 @@
 <template>
   <q-page padding>
     <div class="text-h6"
-      v-if="!!store.user">
-      Seja bem vindo {{ store.user.name }} !
+      v-if="!!auth.user">
+      Seja bem vindo {{ auth.user.name }} !
     </div>
   </q-page>
 </template>
 
 <script setup>
 import { onBeforeMount } from 'vue'
-import { useStorageStore } from 'src/stores/storage'
+import { useAuthStore } from 'src/stores/auth'
 import notify from 'src/composables/notify'
 
-const store = useStorageStore()
+const auth = useAuthStore()
 
 onBeforeMount(async () => {
   try {
-    await store.getUser()
+    await auth.getUser()
   } catch (error) {
     notify.error(error)
   }

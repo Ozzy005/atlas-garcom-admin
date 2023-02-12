@@ -34,7 +34,7 @@
             </template>
           </q-input>
 
-          <q-checkbox v-model="store.rememberMe"
+          <q-checkbox v-model="auth.rememberMe"
             label="Lembrar-me" />
 
           <q-card-actions align="center">
@@ -55,19 +55,19 @@
 <script setup>
 import { ref } from 'vue'
 import notify from 'src/composables/notify'
-import { useStorageStore } from 'src/stores/storage'
+import { useAuthStore } from 'src/stores/auth'
 import { useRouter } from 'vue-router'
 
-const store = useStorageStore()
+const auth = useAuthStore()
 const router = useRouter()
 
-const form = ref(JSON.parse(JSON.stringify(store.userLogin)))
+const form = ref(JSON.parse(JSON.stringify(auth.userLogin)))
 
 const isPwd = ref(true)
 
 const handleSubmit = async () => {
   try {
-    await store.login(form.value)
+    await auth.login(form.value)
     router.push({ name: 'home' })
   } catch (error) {
     notify.error(error)

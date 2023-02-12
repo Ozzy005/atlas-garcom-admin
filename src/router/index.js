@@ -1,7 +1,7 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
-import { useStorageStore } from 'src/stores/storage'
+import { useAuthStore } from 'src/stores/auth'
 
 /*
  * If not building with SSR mode, you can
@@ -27,12 +27,12 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
 
-  const store = useStorageStore()
+  const auth = useAuthStore()
 
   Router.beforeEach((to) => {
-    if (!!store.isAuthenticated && !to.meta.auth) {
+    if (!!auth.isAuthenticated && !to.meta.auth) {
       return { name: 'home' }
-    } else if (!store.isAuthenticated && !!to.meta.auth) {
+    } else if (!auth.isAuthenticated && !!to.meta.auth) {
       return { name: 'login' }
     }
   })

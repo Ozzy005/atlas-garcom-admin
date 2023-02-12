@@ -2,8 +2,8 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { api } from 'src/boot/axios'
 
-export const useStorageStore = defineStore(
-  'storage',
+export const useAuthStore = defineStore(
+  'auth',
   () => {
     const userLogin = ref({ email: null, password: null })
     const rememberMe = ref(false)

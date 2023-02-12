@@ -19,7 +19,7 @@
           <q-list>
             <q-item clickable
               v-close-popup
-              @click="router.push({ name: 'profile', params: { id: store.user.id } })">
+              @click="router.push({ name: 'profile', params: { id: auth.user.id } })">
               <q-item-section>
                 <q-item-label>Perfil</q-item-label>
               </q-item-section>
@@ -66,25 +66,25 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useStorageStore } from 'src/stores/storage'
+import { useAuthStore } from 'src/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
 import notify from 'src/composables/notify'
 
 const router = useRouter()
 const route = useRoute()
-const store = useStorageStore()
+const auth = useAuthStore()
 const leftDrawerOpen = ref(false)
 
 const handleLogout = () => {
   try {
-    store.logout()
-    store.isAuthenticated = false
-    store.user = null
+    auth.logout()
+    auth.isAuthenticated = false
+    auth.user = null
     router.push({ name: 'login' })
   } catch (error) {
     notify.error(error)
-    store.isAuthenticated = false
-    store.user = null
+    auth.isAuthenticated = false
+    auth.user = null
     router.push({ name: 'login' })
   }
 }
