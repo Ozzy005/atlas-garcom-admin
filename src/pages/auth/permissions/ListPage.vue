@@ -12,8 +12,8 @@
       binary-state-sort>
       <template #top>
         <div class="column q-gap-y-md full-width">
-          <div class="row">
-            <div class="text-h6">Permissões</div>
+          <div class="row no-wrap justify-between items-center">
+            <span class="text-h6">Permissões</span>
           </div>
           <div class="row">
             <q-space />
