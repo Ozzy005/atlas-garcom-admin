@@ -6,21 +6,24 @@
     dense
     flat>
     <q-list>
-      <q-item clickable
+      <q-item v-if="showView"
+        clickable
         v-close-popup
         @click="handleView(item)">
         <q-item-section>
           <q-item-label>Visualizar</q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable
+      <q-item v-if="showEdit"
+        clickable
         v-close-popup
         @click="handleEdit(item)">
         <q-item-section>
           <q-item-label>Editar</q-item-label>
         </q-item-section>
       </q-item>
-      <q-item clickable
+      <q-item v-if="showDestroy"
+        clickable
         v-close-popup
         @click="handleDestroy(item)">
         <q-item-section>
@@ -53,6 +56,18 @@ const props = defineProps({
   modelValue: {
     type: Array,
     required: true
+  },
+  showView: {
+    type: Boolean,
+    default: true
+  },
+  showEdit: {
+    type: Boolean,
+    default: true
+  },
+  showDestroy: {
+    type: Boolean,
+    default: true
   }
 })
 

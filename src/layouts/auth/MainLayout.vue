@@ -136,7 +136,8 @@ const nodes = [
         label: 'Permissões',
         name: 'permissions',
         names: ['permissions', 'permissions-create', 'permissions-edit', 'permissions-view'],
-        icon: 'mdi-lock'
+        icon: 'mdi-lock',
+        handler: handleNodeClick
       }
     ]
   }

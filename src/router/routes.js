@@ -63,6 +63,21 @@ const routes = [
         path: 'users/:id/edit',
         name: 'users-edit',
         component: () => import('src/pages/auth/users/EditPage.vue')
+      },
+      {
+        path: 'permissions',
+        name: 'permissions',
+        component: () => import('src/pages/auth/permissions/ListPage.vue')
+      },
+      {
+        path: 'permissions/:id',
+        name: 'permissions-view',
+        component: () => import('src/pages/auth/permissions/ViewPage.vue')
+      },
+      {
+        path: 'permissions/:id/edit',
+        name: 'permissions-edit',
+        component: () => import('src/pages/auth/permissions/EditPage.vue')
       }
     ],
     meta: {
