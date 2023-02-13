@@ -130,7 +130,8 @@ const nodes = [
         label: 'Atribuições',
         name: 'roles',
         names: ['roles', 'roles-create', 'roles-edit', 'roles-view'],
-        icon: 'mdi-account-lock'
+        icon: 'mdi-account-lock',
+        handler: handleNodeClick
       },
       {
         label: 'Permissões',

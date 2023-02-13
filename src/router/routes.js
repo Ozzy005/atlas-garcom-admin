@@ -65,6 +65,26 @@ const routes = [
         component: () => import('src/pages/auth/users/EditPage.vue')
       },
       {
+        path: 'roles',
+        name: 'roles',
+        component: () => import('src/pages/auth/roles/ListPage.vue')
+      },
+      {
+        path: 'roles/create',
+        name: 'roles-create',
+        component: () => import('src/pages/auth/roles/CreatePage.vue')
+      },
+      {
+        path: 'roles/:id',
+        name: 'roles-view',
+        component: () => import('src/pages/auth/roles/ViewPage.vue')
+      },
+      {
+        path: 'roles/:id/edit',
+        name: 'roles-edit',
+        component: () => import('src/pages/auth/roles/EditPage.vue')
+      },
+      {
         path: 'permissions',
         name: 'permissions',
         component: () => import('src/pages/auth/permissions/ListPage.vue')

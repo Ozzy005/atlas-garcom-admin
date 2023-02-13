@@ -18,7 +18,7 @@
       lazy-rules="ondemand"
       :rules="[val => !!val || 'Email é obrigatório !']" />
 
-    <q-input v-if="form.hasOwnProperty('password')"
+    <q-input v-if="$route.name === 'users-create'"
       :type="isPwd ? 'password' : 'text'"
       class="col-md-6 col-xs-12"
       label="Senha"
@@ -37,7 +37,7 @@
       </template>
     </q-input>
 
-    <q-input v-if="form.hasOwnProperty('password_confirmation')"
+    <q-input v-if="$route.name === 'users-create'"
       :type="isPwdConfirm ? 'password' : 'text'"
       class="col-md-grow col-xs-12"
       label="Confirmação da senha"
