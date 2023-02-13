@@ -26,7 +26,8 @@ const form = ref({
   name: null,
   email: null,
   password: null,
-  password_confirmation: null
+  password_confirmation: null,
+  roles: []
 })
 
 const handleSubmit = async () => {

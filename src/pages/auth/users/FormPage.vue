@@ -57,6 +57,22 @@
       </template>
     </q-input>
 
+    <q-select class="col-12"
+      v-model="form.roles"
+      :options="roles"
+      label="Atribuições"
+      option-value="id"
+      option-label="description"
+      emit-value
+      map-options
+      filled
+      multiple
+      use-chips
+      stack-label
+      clearable
+      lazy-rules="ondemand"
+      :rules="[val => val.length > 0 || 'Ao menos uma atribuição é obrigatória !']" />
+
     <div class="col-12">
       <q-btn type="submit"
         class="float-right"
@@ -70,7 +86,9 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
+import { api } from 'src/boot/axios'
+import notify from 'src/composables/notify'
 
 const props = defineProps({
   modelValue: {
@@ -92,5 +110,19 @@ const form = computed({
 
 const isPwd = ref(true)
 const isPwdConfirm = ref(true)
+const roles = ref([])
+
+const handleGetRoles = async () => {
+  try {
+    const { data } = await api({ url: '/api/roles' })
+    roles.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+onMounted(() => {
+  handleGetRoles()
+})
 
 </script>

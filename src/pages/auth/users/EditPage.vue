@@ -25,13 +25,15 @@ const route = useRoute()
 
 const form = ref({
   name: null,
-  email: null
+  email: null,
+  roles: []
 })
 
 const handleGetItem = async () => {
   try {
     const { data } = await api({ url: `/api/users/${route.params.id}` })
     form.value = data.data
+    form.value.roles = form.value.roles.map(item => item.id)
   } catch (error) {
     notify.error(error)
   }
