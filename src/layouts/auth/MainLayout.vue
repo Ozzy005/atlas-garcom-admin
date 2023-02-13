@@ -72,7 +72,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
 import notify from 'src/composables/notify'
@@ -143,6 +143,12 @@ const nodes = [
     ]
   }
 ]
+
+watch(selected, (newValue, OldValue) => {
+  if (!newValue) {
+    selected.value = OldValue
+  }
+})
 
 const walkTree = (array) => {
   array.every((node) => {
