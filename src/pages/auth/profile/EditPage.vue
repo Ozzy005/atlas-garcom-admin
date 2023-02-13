@@ -19,10 +19,8 @@ import { useRouter } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
 import { api } from 'src/boot/axios'
-import { useAuthStore } from 'src/stores/auth'
 
 const router = useRouter()
-const auth = useAuthStore()
 
 const form = ref({
   name: null,
@@ -31,7 +29,7 @@ const form = ref({
 
 const handleGetItem = async () => {
   try {
-    const { data } = await api({ url: `/api/users/${auth.user.id}` })
+    const { data } = await api({ url: '/api/profile' })
     form.value = data.data
   } catch (error) {
     notify.error(error)
@@ -44,7 +42,7 @@ const handleSubmit = async () => {
   try {
     const { data } = await api({
       method: 'put',
-      url: `/api/users/${auth.user.id}`,
+      url: '/api/profile',
       data: form.value
     })
     router.push({ name: 'dashboard' })
