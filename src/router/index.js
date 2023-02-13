@@ -31,7 +31,7 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach((to) => {
     if (!!auth.isAuthenticated && !to.meta.auth) {
-      return { name: 'home' }
+      return { name: 'dashboard' }
     } else if (!auth.isAuthenticated && !!to.meta.auth) {
       return { name: 'login' }
     }

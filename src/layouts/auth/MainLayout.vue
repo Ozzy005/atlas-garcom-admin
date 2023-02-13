@@ -97,7 +97,7 @@ const handleLogout = () => {
 }
 
 const handleNodeClick = (node) => {
-  if (['home'].includes(node.name)) {
+  if (['dashboard'].includes(node.name)) {
     tree.value.collapseAll()
   }
   router.push({ name: node.name })
@@ -107,10 +107,10 @@ const tree = ref(null)
 const selected = ref(null)
 const nodes = [
   {
-    label: 'Home',
-    name: 'home',
-    names: ['home'],
-    icon: 'home',
+    label: 'Painel',
+    name: 'dashboard',
+    names: ['dashboard'],
+    icon: 'mdi-chart-pie',
     handler: handleNodeClick
   },
   {

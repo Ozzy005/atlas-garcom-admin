@@ -31,8 +31,8 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'home',
-        component: () => import('src/pages/auth/HomePage.vue')
+        name: 'dashboard',
+        component: () => import('src/pages/auth/DashboardPage.vue')
       },
       {
         path: 'profile',

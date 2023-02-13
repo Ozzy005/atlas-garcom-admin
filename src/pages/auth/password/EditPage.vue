@@ -2,7 +2,7 @@
   <q-page padding>
     <q-card class="q-pa-md">
       <HeaderDefault crud="Editar senha"
-        model="home" />
+        model="dashboard" />
       <div class="q-mt-md">
         <q-form @submit="handleSubmit">
           <FormPage v-model="form" />
@@ -35,7 +35,7 @@ const handleSubmit = async () => {
       url: '/api/change-password',
       data: form.value
     })
-    router.push({ name: 'home' })
+    router.push({ name: 'dashboard' })
     notify.success(data.message)
   } catch (error) {
     notify.error(error)
