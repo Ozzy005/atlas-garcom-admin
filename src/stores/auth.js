@@ -9,6 +9,12 @@ export const useAuthStore = defineStore(
     const rememberMe = ref(false)
     const isAuthenticated = ref(false)
     const user = ref(null)
+    const permissions = ref(null)
+
+    const hasPermission = (permission) => {
+      const has = permissions.value.find(item => item.name === permission)
+      return !!has
+    }
 
     const csrf = async () => {
       await api({ url: '/sanctum/csrf-cookie' })
@@ -61,6 +67,8 @@ export const useAuthStore = defineStore(
       rememberMe,
       isAuthenticated,
       user,
+      permissions,
+      hasPermission,
       forgotPassword,
       resetPassword,
       login,

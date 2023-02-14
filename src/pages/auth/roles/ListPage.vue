@@ -14,7 +14,8 @@
         <div class="column q-gap-y-md full-width">
           <div class="row no-wrap justify-between items-center">
             <span class="text-h6">Atribuições</span>
-            <q-btn style="min-width: 120px;"
+            <q-btn v-if="auth.hasPermission('roles_create')"
+              style="min-width: 120px;"
               label="Adicionar novo"
               color="primary"
               no-caps
@@ -39,6 +40,9 @@
         <q-td :props="props">
           <ActionsDefault model="roles"
             :item="props.row"
+            :show-view="auth.hasPermission('roles_view')"
+            :show-edit="auth.hasPermission('roles_edit')"
+            :show-destroy="auth.hasPermission('roles_delete')"
             v-model="rows" />
         </q-td>
       </template>
@@ -52,6 +56,9 @@ import notify from 'src/composables/notify'
 import { ref, onMounted } from 'vue'
 import helpers from 'src/utils/helpers'
 import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
+import { useAuthStore } from 'src/stores/auth'
+
+const auth = useAuthStore()
 
 const tableRef = ref(null)
 const filter = ref(null)

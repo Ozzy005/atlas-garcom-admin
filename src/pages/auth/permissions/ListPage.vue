@@ -34,6 +34,8 @@
         <q-td :props="props">
           <ActionsDefault model="permissions"
             :item="props.row"
+            :show-view="auth.hasPermission('permissions_view')"
+            :show-edit="auth.hasPermission('permissions_edit')"
             :show-destroy="false"
             v-model="rows" />
         </q-td>
@@ -48,6 +50,9 @@ import notify from 'src/composables/notify'
 import { ref, onMounted } from 'vue'
 import helpers from 'src/utils/helpers'
 import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
+import { useAuthStore } from 'src/stores/auth'
+
+const auth = useAuthStore()
 
 const tableRef = ref(null)
 const filter = ref(null)
