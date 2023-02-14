@@ -1,0 +1,42 @@
+<template>
+  <q-page padding>
+    <ViewDefault crud="Estados"
+      model="states">
+      <FieldView class="col-md-6 col-xs-12"
+        field="Nome:"
+        :value="form.title" />
+
+      <FieldView class="col-md-grow col-xs-12"
+        field="Sigla:"
+        :value="form.letter" />
+    </ViewDefault>
+  </q-page>
+</template>
+
+<script setup>
+import notify from 'src/composables/notify'
+import { useRoute } from 'vue-router'
+import { ref, onMounted } from 'vue'
+import { api } from 'src/boot/axios'
+import ViewDefault from 'src/components/crud/ViewDefault.vue'
+import FieldView from 'src/components/crud/FieldView.vue'
+
+const route = useRoute()
+
+const form = ref({
+  title: null,
+  letter: null
+})
+
+const handleGetItem = async () => {
+  try {
+    const { data } = await api({ url: `/api/states/${route.params.id}` })
+    form.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+onMounted(() => handleGetItem())
+
+</script>

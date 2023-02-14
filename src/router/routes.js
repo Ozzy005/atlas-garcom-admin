@@ -45,6 +45,26 @@ const routes = [
         component: () => import('src/pages/auth/password/EditPage.vue')
       },
       {
+        path: 'states',
+        name: 'states',
+        component: () => import('src/pages/auth/states/ListPage.vue')
+      },
+      {
+        path: 'states/:id',
+        name: 'states-view',
+        component: () => import('src/pages/auth/states/ViewPage.vue')
+      },
+      {
+        path: 'cities',
+        name: 'cities',
+        component: () => import('src/pages/auth/cities/ListPage.vue')
+      },
+      {
+        path: 'cities/:id',
+        name: 'cities-view',
+        component: () => import('src/pages/auth/cities/ViewPage.vue')
+      },
+      {
         path: 'users',
         name: 'users',
         component: () => import('src/pages/auth/users/ListPage.vue')

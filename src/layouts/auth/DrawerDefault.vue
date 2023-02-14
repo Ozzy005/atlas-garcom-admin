@@ -132,6 +132,50 @@ onMounted(async () => {
           handler: handleNodeClick
         } : null,
     handleCheckPermission([
+      'states_view',
+      'cities_view'
+    ]) ? {
+          label: 'Cadastros',
+          name: 'registrations',
+          icon: 'mdi-folder-edit',
+          expanded: handleCheckExpanded('registrations', [
+            'states', 'states-view',
+            'cities', 'cities_view'
+          ]),
+          selectable: false,
+          children: [
+            handleCheckPermission([
+              'states_view',
+              'cities_view'
+            ]) ? {
+                  label: 'Geral',
+                  name: 'general',
+                  icon: 'mdi-menu',
+                  expanded: handleCheckExpanded('general', [
+                    'states', 'states-view',
+                    'cities', 'cities_view'
+                  ]),
+                  selectable: false,
+                  children: [
+                    handleCheckPermission(['states_view']) ? {
+                      label: 'Estados',
+                      name: 'states',
+                      selected: handleCheckSelected('states', ['states', 'states-view']),
+                      icon: 'mdi-diving-scuba-flag',
+                      handler: handleNodeClick
+                    } : null,
+                    handleCheckPermission(['cities_view']) ? {
+                      label: 'Cidades',
+                      name: 'cities',
+                      selected: handleCheckSelected('cities', ['cities', 'cities-view']),
+                      icon: 'mdi-city',
+                      handler: handleNodeClick
+                    } : null
+                  ]
+                } : null
+          ]
+        } : null,
+    handleCheckPermission([
       'users_view',
       'users_create',
       'users_edit',
@@ -141,9 +185,7 @@ onMounted(async () => {
       'roles_edit',
       'roles_delete',
       'permissions_view',
-      'permissions_create',
-      'permissions_edit',
-      'permissions_delete'
+      'permissions_edit'
     ]) ? {
           label: 'Gerenciamento',
           name: 'management',
@@ -151,7 +193,7 @@ onMounted(async () => {
           expanded: handleCheckExpanded('management', [
             'users', 'users-create', 'users-edit', 'users-view',
             'roles', 'roles-create', 'roles-edit', 'roles-view',
-            'permissions', 'permissions-create', 'permissions-edit', 'permissions-view'
+            'permissions', 'permissions-edit', 'permissions-view'
           ]),
           selectable: false,
           children: [
@@ -186,14 +228,12 @@ onMounted(async () => {
             handleCheckPermission(
               [
                 'permissions_view',
-                'permissions_create',
-                'permissions_edit',
-                'permissions_delete'
+                'permissions_edit'
               ]
             ) ? {
                   label: 'Permissões',
                   name: 'permissions',
-                  selected: handleCheckSelected('permissions', ['permissions', 'permissions-create', 'permissions-edit', 'permissions-view']),
+                  selected: handleCheckSelected('permissions', ['permissions', 'permissions-edit', 'permissions-view']),
                   icon: 'mdi-lock',
                   handler: handleNodeClick
                 } : null
