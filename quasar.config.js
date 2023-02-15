@@ -63,10 +63,10 @@ module.exports = configure(function (ctx) {
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-      publicPath: ctx.dev ? '/' : '/admin',
+      publicPath: ctx.dev ? '' : '',
       // analyze: true,
       env: {
-        api: ctx.dev ? 'http://localhost:8000' : 'https://atlasgarcom.com'
+        api: ctx.dev ? 'http://localhost:8000' : 'https://api.atlasgarcom.com'
       }
       // rawDefine: {}
       // ignorePublicFolder: true,
