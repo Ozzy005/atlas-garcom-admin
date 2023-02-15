@@ -8,7 +8,7 @@
       disable
       maxlength="125"
       lazy-rules="ondemand"
-      :rules="[val => !!val || 'Nome é obrigatório !']" />
+      :rules="[val => !!val || 'Nome é obrigatório!']" />
 
     <q-input v-model="form.description"
       class="col-md-grow col-xs-12"
@@ -16,7 +16,7 @@
       clearable
       maxlength="125"
       lazy-rules="ondemand"
-      :rules="[val => !!val || 'Descrição é obrigatório !']" />
+      :rules="[val => !!val || 'Descrição é obrigatório!']" />
 
     <div class="col-12">
       <q-btn type="submit"

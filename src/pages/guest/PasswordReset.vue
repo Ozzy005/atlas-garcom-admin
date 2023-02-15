@@ -16,8 +16,8 @@
             lazy-rules="ondemand"
             v-model="form.password"
             :rules="[
-              val => !!val || 'Nova senha é obrigatória !',
-              val => val.length >= 8 || 'Minímo 8 caracteres !',
+              val => !!val || 'Nova senha é obrigatória!',
+              val => val.length >= 8 || 'Minímo 8 caracteres!',
             ]">
             <template #append>
               <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -34,9 +34,9 @@
             lazy-rules="ondemand"
             v-model="form.password_confirmation"
             :rules="[
-              val => !!val || 'Confirmação da nova senha é obrigatória !',
-              val => val.length >= 8 || 'Minímo 8 caracteres !',
-              val => val === form.password || 'A senha não corresponde !'
+              val => !!val || 'Confirmação da nova senha é obrigatória!',
+              val => val.length >= 8 || 'Minímo 8 caracteres!',
+              val => val === form.password || 'A senha não corresponde!'
             ]">
             <template #append>
               <q-icon :name="isPwdConfirm ? 'visibility_off' : 'visibility'"

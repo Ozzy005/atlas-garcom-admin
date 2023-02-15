@@ -15,7 +15,7 @@
             maxlength="100"
             lazy-rules="ondemand"
             v-model="form.email"
-            :rules="[val => !!val || 'Email é obrigatório !']" />
+            :rules="[val => !!val || 'Email é obrigatório!']" />
 
           <q-input :type="isPwd ? 'password' : 'text'"
             label="Senha"
@@ -24,8 +24,8 @@
             lazy-rules="ondemand"
             v-model="form.password"
             :rules="[
-              val => !!val || 'Senha é obrigatória !',
-              val => val.length >= 8 || 'Minímo 8 caracteres !',
+              val => !!val || 'Senha é obrigatória!',
+              val => val.length >= 8 || 'Minímo 8 caracteres!',
             ]">
             <template #append>
               <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"

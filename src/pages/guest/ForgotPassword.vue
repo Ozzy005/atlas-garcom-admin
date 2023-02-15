@@ -15,7 +15,7 @@
             maxlength="100"
             lazy-rules="ondemand"
             v-model="form.email"
-            :rules="[val => !!val || 'Email é obrigatório !']" />
+            :rules="[val => !!val || 'Email é obrigatório!']" />
 
           <q-card-actions align="right">
             <q-btn style="min-width: 120px;"
