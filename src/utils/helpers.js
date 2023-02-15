@@ -1,71 +1,131 @@
 import { date } from 'quasar'
 
-const helpers = {
-
-  floatToMoney: (float) => {
+const helpers = class {
+  static floatToMoney (float) {
     return parseFloat(float).toLocaleString('pt-BR', { minimumFractionDigits: 2 })
-  },
+  }
 
-  moneyToFloat: (str) => {
+  static moneyToFloat (str) {
     if (this.isMoney(str)) {
       return parseFloat(str.replace('.', '').replace(',', '.'))
     }
     return this.isNumber(str) ? parseFloat(str) : 0
-  },
+  }
 
-  isMoney: (value) => {
+  static isMoney (value) {
     const pattern = /^[R$]?[ ]?\d{1,3}(\.\d{3})*,[0-9]{2}$/
     return pattern.test(value)
-  },
+  }
 
-  isNumber: (value) => {
+  static isNumber (value) {
     if (!value) return false
     return !isNaN(Number(value))
-  },
+  }
 
-  limitString: (str, num) => {
+  static limitString (str, num) {
     if (str.length > num) {
       return str.substring(0, num) + '...'
     }
     return str
-  },
+  }
 
-  brDate: (str) => {
+  static brDate (str) {
     const timeStamp = new Date(str)
-    const formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD')
+    const formattedString = date.formatDate(timeStamp, 'DD-MM-YYYY')
     return formattedString
-  },
+  }
 
-  brDateTime: (str) => {
+  static brDateTime (str) {
     const timeStamp = new Date(str)
-    const formattedString = date.formatDate(timeStamp, 'YYYY-MM-DD HH:mm:ss')
+    const formattedString = date.formatDate(timeStamp, 'DD-MM-YYYY HH:mm:ss')
     return formattedString
-  },
+  }
 
-  validateCpf: (cpf) => {
+  static cpfCnpj (nif) {
+    if (nif.length === 11) {
+      const result = this.validateCpf(nif)
+      return result
+    } else {
+      const result = this.validateCnpj(nif)
+      return result
+    }
+  }
+
+  static validateCpf (cpf) {
     cpf = cpf.replace(/[^\d]+/g, '')
-    if (cpf === '') return false
-    if (cpf.length !== 11 ||
-      cpf === '00000000000' ||
-      cpf === '11111111111' ||
-      cpf === '22222222222' ||
-      cpf === '33333333333' ||
-      cpf === '44444444444' ||
-      cpf === '55555555555' ||
-      cpf === '66666666666' ||
-      cpf === '77777777777' ||
-      cpf === '88888888888' ||
-      cpf === '99999999999') { return false }
-    let add = 0
-    for (let i = 0; i < 9; i++) { add += parseInt(cpf.charAt(i)) * (10 - i) }
-    let rev = 11 - (add % 11)
-    if (rev === 10 || rev === 11) { rev = 0 }
-    if (rev !== parseInt(cpf.charAt(9))) { return false }
-    add = 0
-    for (let i = 0; i < 10; i++) { add += parseInt(cpf.charAt(i)) * (11 - i) }
-    rev = 11 - (add % 11)
-    if (rev === 10 || rev === 11) { rev = 0 }
-    if (rev !== parseInt(cpf.charAt(10))) { return false }
+
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
+      return false
+    }
+
+    let sum = 0
+    let mod
+
+    for (let i = 1; i <= 9; i++) {
+      sum = sum + parseInt(cpf.substring(i - 1, i)) * (11 - i)
+    }
+
+    mod = (sum * 10) % 11
+
+    if ((mod === 10) || (mod === 11)) {
+      mod = 0
+    }
+
+    if (mod !== parseInt(cpf.substring(9, 10))) {
+      return false
+    }
+
+    sum = 0
+
+    for (let i = 1; i <= 10; i++) {
+      sum = sum + parseInt(cpf.substring(i - 1, i)) * (12 - i)
+    }
+
+    mod = (sum * 10) % 11
+
+    if ((mod === 10) || (mod === 11)) {
+      mod = 0
+    }
+
+    if (mod !== parseInt(cpf.substring(10))) {
+      return false
+    }
+
+    return true
+  }
+
+  static validateCnpj (cnpj) {
+    console.log(cnpj)
+    cnpj = cnpj.replace(/[^\d]+/g, '')
+
+    if (cnpj.length !== 14) {
+      return false
+    }
+
+    if (/^(\d)\1+$/.test(cnpj)) {
+      return false
+    }
+
+    let sum = 0
+    for (let i = 0; i < 12; i++) {
+      sum += parseInt(cnpj.charAt(i)) * (i < 4 ? 5 - i : 13 - i)
+    }
+    let mod = sum % 11
+    const digit1 = mod < 2 ? 0 : 11 - mod
+    if (parseInt(cnpj.charAt(12)) !== digit1) {
+      return false
+    }
+
+    sum = 0
+    for (let i = 0; i < 13; i++) {
+      sum += parseInt(cnpj.charAt(i)) * (i < 5 ? 6 - i : 14 - i)
+    }
+    mod = sum % 11
+    const digit2 = mod < 2 ? 0 : 11 - mod
+    if (parseInt(cnpj.charAt(13)) !== digit2) {
+      return false
+    }
+
     return true
   }
 }

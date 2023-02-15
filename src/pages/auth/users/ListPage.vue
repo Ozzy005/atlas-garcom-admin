@@ -28,7 +28,7 @@
               outlined
               dense
               debounce="300"
-              placeholder="Pesquisar por nome e email">
+              placeholder="Pesquisar nome completo/razão social/cpf/cnpj">
               <template #append>
                 <q-icon name="search" />
               </template>
@@ -73,9 +73,9 @@ const columns = [
     sortable: true
   },
   {
-    label: 'Nome',
-    name: 'name',
-    field: 'name',
+    label: 'Nome completo/Razão Social/CPF/CNPJ',
+    name: 'info',
+    field: 'info',
     align: 'center',
     sortable: true
   },
@@ -101,6 +101,13 @@ const columns = [
     align: 'center',
     sortable: true,
     format: (val) => helpers.brDateTime(val)
+  },
+  {
+    label: 'Status',
+    name: 'status_name',
+    field: 'status_name',
+    align: 'center',
+    sortable: true
   },
   {
     label: 'Ações',

@@ -6,9 +6,7 @@
     </q-card-section>
     <q-separator />
     <q-card-section>
-      <q-skeleton type="text"
-        v-if="!value" />
-      <span v-if="!!value">{{ value }}</span>
+      <span>{{ value ?? 'Não informado' }}</span>
     </q-card-section>
   </q-card>
 </template>
