@@ -13,7 +13,13 @@
       <template #top>
         <div class="column q-gap-y-md full-width">
           <div class="row no-wrap justify-between items-center">
-            <span class="text-h6">Cidades</span>
+            <span class="text-h6">Contratantes</span>
+            <q-btn v-if="auth.hasPermission('tenants_create')"
+              style="min-width: 120px;"
+              label="Adicionar novo"
+              color="primary"
+              no-caps
+              :to="{ name: 'tenants-create' }" />
           </div>
           <div class="row">
             <q-space />
@@ -22,7 +28,7 @@
               outlined
               dense
               debounce="300"
-              placeholder="Pesquisar por cidade">
+              placeholder="Pesquisar nome completo/razão social/cpf/cnpj">
               <template #append>
                 <q-icon name="search" />
               </template>
@@ -32,11 +38,11 @@
       </template>
       <template #body-cell-actions="props">
         <q-td :props="props">
-          <ActionsDefault model="cities"
+          <ActionsDefault model="tenants"
             :item="props.row"
-            :show-view="auth.hasPermission('cities_view')"
-            :show-edit="false"
-            :show-destroy="false"
+            :show-view="auth.hasPermission('tenants_view')"
+            :show-edit="auth.hasPermission('tenants_edit')"
+            :show-destroy="auth.hasPermission('tenants_delete')"
             v-model="rows" />
         </q-td>
       </template>
@@ -48,6 +54,7 @@
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import { ref, onMounted } from 'vue'
+import helpers from 'src/utils/helpers'
 import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
 import { useAuthStore } from 'src/stores/auth'
 
@@ -66,16 +73,39 @@ const columns = [
     sortable: true
   },
   {
-    label: 'Nome',
-    name: 'title',
-    field: 'title',
+    label: 'Nome completo/Razão Social/CPF/CNPJ',
+    name: 'info',
+    field: 'info',
     align: 'center',
     sortable: true
   },
   {
-    label: 'Estado',
-    name: 'state_name',
-    field: 'state_name',
+    label: 'Email',
+    name: 'email',
+    field: 'email',
+    align: 'center',
+    sortable: true
+  },
+  {
+    label: 'Dt.Criação',
+    name: 'created_at',
+    field: 'created_at',
+    align: 'center',
+    sortable: true,
+    format: (val) => helpers.brDateTime(val)
+  },
+  {
+    label: 'Dt.Edição',
+    name: 'updated_at',
+    field: 'updated_at',
+    align: 'center',
+    sortable: true,
+    format: (val) => helpers.brDateTime(val)
+  },
+  {
+    label: 'Status',
+    name: 'status_name',
+    field: 'status_name',
     align: 'center',
     sortable: true
   },
@@ -101,7 +131,7 @@ const handleGetItems = async (props) => {
     loading.value = true
     const { data } = await api(
       {
-        url: '/api/cities',
+        url: '/api/tenants',
         params: {
           page,
           rowsPerPage,

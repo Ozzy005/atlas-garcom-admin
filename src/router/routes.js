@@ -45,6 +45,26 @@ const routes = [
         component: () => import('src/pages/auth/password/EditPage.vue')
       },
       {
+        path: 'tenants',
+        name: 'tenants',
+        component: () => import('src/pages/auth/tenants/ListPage.vue')
+      },
+      {
+        path: 'tenants/create',
+        name: 'tenants-create',
+        component: () => import('src/pages/auth/tenants/CreatePage.vue')
+      },
+      {
+        path: 'tenants/:id',
+        name: 'tenants-view',
+        component: () => import('src/pages/auth/tenants/ViewPage.vue')
+      },
+      {
+        path: 'tenants/:id/edit',
+        name: 'tenants-edit',
+        component: () => import('src/pages/auth/tenants/EditPage.vue')
+      },
+      {
         path: 'states',
         name: 'states',
         component: () => import('src/pages/auth/states/ListPage.vue')

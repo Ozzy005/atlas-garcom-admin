@@ -122,6 +122,7 @@ const removeNullValues = (array) => {
 onMounted(async () => {
   await handleGetUserPermissions()
   const nodesTmp = [
+    // Dashboard
     handleCheckPermission([
       'dashboard_view'
     ]) ? {
@@ -131,6 +132,8 @@ onMounted(async () => {
           icon: 'mdi-chart-pie',
           handler: handleNodeClick
         } : null,
+
+    // Agrupador Cadastros
     handleCheckPermission([
       'states_view',
       'cities_view'
@@ -144,6 +147,39 @@ onMounted(async () => {
           ]),
           selectable: false,
           children: [
+            // Agrupador Pessoas
+            handleCheckPermission([
+              'tenants_view',
+              'tenants_create',
+              'tenants_edit',
+              'tenants_delete'
+            ]) ? {
+                  label: 'Pessoas',
+                  name: 'people',
+                  icon: 'mdi-account-group',
+                  expanded: handleCheckExpanded('people', [
+                    'tenants', 'tenants-create', 'tenants-edit', 'tenants-view'
+                  ]),
+                  selectable: false,
+                  children: [
+                    // Contratantes
+                    handleCheckPermission(
+                      [
+                        'tenants_view',
+                        'tenants_create',
+                        'tenants_edit',
+                        'tenants_delete'
+                      ]
+                    ) ? {
+                          label: 'Contratantes',
+                          name: 'tenants',
+                          selected: handleCheckSelected('tenants', ['tenants', 'tenants-create', 'tenants-edit', 'tenants-view']),
+                          icon: 'mdi-account-tie',
+                          handler: handleNodeClick
+                        } : null
+                  ]
+                } : null,
+            // Agrupador Geral
             handleCheckPermission([
               'states_view',
               'cities_view'
@@ -157,6 +193,7 @@ onMounted(async () => {
                   ]),
                   selectable: false,
                   children: [
+                    // Estados
                     handleCheckPermission(['states_view']) ? {
                       label: 'Estados',
                       name: 'states',
@@ -164,6 +201,7 @@ onMounted(async () => {
                       icon: 'mdi-diving-scuba-flag',
                       handler: handleNodeClick
                     } : null,
+                    // Cidades
                     handleCheckPermission(['cities_view']) ? {
                       label: 'Cidades',
                       name: 'cities',
@@ -175,6 +213,7 @@ onMounted(async () => {
                 } : null
           ]
         } : null,
+    // Agrupador Gerenciamento
     handleCheckPermission([
       'users_view',
       'users_create',
@@ -197,6 +236,7 @@ onMounted(async () => {
           ]),
           selectable: false,
           children: [
+            // Usuários
             handleCheckPermission(
               [
                 'users_view',
@@ -208,9 +248,10 @@ onMounted(async () => {
                   label: 'Usuários',
                   name: 'users',
                   selected: handleCheckSelected('users', ['users', 'users-create', 'users-edit', 'users-view']),
-                  icon: 'mdi-account-group',
+                  icon: 'mdi-account-supervisor',
                   handler: handleNodeClick
                 } : null,
+            // Atribuições
             handleCheckPermission(
               [
                 'roles_view',
@@ -225,6 +266,7 @@ onMounted(async () => {
                   icon: 'mdi-account-lock',
                   handler: handleNodeClick
                 } : null,
+            // Permissões
             handleCheckPermission(
               [
                 'permissions_view',

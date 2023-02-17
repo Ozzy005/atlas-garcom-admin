@@ -1,0 +1,53 @@
+<template>
+  <q-page padding>
+    <q-card class="q-pa-md">
+      <HeaderDefault crud="Contratantes"
+        model="tenants" />
+      <div class="q-mt-md">
+        <q-form @submit="handleSubmit">
+          <FormPage v-model="form" />
+        </q-form>
+      </div>
+    </q-card>
+  </q-page>
+</template>
+
+<script setup>
+import notify from 'src/composables/notify'
+import { ref } from 'vue'
+import FormPage from './FormPage.vue'
+import { useRouter } from 'vue-router'
+import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
+import { api } from 'src/boot/axios'
+
+const router = useRouter()
+
+const form = ref({
+  nif: null,
+  full_name: null,
+  name: null,
+  state_registration: null,
+  city_registration: null,
+  birthdate: null,
+  status: null,
+  email: null,
+  phone: null,
+  city_id: null,
+  zip_code: null,
+  address: null,
+  district: null,
+  number: null,
+  complement: null
+})
+
+const handleSubmit = async () => {
+  try {
+    const { data } = await api({ method: 'post', url: '/api/tenants', data: form.value })
+    router.push({ name: 'tenants' })
+    notify.success(data.message)
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+</script>
