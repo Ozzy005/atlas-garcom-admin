@@ -9,13 +9,12 @@
       ref="tree"
       node-key="name"
       selected-color="secondary"
-      accordion
-      no-transition>
+      accordion>
       <template #default-header="props">
         <div class="row no-wrap items-center full-width">
           <q-icon :name="props.node.icon"
             class="q-mr-sm"
-            size="md" />
+            size="sm" />
           <div>{{ props.node.label }}</div>
         </div>
       </template>
@@ -135,6 +134,7 @@ onMounted(async () => {
 
     // Agrupador Cadastros
     handleCheckPermission([
+      'tenants_view',
       'states_view',
       'cities_view'
     ]) ? {
@@ -142,8 +142,9 @@ onMounted(async () => {
           name: 'registrations',
           icon: 'mdi-folder-edit',
           expanded: handleCheckExpanded('registrations', [
+            'tenants', 'tenants-create', 'tenants-edit', 'tenants-view',
             'states', 'states-view',
-            'cities', 'cities_view'
+            'cities', 'cities-view'
           ]),
           selectable: false,
           children: [
@@ -189,7 +190,7 @@ onMounted(async () => {
                   icon: 'mdi-menu',
                   expanded: handleCheckExpanded('general', [
                     'states', 'states-view',
-                    'cities', 'cities_view'
+                    'cities', 'cities-view'
                   ]),
                   selectable: false,
                   children: [
