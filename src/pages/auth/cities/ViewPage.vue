@@ -8,7 +8,7 @@
 
       <FieldView class="col-md-grow col-xs-12"
         field="Estado:"
-        :value="form.state_name" />
+        :value="form.state" />
     </ViewDefault>
   </q-page>
 </template>
@@ -25,7 +25,7 @@ const route = useRoute()
 
 const form = ref({
   title: null,
-  state_name: null
+  state: null
 })
 
 const handleGetItem = async () => {

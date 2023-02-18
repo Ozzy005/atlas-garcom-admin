@@ -74,8 +74,8 @@ const columns = [
   },
   {
     label: 'Estado',
-    name: 'state_name',
-    field: 'state_name',
+    name: 'state',
+    field: 'state',
     align: 'center',
     sortable: true
   },
