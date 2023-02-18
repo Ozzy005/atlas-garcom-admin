@@ -6,7 +6,7 @@
       <div class="col-12 row q-gap-md">
         <FieldView class="col-md-grow col-xs-12"
           field="CPF/CNPJ"
-          :value="form.nif" />
+          :value="helpers.nifMask(form.nif)" />
 
         <FieldView class="col-md-grow col-xs-12"
           field="Nome Completo/Razão Social:"
@@ -32,7 +32,7 @@
 
         <FieldView class="col-md-grow col-xs-12"
           field="Status:"
-          :value="form.status_name" />
+          :value="formatStatus(form.status)" />
       </div>
 
       <div class="col-12 row q-gap-md">
@@ -42,7 +42,7 @@
 
         <FieldView class="col-md-grow col-xs-12"
           field="Telefone:"
-          :value="form.phone" />
+          :value="helpers.phoneMask(form.phone)" />
 
         <FieldView class="col-md-grow col-xs-12"
           field="Cidade:"
@@ -52,7 +52,7 @@
       <div class="col-12 row q-gap-md">
         <FieldView class="col-md-grow col-xs-12"
           field="CEP:"
-          :value="form.zip_code" />
+          :value="helpers.zipCodeMask(form.zip_code)" />
 
         <FieldView class="col-md-grow col-xs-12"
           field="Endereço:"
@@ -95,8 +95,8 @@ import ViewDefault from 'src/components/crud/ViewDefault.vue'
 import FieldView from 'src/components/crud/FieldView.vue'
 
 const route = useRoute()
-
 const form = ref({})
+const statusOptions = ref([])
 
 const handleGetItem = async () => {
   try {
@@ -107,6 +107,26 @@ const handleGetItem = async () => {
   }
 }
 
-onMounted(() => handleGetItem())
+const handleGetStatus = async () => {
+  try {
+    const { data } = await api({ url: '/api/status' })
+    statusOptions.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+const formatStatus = (val) => {
+  const status = statusOptions.value.find(item => item.id === val)
+  if (status) {
+    return status.name
+  }
+  return 'Não informado'
+}
+
+onMounted(() => {
+  handleGetItem()
+  handleGetStatus()
+})
 
 </script>

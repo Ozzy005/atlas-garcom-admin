@@ -2,7 +2,7 @@
   <div class="row q-gap-lg">
 
     <div class="col-12 row q-gap-lg">
-      <q-input v-model="form.nif"
+      <q-input v-model="nif"
         class="col-md-grow col-xs-12"
         label="CPF/CNPJ"
         clearable
@@ -139,9 +139,11 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import helpers from 'src/utils/helpers'
 import SelectCity from 'src/components/SelectCity.vue'
+import { api } from 'src/boot/axios'
+import notify from 'src/composables/notify'
 
 const props = defineProps({
   modelValue: {
@@ -161,18 +163,33 @@ const form = computed({
   }
 })
 
-const statusOptions = [
-  { id: 1, name: 'Ativo' },
-  { id: 2, name: 'Inadimplente' },
-  { id: 3, name: 'Suspenso' },
-  { id: 4, name: 'Cancelado' }
-]
+const nif = computed({
+  get () {
+    return helpers.nifMask(form.value.nif)
+  },
+  set (value) {
+    form.value.nif = value
+  }
+})
+
+const statusOptions = ref([])
 
 const nifMask = computed(() => {
   if (form.value.nif) {
     return form.value.nif.length > 11 ? '##.###.###/####-##' : '###.###.###-##'
   }
-  return '###.###.###-##'
+  return '##.###.###/####-##'
 })
+
+const handleGetStatus = async () => {
+  try {
+    const { data } = await api({ url: '/api/tenant-status' })
+    statusOptions.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+onMounted(() => handleGetStatus())
 
 </script>

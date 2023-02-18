@@ -41,6 +41,59 @@ const helpers = class {
     return formattedString
   }
 
+  static nifMask (str) {
+    if (!str) {
+      return null
+    }
+
+    let mask
+    if (str.length === 11) {
+      mask = '###.###.###-##'
+    } else {
+      mask = '##.###.###/####-##'
+    }
+
+    str = str.replace(/\s/g, '')
+
+    for (let i = 0; i < str.length; i++) {
+      mask = mask.replace(/#/, str.charAt(i))
+    }
+
+    return mask
+  }
+
+  static phoneMask (str) {
+    if (!str) {
+      return null
+    }
+
+    let mask = '(##) #####-####'
+
+    str = str.replace(/\s/g, '')
+
+    for (let i = 0; i < str.length; i++) {
+      mask = mask.replace(/#/, str.charAt(i))
+    }
+
+    return mask
+  }
+
+  static zipCodeMask (str) {
+    if (!str) {
+      return null
+    }
+
+    let mask = '#####-###'
+
+    str = str.replace(/\s/g, '')
+
+    for (let i = 0; i < str.length; i++) {
+      mask = mask.replace(/#/, str.charAt(i))
+    }
+
+    return mask
+  }
+
   static cpfCnpj (nif) {
     if (nif.length === 11) {
       const result = this.validateCpf(nif)

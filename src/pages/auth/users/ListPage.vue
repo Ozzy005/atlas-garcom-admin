@@ -28,7 +28,7 @@
               outlined
               dense
               debounce="300"
-              placeholder="Pesquisar nome completo/razão social/cpf/cnpj">
+              placeholder="Pesquisar nome completo/razão social/cpf/cnpj/email">
               <template #append>
                 <q-icon name="search" />
               </template>
@@ -73,11 +73,19 @@ const columns = [
     sortable: true
   },
   {
-    label: 'Nome completo/Razão Social/CPF/CNPJ',
-    name: 'info',
-    field: 'info',
+    label: 'Nome completo/Razão Social',
+    name: 'full_name',
+    field: 'full_name',
     align: 'center',
     sortable: true
+  },
+  {
+    label: 'CPF/CNPJ',
+    name: 'nif',
+    field: 'nif',
+    align: 'center',
+    sortable: true,
+    format: (val) => helpers.nifMask(val)
   },
   {
     label: 'Email',
@@ -104,10 +112,11 @@ const columns = [
   },
   {
     label: 'Status',
-    name: 'status_name',
-    field: 'status_name',
+    name: 'status',
+    field: 'status',
     align: 'center',
-    sortable: true
+    sortable: true,
+    format: (val) => formatStatus(val)
   },
   {
     label: 'Ações',
@@ -124,6 +133,7 @@ const pagination = ref({
   sortBy: 'id',
   descending: false
 })
+const statusOptions = ref([])
 
 const handleGetItems = async (props) => {
   try {
@@ -153,6 +163,26 @@ const handleGetItems = async (props) => {
   }
 }
 
-onMounted(() => tableRef.value.requestServerInteraction())
+const handleGetStatus = async () => {
+  try {
+    const { data } = await api({ url: '/api/status' })
+    statusOptions.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+const formatStatus = (val) => {
+  const status = statusOptions.value.find(item => item.id === val)
+  if (status) {
+    return status.name
+  }
+  return 'Não informado'
+}
+
+onMounted(() => {
+  tableRef.value.requestServerInteraction()
+  handleGetStatus()
+})
 
 </script>

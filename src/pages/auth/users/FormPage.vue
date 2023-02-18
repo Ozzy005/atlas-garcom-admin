@@ -2,7 +2,7 @@
   <div class="row q-gap-lg">
 
     <div class="col-12 row q-gap-lg">
-      <q-input v-model="form.nif"
+      <q-input v-model="nif"
         class="col-md-grow col-xs-12"
         label="CPF/CNPJ"
         clearable
@@ -55,7 +55,7 @@
 
       <q-select v-model="form.status"
         class="col-md-grow col-xs-12"
-        :options="[{ id: 1, name: 'Ativo' }, { id: 2, name: 'Inativo' }]"
+        :options="statusOptions"
         label="Status"
         option-value="id"
         option-label="name"
@@ -220,16 +220,26 @@ const form = computed({
   }
 })
 
+const nif = computed({
+  get () {
+    return helpers.nifMask(form.value.nif)
+  },
+  set (value) {
+    form.value.nif = value
+  }
+})
+
 const nifMask = computed(() => {
   if (form.value.nif) {
     return form.value.nif.length > 11 ? '##.###.###/####-##' : '###.###.###-##'
   }
-  return '###.###.###-##'
+  return '##.###.###/####-##'
 })
 
 const isPwd = ref(true)
 const isPwdConfirm = ref(true)
 const roles = ref([])
+const statusOptions = ref([])
 
 const handleGetRoles = async () => {
   try {
@@ -240,8 +250,18 @@ const handleGetRoles = async () => {
   }
 }
 
+const handleGetStatus = async () => {
+  try {
+    const { data } = await api({ url: '/api/status' })
+    statusOptions.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
 onMounted(() => {
   handleGetRoles()
+  handleGetStatus()
 })
 
 </script>
