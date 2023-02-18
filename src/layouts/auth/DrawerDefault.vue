@@ -63,7 +63,6 @@ watch(selected, (newValue, OldValue) => {
 const handleGetUserPermissions = async () => {
   try {
     const { data } = await api({ url: '/api/user-permissions' })
-    auth.user = data.data
     auth.permissions = data.data
   } catch (error) {
     notify.error(error)
