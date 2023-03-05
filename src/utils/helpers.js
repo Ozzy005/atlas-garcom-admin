@@ -94,7 +94,17 @@ const helpers = class {
     return mask
   }
 
+  static removeMask (str) {
+    if (!str) {
+      return str
+    }
+
+    return str.replace(/[^A-Za-z0-9]/g, '')
+  }
+
   static cpfCnpj (nif) {
+    nif = this.removeMask(nif)
+
     if (nif.length === 11) {
       const result = this.validateCpf(nif)
       return result
