@@ -2,11 +2,11 @@
   <q-card flat
     bordered>
     <q-card-section>
-      <span>{{ field }}</span>
+      <span v-html="field" />
     </q-card-section>
     <q-separator />
     <q-card-section>
-      <span>{{ value ?? 'Não informado' }}</span>
+      <span v-html="value ?? 'Não informado'" />
     </q-card-section>
   </q-card>
 </template>

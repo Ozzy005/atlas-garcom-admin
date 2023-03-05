@@ -65,6 +65,36 @@ const routes = [
         component: () => import('src/pages/auth/tenants/EditPage.vue')
       },
       {
+        path: 'measurement-units',
+        name: 'measurement-units',
+        component: () => import('src/pages/auth/measurement-units/ListPage.vue')
+      },
+      {
+        path: 'measurement-units/create',
+        name: 'measurement-units-create',
+        component: () => import('src/pages/auth/measurement-units/CreatePage.vue')
+      },
+      {
+        path: 'measurement-units/:id',
+        name: 'measurement-units-view',
+        component: () => import('src/pages/auth/measurement-units/ViewPage.vue')
+      },
+      {
+        path: 'measurement-units/:id/edit',
+        name: 'measurement-units-edit',
+        component: () => import('src/pages/auth/measurement-units/EditPage.vue')
+      },
+      {
+        path: 'ncms',
+        name: 'ncms',
+        component: () => import('src/pages/auth/ncms/ListPage.vue')
+      },
+      {
+        path: 'ncms/:id',
+        name: 'ncms-view',
+        component: () => import('src/pages/auth/ncms/ViewPage.vue')
+      },
+      {
         path: 'states',
         name: 'states',
         component: () => import('src/pages/auth/states/ListPage.vue')

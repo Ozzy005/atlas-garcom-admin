@@ -121,19 +121,19 @@ onMounted(async () => {
   await handleGetUserPermissions()
   const nodesTmp = [
     // Dashboard
-    handleCheckPermission([
-      'dashboard_view'
-    ]) ? {
-          label: 'Painel',
-          name: 'dashboard',
-          selected: handleCheckSelected('dashboard', ['dashboard']),
-          icon: 'mdi-chart-pie',
-          handler: handleNodeClick
-        } : null,
+    handleCheckPermission(['dashboard_view']) ? {
+      label: 'Painel',
+      name: 'dashboard',
+      selected: handleCheckSelected('dashboard', ['dashboard']),
+      icon: 'mdi-chart-pie',
+      handler: handleNodeClick
+    } : null,
 
     // Agrupador Cadastros
     handleCheckPermission([
       'tenants_view',
+      'measurement-units_view',
+      'ncms_view',
       'states_view',
       'cities_view'
     ]) ? {
@@ -142,45 +142,35 @@ onMounted(async () => {
           icon: 'mdi-folder-edit',
           expanded: handleCheckExpanded('registrations', [
             'tenants', 'tenants-create', 'tenants-edit', 'tenants-view',
+            'measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-delete',
+            'ncms', 'ncms-view',
             'states', 'states-view',
             'cities', 'cities-view'
           ]),
           selectable: false,
           children: [
             // Agrupador Pessoas
-            handleCheckPermission([
-              'tenants_view',
-              'tenants_create',
-              'tenants_edit',
-              'tenants_delete'
-            ]) ? {
-                  label: 'Pessoas',
-                  name: 'people',
-                  icon: 'mdi-account-group',
-                  expanded: handleCheckExpanded('people', [
-                    'tenants', 'tenants-create', 'tenants-edit', 'tenants-view'
-                  ]),
-                  selectable: false,
-                  children: [
-                    // Contratantes
-                    handleCheckPermission(
-                      [
-                        'tenants_view',
-                        'tenants_create',
-                        'tenants_edit',
-                        'tenants_delete'
-                      ]
-                    ) ? {
-                          label: 'Contratantes',
-                          name: 'tenants',
-                          selected: handleCheckSelected('tenants', ['tenants', 'tenants-create', 'tenants-edit', 'tenants-view']),
-                          icon: 'mdi-account-tie',
-                          handler: handleNodeClick
-                        } : null
-                  ]
-                } : null,
+            handleCheckPermission(['tenants_view', 'tenants_create', 'tenants_edit', 'tenants_delete']) ? {
+              label: 'Pessoas',
+              name: 'people',
+              icon: 'mdi-account-group',
+              expanded: handleCheckExpanded('people', ['tenants', 'tenants-create', 'tenants-edit', 'tenants-view']),
+              selectable: false,
+              children: [
+                // Contratantes
+                handleCheckPermission(['tenants_view', 'tenants_create', 'tenants_edit', 'tenants_delete']) ? {
+                  label: 'Contratantes',
+                  name: 'tenants',
+                  selected: handleCheckSelected('tenants', ['tenants', 'tenants-create', 'tenants-edit', 'tenants-view']),
+                  icon: 'mdi-account-tie',
+                  handler: handleNodeClick
+                } : null
+              ]
+            } : null,
             // Agrupador Geral
             handleCheckPermission([
+              'measurement-units_view', 'measurement-units_create', 'measurement-units_edit', 'measurement-units_delete',
+              'ncms_view',
               'states_view',
               'cities_view'
             ]) ? {
@@ -188,11 +178,29 @@ onMounted(async () => {
                   name: 'general',
                   icon: 'mdi-menu',
                   expanded: handleCheckExpanded('general', [
+                    'measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-delete',
+                    'ncms', 'ncms-view',
                     'states', 'states-view',
                     'cities', 'cities-view'
                   ]),
                   selectable: false,
                   children: [
+                    // Unidades de medida
+                    handleCheckPermission(['measurement-units_view', 'measurement-units_create', 'measurement-units_edit', 'measurement-units_delete']) ? {
+                      label: 'Unidades de Medida',
+                      name: 'measurement-units',
+                      selected: handleCheckSelected('measurement-units', ['measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-view']),
+                      icon: 'mdi-ruler',
+                      handler: handleNodeClick
+                    } : null,
+                    // Ncms
+                    handleCheckPermission(['ncms_view']) ? {
+                      label: 'Ncms',
+                      name: 'ncms',
+                      selected: handleCheckSelected('ncms', ['ncms', 'ncms-view']),
+                      icon: 'mdi-tag',
+                      handler: handleNodeClick
+                    } : null,
                     // Estados
                     handleCheckPermission(['states_view']) ? {
                       label: 'Estados',
@@ -215,16 +223,9 @@ onMounted(async () => {
         } : null,
     // Agrupador Gerenciamento
     handleCheckPermission([
-      'users_view',
-      'users_create',
-      'users_edit',
-      'users_delete',
-      'roles_view',
-      'roles_create',
-      'roles_edit',
-      'roles_delete',
-      'permissions_view',
-      'permissions_edit'
+      'users_view', 'users_create', 'users_edit', 'users_delete',
+      'roles_view', 'roles_create', 'roles_edit', 'roles_delete',
+      'permissions_view', 'permissions_edit'
     ]) ? {
           label: 'Gerenciamento',
           name: 'management',
@@ -237,48 +238,29 @@ onMounted(async () => {
           selectable: false,
           children: [
             // Usuários
-            handleCheckPermission(
-              [
-                'users_view',
-                'users_create',
-                'users_edit',
-                'users_delete'
-              ]
-            ) ? {
-                  label: 'Usuários',
-                  name: 'users',
-                  selected: handleCheckSelected('users', ['users', 'users-create', 'users-edit', 'users-view']),
-                  icon: 'mdi-account-supervisor',
-                  handler: handleNodeClick
-                } : null,
+            handleCheckPermission(['users_view', 'users_create', 'users_edit', 'users_delete']) ? {
+              label: 'Usuários',
+              name: 'users',
+              selected: handleCheckSelected('users', ['users', 'users-create', 'users-edit', 'users-view']),
+              icon: 'mdi-account-supervisor',
+              handler: handleNodeClick
+            } : null,
             // Atribuições
-            handleCheckPermission(
-              [
-                'roles_view',
-                'roles_create',
-                'roles_edit',
-                'roles_delete'
-              ]
-            ) ? {
-                  label: 'Atribuições',
-                  name: 'roles',
-                  selected: handleCheckSelected('roles', ['roles', 'roles-create', 'roles-edit', 'roles-view']),
-                  icon: 'mdi-account-lock',
-                  handler: handleNodeClick
-                } : null,
+            handleCheckPermission(['roles_view', 'roles_create', 'roles_edit', 'roles_delete']) ? {
+              label: 'Atribuições',
+              name: 'roles',
+              selected: handleCheckSelected('roles', ['roles', 'roles-create', 'roles-edit', 'roles-view']),
+              icon: 'mdi-account-lock',
+              handler: handleNodeClick
+            } : null,
             // Permissões
-            handleCheckPermission(
-              [
-                'permissions_view',
-                'permissions_edit'
-              ]
-            ) ? {
-                  label: 'Permissões',
-                  name: 'permissions',
-                  selected: handleCheckSelected('permissions', ['permissions', 'permissions-edit', 'permissions-view']),
-                  icon: 'mdi-lock',
-                  handler: handleNodeClick
-                } : null
+            handleCheckPermission(['permissions_view', 'permissions_edit']) ? {
+              label: 'Permissões',
+              name: 'permissions',
+              selected: handleCheckSelected('permissions', ['permissions', 'permissions-edit', 'permissions-view']),
+              icon: 'mdi-lock',
+              handler: handleNodeClick
+            } : null
           ]
         } : null
   ]
