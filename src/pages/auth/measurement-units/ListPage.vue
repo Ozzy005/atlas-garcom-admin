@@ -36,6 +36,12 @@
           </div>
         </div>
       </template>
+      <template #body-cell-status="props">
+        <q-td :props="props">
+          <BadgeStatus :name="formatStatus(props.row.status)"
+            :color="getStatusColor(props.row.status)" />
+        </q-td>
+      </template>
       <template #body-cell-actions="props">
         <q-td :props="props">
           <ActionsDefault model="measurement-units"
@@ -57,6 +63,7 @@ import { ref, onMounted } from 'vue'
 import helpers from 'src/utils/helpers'
 import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
 import { useAuthStore } from 'src/stores/auth'
+import BadgeStatus from 'src/components/BadgeStatus.vue'
 
 const auth = useAuthStore()
 
@@ -107,8 +114,7 @@ const columns = [
     name: 'status',
     field: 'status',
     align: 'center',
-    sortable: true,
-    format: (val) => formatStatus(val)
+    sortable: true
   },
   {
     label: 'Ações',
@@ -170,6 +176,14 @@ const formatStatus = (val) => {
     return status.name
   }
   return 'Não informado'
+}
+
+const getStatusColor = (val) => {
+  const status = statusOptions.value.find(item => item.id === val)
+  if (status) {
+    return status.color
+  }
+  return '#000000'
 }
 
 onMounted(() => {
