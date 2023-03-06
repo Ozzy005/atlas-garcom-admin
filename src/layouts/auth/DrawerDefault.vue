@@ -132,6 +132,7 @@ onMounted(async () => {
     // Agrupador Cadastros
     handleCheckPermission([
       'tenants_view',
+      'payment-methods_view',
       'measurement-units_view',
       'ncms_view',
       'states_view',
@@ -142,7 +143,8 @@ onMounted(async () => {
           icon: 'mdi-folder-edit',
           expanded: handleCheckExpanded('registrations', [
             'tenants', 'tenants-create', 'tenants-edit', 'tenants-view',
-            'measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-delete',
+            'payment-methods', 'payment-methods-create', 'payment-methods-edit', 'payment-methods-view',
+            'measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-view',
             'ncms', 'ncms-view',
             'states', 'states-view',
             'cities', 'cities-view'
@@ -150,7 +152,7 @@ onMounted(async () => {
           selectable: false,
           children: [
             // Agrupador Pessoas
-            handleCheckPermission(['tenants_view', 'tenants_create', 'tenants_edit', 'tenants_delete']) ? {
+            handleCheckPermission(['tenants_view']) ? {
               label: 'Pessoas',
               name: 'people',
               icon: 'mdi-account-group',
@@ -158,7 +160,7 @@ onMounted(async () => {
               selectable: false,
               children: [
                 // Contratantes
-                handleCheckPermission(['tenants_view', 'tenants_create', 'tenants_edit', 'tenants_delete']) ? {
+                handleCheckPermission(['tenants_view']) ? {
                   label: 'Contratantes',
                   name: 'tenants',
                   selected: handleCheckSelected('tenants', ['tenants', 'tenants-create', 'tenants-edit', 'tenants-view']),
@@ -169,7 +171,8 @@ onMounted(async () => {
             } : null,
             // Agrupador Geral
             handleCheckPermission([
-              'measurement-units_view', 'measurement-units_create', 'measurement-units_edit', 'measurement-units_delete',
+              'payment-methods_view',
+              'measurement-units_view',
               'ncms_view',
               'states_view',
               'cities_view'
@@ -178,15 +181,24 @@ onMounted(async () => {
                   name: 'general',
                   icon: 'mdi-menu',
                   expanded: handleCheckExpanded('general', [
-                    'measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-delete',
+                    'payment-methods', 'payment-methods-create', 'payment-methods-edit', 'payment-methods-view',
+                    'measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-view',
                     'ncms', 'ncms-view',
                     'states', 'states-view',
                     'cities', 'cities-view'
                   ]),
                   selectable: false,
                   children: [
-                    // Unidades de medida
-                    handleCheckPermission(['measurement-units_view', 'measurement-units_create', 'measurement-units_edit', 'measurement-units_delete']) ? {
+                    // Métodos de Pagamento
+                    handleCheckPermission(['payment-methods_view']) ? {
+                      label: 'Métodos de Pagamento',
+                      name: 'payment-methods',
+                      selected: handleCheckSelected('payment-methods', ['payment-methods', 'payment-methods-create', 'payment-methods-edit', 'payment-methods-view']),
+                      icon: 'mdi-wallet',
+                      handler: handleNodeClick
+                    } : null,
+                    // Unidades de Medida
+                    handleCheckPermission(['measurement-units_view']) ? {
                       label: 'Unidades de Medida',
                       name: 'measurement-units',
                       selected: handleCheckSelected('measurement-units', ['measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-view']),
@@ -223,9 +235,9 @@ onMounted(async () => {
         } : null,
     // Agrupador Gerenciamento
     handleCheckPermission([
-      'users_view', 'users_create', 'users_edit', 'users_delete',
-      'roles_view', 'roles_create', 'roles_edit', 'roles_delete',
-      'permissions_view', 'permissions_edit'
+      'users_view',
+      'roles_view',
+      'permissions_view'
     ]) ? {
           label: 'Gerenciamento',
           name: 'management',
@@ -238,7 +250,7 @@ onMounted(async () => {
           selectable: false,
           children: [
             // Usuários
-            handleCheckPermission(['users_view', 'users_create', 'users_edit', 'users_delete']) ? {
+            handleCheckPermission(['users_view']) ? {
               label: 'Usuários',
               name: 'users',
               selected: handleCheckSelected('users', ['users', 'users-create', 'users-edit', 'users-view']),
@@ -246,7 +258,7 @@ onMounted(async () => {
               handler: handleNodeClick
             } : null,
             // Atribuições
-            handleCheckPermission(['roles_view', 'roles_create', 'roles_edit', 'roles_delete']) ? {
+            handleCheckPermission(['roles_view']) ? {
               label: 'Atribuições',
               name: 'roles',
               selected: handleCheckSelected('roles', ['roles', 'roles-create', 'roles-edit', 'roles-view']),
@@ -254,7 +266,7 @@ onMounted(async () => {
               handler: handleNodeClick
             } : null,
             // Permissões
-            handleCheckPermission(['permissions_view', 'permissions_edit']) ? {
+            handleCheckPermission(['permissions_view']) ? {
               label: 'Permissões',
               name: 'permissions',
               selected: handleCheckSelected('permissions', ['permissions', 'permissions-edit', 'permissions-view']),

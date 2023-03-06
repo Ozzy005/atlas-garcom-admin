@@ -65,6 +65,26 @@ const routes = [
         component: () => import('src/pages/auth/tenants/EditPage.vue')
       },
       {
+        path: 'payment-methods',
+        name: 'payment-methods',
+        component: () => import('src/pages/auth/payment-methods/ListPage.vue')
+      },
+      {
+        path: 'payment-methods/create',
+        name: 'payment-methods-create',
+        component: () => import('src/pages/auth/payment-methods/CreatePage.vue')
+      },
+      {
+        path: 'payment-methods/:id',
+        name: 'payment-methods-view',
+        component: () => import('src/pages/auth/payment-methods/ViewPage.vue')
+      },
+      {
+        path: 'payment-methods/:id/edit',
+        name: 'payment-methods-edit',
+        component: () => import('src/pages/auth/payment-methods/EditPage.vue')
+      },
+      {
         path: 'measurement-units',
         name: 'measurement-units',
         component: () => import('src/pages/auth/measurement-units/ListPage.vue')
