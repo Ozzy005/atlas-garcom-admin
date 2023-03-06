@@ -149,7 +149,7 @@
     <div class="col-12">
       <q-btn type="submit"
         class="float-right"
-        style="min-width: 120px;"
+        style="min-width: 150px;"
         label="Salvar"
         color="secondary"
         no-caps />
@@ -201,7 +201,7 @@ const nifMask = computed(() => {
   return '##.###.###/####-##'
 })
 
-const handleGetStatus = async () => {
+const getStatus = async () => {
   try {
     const { data } = await api({ url: '/api/tenant-status' })
     statusOptions.value = data.data
@@ -210,6 +210,6 @@ const handleGetStatus = async () => {
   }
 }
 
-onMounted(() => handleGetStatus())
+onMounted(() => getStatus())
 
 </script>

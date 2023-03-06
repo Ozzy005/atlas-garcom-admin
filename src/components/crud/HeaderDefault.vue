@@ -2,7 +2,7 @@
   <div class="row justify-between items-center">
     <div class="text-h6">{{ crud }}</div>
     <q-btn v-if="showBackBtn"
-      style="min-width: 120px;"
+      style="min-width: 150px;"
       label="Voltar"
       color="primary"
       no-caps

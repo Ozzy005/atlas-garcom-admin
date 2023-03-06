@@ -15,7 +15,7 @@ import notify from 'src/composables/notify'
 
 const auth = useAuthStore()
 
-const handleGetUser = async () => {
+const getUser = async () => {
   try {
     const { data } = await api({ url: '/api/profile' })
     auth.user = data.data
@@ -24,6 +24,6 @@ const handleGetUser = async () => {
   }
 }
 
-onMounted(() => handleGetUser())
+onMounted(() => getUser())
 
 </script>

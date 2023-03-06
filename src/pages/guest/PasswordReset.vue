@@ -7,7 +7,7 @@
         <div class="text-h6 text-center">Redefinição de senha</div>
       </q-card-section>
       <q-card-section>
-        <q-form @submit="handleSubmit">
+        <q-form @submit="submit">
 
           <q-input :type="isPwd ? 'password' : 'text'"
             label="Nova senha"
@@ -47,7 +47,7 @@
 
           <q-card-actions align="right">
             <q-btn type="submit"
-              style="min-width: 120px;"
+              style="min-width: 150px;"
               label="Confirmar"
               color="primary"
               no-caps />
@@ -80,7 +80,7 @@ const form = ref({
 const isPwd = ref(true)
 const isPwdConfirm = ref(true)
 
-const handleSubmit = async () => {
+const submit = async () => {
   try {
     const { data } = await auth.resetPassword(form.value)
     router.push({ name: 'login' })

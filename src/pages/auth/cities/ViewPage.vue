@@ -28,7 +28,7 @@ const form = ref({
   state: null
 })
 
-const handleGetItem = async () => {
+const getItem = async () => {
   try {
     const { data } = await api({ url: `/api/cities/${route.params.id}` })
     form.value = data.data
@@ -37,6 +37,6 @@ const handleGetItem = async () => {
   }
 }
 
-onMounted(() => handleGetItem())
+onMounted(() => getItem())
 
 </script>

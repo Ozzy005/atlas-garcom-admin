@@ -62,7 +62,7 @@ const form = ref({
   ato_year: null
 })
 
-const handleGetItem = async () => {
+const getItem = async () => {
   try {
     const { data } = await api({ url: `/api/ncms/${route.params.id}` })
     form.value = data.data
@@ -71,6 +71,6 @@ const handleGetItem = async () => {
   }
 }
 
-onMounted(() => handleGetItem())
+onMounted(() => getItem())
 
 </script>

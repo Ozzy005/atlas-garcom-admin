@@ -3,8 +3,8 @@
     <q-card class="q-pa-md">
       <HeaderDefault crud="Usuários"
         model="users" />
-      <div class="q-mt-md">
-        <q-form @submit="handleSubmit">
+      <div class="q-mt-lg">
+        <q-form @submit="submit">
           <FormPage v-model="form" />
         </q-form>
       </div>
@@ -42,7 +42,7 @@ const form = ref({
   roles: []
 })
 
-const handleGetItem = async () => {
+const getItem = async () => {
   try {
     const { data } = await api({ url: `/api/users/${route.params.id}` })
     form.value = data.data
@@ -52,9 +52,9 @@ const handleGetItem = async () => {
   }
 }
 
-onMounted(() => handleGetItem())
+onMounted(() => getItem())
 
-const handleSubmit = async () => {
+const submit = async () => {
   try {
     const { data } = await api({
       method: 'put',

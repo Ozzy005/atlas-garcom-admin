@@ -3,8 +3,8 @@
     <q-card class="q-pa-md">
       <HeaderDefault crud="Usuários"
         model="users" />
-      <div class="q-mt-md">
-        <q-form @submit="handleSubmit">
+      <div class="q-mt-lg">
+        <q-form @submit="submit">
           <FormPage v-model="form" />
         </q-form>
       </div>
@@ -43,7 +43,7 @@ const form = ref({
   roles: []
 })
 
-const handleSubmit = async () => {
+const submit = async () => {
   try {
     const { data } = await api({ method: 'post', url: '/api/users', data: form.value })
     router.push({ name: 'users' })

@@ -27,12 +27,12 @@
           size="md"
           color="primary"
           no-caps
-          @click="handleExpand" />
+          @click="expand" />
         <q-btn :label="tickedAll ? 'Desmarcar todos' : 'Marcar todos'"
           size="md"
           color="primary"
           no-caps
-          @click="handleCollapse" />
+          @click="collapse" />
       </div>
       <q-tree ref="treeRef"
         node-key="id"
@@ -45,7 +45,7 @@
     <div class="col-12">
       <q-btn type="submit"
         class="float-right"
-        style="min-width: 120px;"
+        style="min-width: 150px;"
         label="Salvar"
         color="secondary"
         no-caps />
@@ -94,7 +94,7 @@ const rootNodes = computed(() => {
   return nodes
 })
 
-const handleExpand = () => {
+const expand = () => {
   if (expandedAll.value) {
     treeRef.value.collapseAll()
     expandedAll.value = false
@@ -104,7 +104,7 @@ const handleExpand = () => {
   }
 }
 
-const handleCollapse = () => {
+const collapse = () => {
   if (tickedAll.value) {
     form.value.permission_ids = []
     tickedAll.value = false
@@ -114,7 +114,7 @@ const handleCollapse = () => {
   }
 }
 
-const handleGetPermissions = async () => {
+const getPermissions = async () => {
   try {
     const { data } = await api({ url: '/api/permissions-tree' })
     permissions.value = data.data
@@ -123,6 +123,6 @@ const handleGetPermissions = async () => {
   }
 }
 
-onMounted(() => handleGetPermissions())
+onMounted(() => getPermissions())
 
 </script>

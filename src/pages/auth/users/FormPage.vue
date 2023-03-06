@@ -208,7 +208,7 @@
     <div class="col-12">
       <q-btn type="submit"
         class="float-right"
-        style="min-width: 120px;"
+        style="min-width: 150px;"
         label="Salvar"
         color="secondary"
         no-caps />
@@ -263,7 +263,7 @@ const isPwdConfirm = ref(true)
 const roles = ref([])
 const statusOptions = ref([])
 
-const handleGetRoles = async () => {
+const getRoles = async () => {
   try {
     const { data } = await api({ url: '/api/roles' })
     roles.value = data.data
@@ -272,7 +272,7 @@ const handleGetRoles = async () => {
   }
 }
 
-const handleGetStatus = async () => {
+const getStatus = async () => {
   try {
     const { data } = await api({ url: '/api/status' })
     statusOptions.value = data.data
@@ -282,8 +282,8 @@ const handleGetStatus = async () => {
 }
 
 onMounted(() => {
-  handleGetRoles()
-  handleGetStatus()
+  getRoles()
+  getStatus()
 })
 
 </script>

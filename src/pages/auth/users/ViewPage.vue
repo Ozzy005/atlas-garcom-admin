@@ -98,7 +98,7 @@ const route = useRoute()
 const form = ref({})
 const statusOptions = ref([])
 
-const handleGetItem = async () => {
+const getItem = async () => {
   try {
     const { data } = await api({ url: `/api/users/${route.params.id}` })
     form.value = data.data
@@ -107,7 +107,7 @@ const handleGetItem = async () => {
   }
 }
 
-const handleGetStatus = async () => {
+const getStatus = async () => {
   try {
     const { data } = await api({ url: '/api/status' })
     statusOptions.value = data.data
@@ -125,8 +125,8 @@ const formatStatus = (val) => {
 }
 
 onMounted(() => {
-  handleGetItem()
-  handleGetStatus()
+  getItem()
+  getStatus()
 })
 
 </script>

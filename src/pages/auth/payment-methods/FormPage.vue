@@ -35,7 +35,7 @@
     <div class="col-12">
       <q-btn type="submit"
         class="float-right"
-        style="min-width: 120px;"
+        style="min-width: 150px;"
         label="Salvar"
         color="secondary"
         no-caps />
@@ -68,7 +68,7 @@ const form = computed({
 })
 const statusOptions = ref([])
 
-const handleGetStatus = async () => {
+const getStatus = async () => {
   try {
     const { data } = await api({ url: '/api/status' })
     statusOptions.value = data.data
@@ -77,6 +77,6 @@ const handleGetStatus = async () => {
   }
 }
 
-onMounted(() => handleGetStatus())
+onMounted(() => getStatus())
 
 </script>

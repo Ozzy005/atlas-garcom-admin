@@ -33,7 +33,7 @@
             </q-item>
             <q-item clickable
               v-close-popup
-              @click="handleLogout">
+              @click="logout">
               <q-item-section>
                 <q-item-label>Sair</q-item-label>
               </q-item-section>
@@ -62,7 +62,7 @@ const router = useRouter()
 const auth = useAuthStore()
 const leftDrawerOpen = ref(false)
 
-const handleLogout = () => {
+const logout = () => {
   try {
     auth.logout()
     auth.isAuthenticated = false

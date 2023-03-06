@@ -1,10 +1,10 @@
 <template>
   <q-page padding>
-    <q-card class="q-pa-md">
+    <q-card class="q-pa-lg">
       <HeaderDefault crud="Atribuições"
         model="roles" />
       <div class="q-mt-md">
-        <q-form @submit="handleSubmit">
+        <q-form @submit="submit">
           <FormPage v-model="form" />
         </q-form>
       </div>
@@ -28,7 +28,7 @@ const form = ref({
   permission_ids: []
 })
 
-const handleSubmit = async () => {
+const submit = async () => {
   try {
     const { data } = await api({ method: 'post', url: '/api/roles', data: form.value })
     router.push({ name: 'roles' })

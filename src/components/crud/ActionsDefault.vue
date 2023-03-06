@@ -9,7 +9,7 @@
       <q-item v-if="showView"
         clickable
         v-close-popup
-        @click="handleView(item)">
+        @click="view(item)">
         <q-item-section>
           <q-item-label>Visualizar</q-item-label>
         </q-item-section>
@@ -17,7 +17,7 @@
       <q-item v-if="showEdit"
         clickable
         v-close-popup
-        @click="handleEdit(item)">
+        @click="edit(item)">
         <q-item-section>
           <q-item-label>Editar</q-item-label>
         </q-item-section>
@@ -25,7 +25,7 @@
       <q-item v-if="showDestroy"
         clickable
         v-close-popup
-        @click="handleDestroy(item)">
+        @click="destroy(item)">
         <q-item-section>
           <q-item-label>Excluir</q-item-label>
         </q-item-section>
@@ -82,15 +82,15 @@ const rows = computed({
   }
 })
 
-const handleView = (item) => {
+const view = (item) => {
   router.push({ name: `${props.model}-view`, params: { id: item.id } })
 }
 
-const handleEdit = (item) => {
+const edit = (item) => {
   router.push({ name: `${props.model}-edit`, params: { id: item.id } })
 }
 
-const handleDestroy = (item) => {
+const destroy = (item) => {
   $q.dialog({
     title: 'Atenção !',
     message: 'Tem certeza que deseja excluir esse item?',

@@ -53,3 +53,7 @@ $value in $sizes {
 ** Fim da função geradora de classes q-gap-{none,xs,sm,md,lg,xl},
 ** q-gap-x-{xs,sm,md,lg,xl} e q-gap-y-{xs,sm,md,lg,xl}
 */
+
+.q-table tr {
+  cursor: pointer;
+}

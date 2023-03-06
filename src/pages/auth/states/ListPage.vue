@@ -6,39 +6,36 @@
       :rows="rows"
       :columns="columns"
       :loading="loading"
-      @request="handleGetItems"
+      @request="getItems"
       :filter="filter"
       row-key="id"
-      binary-state-sort>
+      binary-state-sort
+      selection="multiple"
+      v-model:selected="selected"
+      @row-click="rowClick">
       <template #top>
-        <div class="column q-gap-y-md full-width">
-          <div class="row no-wrap justify-between items-center">
-            <span class="text-h6">Estados</span>
-          </div>
+        <div class="column q-gap-y-lg full-width">
+          <ActionsGroup v-model="rows"
+            crud="Estados"
+            model="states"
+            :items="selected"
+            :show-create="auth.hasPermission('states_create')"
+            :show-view="auth.hasPermission('states_view')"
+            :show-edit="auth.hasPermission('states_edit')"
+            :show-destroy="auth.hasPermission('states_delete')" />
           <div class="row">
-            <q-space />
             <q-input class="col-md-4 col-xs-12"
               v-model="filter"
               outlined
               dense
               debounce="300"
-              placeholder="Pesquisar por nome ou sigla">
+              placeholder="Pesquisar por nome/sigla">
               <template #append>
                 <q-icon name="search" />
               </template>
             </q-input>
           </div>
         </div>
-      </template>
-      <template #body-cell-actions="props">
-        <q-td :props="props">
-          <ActionsDefault model="states"
-            :item="props.row"
-            :show-view="auth.hasPermission('states_view')"
-            :show-edit="false"
-            :show-destroy="false"
-            v-model="rows" />
-        </q-td>
       </template>
     </q-table>
   </q-page>
@@ -48,7 +45,7 @@
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import { ref, onMounted } from 'vue'
-import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
+import ActionsGroup from 'src/components/crud/ActionsGroup.vue'
 import { useAuthStore } from 'src/stores/auth'
 
 const auth = useAuthStore()
@@ -78,12 +75,6 @@ const columns = [
     field: 'letter',
     align: 'center',
     sortable: true
-  },
-  {
-    label: 'Ações',
-    name: 'actions',
-    field: 'actions',
-    align: 'right'
   }
 ]
 const rows = ref([])
@@ -94,8 +85,9 @@ const pagination = ref({
   sortBy: 'id',
   descending: false
 })
+const selected = ref([])
 
-const handleGetItems = async (props) => {
+const getItems = async (props) => {
   try {
     const { page, rowsPerPage, sortBy, descending } = props.pagination
     loading.value = true
@@ -120,6 +112,15 @@ const handleGetItems = async (props) => {
     loading.value = false
   } catch (error) {
     notify.error(error)
+  }
+}
+
+const rowClick = (event, row) => {
+  const exists = selected.value.find(item => item.id === row.id)
+  if (exists) {
+    selected.value = selected.value.filter(item => item.id !== row.id)
+  } else {
+    selected.value.push(row)
   }
 }
 

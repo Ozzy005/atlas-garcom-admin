@@ -3,8 +3,8 @@
     <q-card class="q-pa-md">
       <HeaderDefault crud="Métodos de Pagamento"
         model="payment-methods" />
-      <div class="q-mt-md">
-        <q-form @submit="handleSubmit">
+      <div class="q-mt-lg">
+        <q-form @submit="submit">
           <FormPage v-model="form" />
         </q-form>
       </div>
@@ -28,7 +28,7 @@ const form = ref({
   status: null
 })
 
-const handleSubmit = async () => {
+const submit = async () => {
   try {
     const { data } = await api({ method: 'post', url: '/api/payment-methods', data: form.value })
     router.push({ name: 'payment-methods' })

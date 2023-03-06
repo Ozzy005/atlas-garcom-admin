@@ -7,17 +7,24 @@
       :rows="rows"
       :columns="columns"
       :loading="loading"
-      @request="handleGetItems"
+      @request="getItems"
       :filter="filter"
       row-key="id"
-      binary-state-sort>
+      binary-state-sort
+      selection="multiple"
+      v-model:selected="selected"
+      @row-click="rowClick">
       <template #top>
-        <div class="column q-gap-y-md full-width">
-          <div class="row no-wrap justify-between items-center">
-            <span class="text-h6">Ncms</span>
-          </div>
+        <div class="column q-gap-y-lg full-width">
+          <ActionsGroup v-model="rows"
+            crud="Ncms"
+            model="ncms"
+            :items="selected"
+            :show-create="auth.hasPermission('ncms_create')"
+            :show-view="auth.hasPermission('ncms_view')"
+            :show-edit="auth.hasPermission('ncms_edit')"
+            :show-destroy="auth.hasPermission('ncms_delete')" />
           <div class="row">
-            <q-space />
             <q-input class="col-md-4 col-xs-12"
               v-model="filter"
               outlined
@@ -32,17 +39,8 @@
         </div>
       </template>
       <template #body-cell-description="props">
-        <q-td :props="props" v-html="props.row.description" />
-      </template>
-      <template #body-cell-actions="props">
-        <q-td :props="props">
-          <ActionsDefault model="ncms"
-            :item="props.row"
-            :show-view="auth.hasPermission('ncms_view')"
-            :show-edit="false"
-            :show-destroy="false"
-            v-model="rows" />
-        </q-td>
+        <q-td :props="props"
+          v-html="props.row.description" />
       </template>
     </q-table>
   </q-page>
@@ -52,7 +50,7 @@
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import { ref, onMounted } from 'vue'
-import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
+import ActionsGroup from 'src/components/crud/ActionsGroup.vue'
 import { useAuthStore } from 'src/stores/auth'
 
 const auth = useAuthStore()
@@ -82,12 +80,6 @@ const columns = [
     field: 'description',
     align: 'center',
     sortable: true
-  },
-  {
-    label: 'Ações',
-    name: 'actions',
-    field: 'actions',
-    align: 'right'
   }
 ]
 const rows = ref([])
@@ -98,8 +90,9 @@ const pagination = ref({
   sortBy: 'id',
   descending: false
 })
+const selected = ref([])
 
-const handleGetItems = async (props) => {
+const getItems = async (props) => {
   try {
     const { page, rowsPerPage, sortBy, descending } = props.pagination
     loading.value = true
@@ -124,6 +117,15 @@ const handleGetItems = async (props) => {
     loading.value = false
   } catch (error) {
     notify.error(error)
+  }
+}
+
+const rowClick = (event, row) => {
+  const exists = selected.value.find(item => item.id === row.id)
+  if (exists) {
+    selected.value = selected.value.filter(item => item.id !== row.id)
+  } else {
+    selected.value.push(row)
   }
 }
 

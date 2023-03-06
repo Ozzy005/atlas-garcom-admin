@@ -7,7 +7,7 @@
         <div class="text-h6 text-center">Login</div>
       </q-card-section>
       <q-card-section>
-        <q-form @submit="handleSubmit">
+        <q-form @submit="submit">
 
           <q-input type="email"
             label="Email"
@@ -38,13 +38,13 @@
             label="Lembrar-me" />
 
           <q-card-actions align="right">
-            <q-btn style="min-width: 120px;"
+            <q-btn style="min-width: 150px;"
               label="Esqueceu sua senha?"
               no-caps
               flat
               :to="{ name: 'forgot-password' }" />
             <q-btn type="submit"
-              style="min-width: 120px;"
+              style="min-width: 150px;"
               label="Entrar"
               color="primary"
               no-caps />
@@ -70,7 +70,7 @@ const form = ref(JSON.parse(JSON.stringify(auth.userLogin)))
 
 const isPwd = ref(true)
 
-const handleSubmit = async () => {
+const submit = async () => {
   try {
     await auth.login(form.value)
     router.push({ name: 'dashboard' })

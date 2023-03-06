@@ -2,7 +2,7 @@
   <q-card class="q-pa-md">
     <HeaderDefault :crud="crud"
       :model="model" />
-    <div class="q-mt-md row q-gap-md">
+    <div class="q-mt-lg row q-gap-md">
       <slot />
     </div>
   </q-card>

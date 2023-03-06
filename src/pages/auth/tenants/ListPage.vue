@@ -6,23 +6,24 @@
       :rows="rows"
       :columns="columns"
       :loading="loading"
-      @request="handleGetItems"
+      @request="getItems"
       :filter="filter"
       row-key="id"
-      binary-state-sort>
+      binary-state-sort
+      selection="multiple"
+      v-model:selected="selected"
+      @row-click="rowClick">
       <template #top>
-        <div class="column q-gap-y-md full-width">
-          <div class="row no-wrap justify-between items-center">
-            <span class="text-h6">Contratantes</span>
-            <q-btn v-if="auth.hasPermission('tenants_create')"
-              style="min-width: 120px;"
-              label="Adicionar novo"
-              color="primary"
-              no-caps
-              :to="{ name: 'tenants-create' }" />
-          </div>
+        <div class="column q-gap-y-lg full-width">
+          <ActionsGroup v-model="rows"
+            crud="Contratantes"
+            model="tenants"
+            :items="selected"
+            :show-create="auth.hasPermission('tenants_create')"
+            :show-view="auth.hasPermission('tenants_view')"
+            :show-edit="auth.hasPermission('tenants_edit')"
+            :show-destroy="auth.hasPermission('tenants_delete')" />
           <div class="row">
-            <q-space />
             <q-input class="col-md-4 col-xs-12"
               v-model="filter"
               outlined
@@ -42,16 +43,6 @@
             :color="getStatusColor(props.row.status)" />
         </q-td>
       </template>
-      <template #body-cell-actions="props">
-        <q-td :props="props">
-          <ActionsDefault model="tenants"
-            :item="props.row"
-            :show-view="auth.hasPermission('tenants_view')"
-            :show-edit="auth.hasPermission('tenants_edit')"
-            :show-destroy="auth.hasPermission('tenants_delete')"
-            v-model="rows" />
-        </q-td>
-      </template>
     </q-table>
   </q-page>
 </template>
@@ -61,7 +52,7 @@ import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import { ref, onMounted } from 'vue'
 import helpers from 'src/utils/helpers'
-import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
+import ActionsGroup from 'src/components/crud/ActionsGroup.vue'
 import { useAuthStore } from 'src/stores/auth'
 import BadgeStatus from 'src/components/common/BadgeStatus.vue'
 
@@ -123,12 +114,6 @@ const columns = [
     field: 'status',
     align: 'center',
     sortable: true
-  },
-  {
-    label: 'Ações',
-    name: 'actions',
-    field: 'actions',
-    align: 'right'
   }
 ]
 const rows = ref([])
@@ -140,8 +125,9 @@ const pagination = ref({
   descending: false
 })
 const statusOptions = ref([])
+const selected = ref([])
 
-const handleGetItems = async (props) => {
+const getItems = async (props) => {
   try {
     const { page, rowsPerPage, sortBy, descending } = props.pagination
     loading.value = true
@@ -169,7 +155,16 @@ const handleGetItems = async (props) => {
   }
 }
 
-const handleGetStatus = async () => {
+const rowClick = (event, row) => {
+  const exists = selected.value.find(item => item.id === row.id)
+  if (exists) {
+    selected.value = selected.value.filter(item => item.id !== row.id)
+  } else {
+    selected.value.push(row)
+  }
+}
+
+const getStatus = async () => {
   try {
     const { data } = await api({ url: '/api/tenant-status' })
     statusOptions.value = data.data
@@ -196,7 +191,7 @@ const getStatusColor = (val) => {
 
 onMounted(() => {
   tableRef.value.requestServerInteraction()
-  handleGetStatus()
+  getStatus()
 })
 
 </script>

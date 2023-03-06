@@ -7,7 +7,7 @@
         <div class="text-h6 text-center">Enviar link de redefinição de senha</div>
       </q-card-section>
       <q-card-section>
-        <q-form @submit="handleSubmit">
+        <q-form @submit="submit">
 
           <q-input type="email"
             label="Email"
@@ -18,14 +18,14 @@
             :rules="[val => !!val || 'Email é obrigatório!']" />
 
           <q-card-actions align="right">
-            <q-btn style="min-width: 120px;"
+            <q-btn style="min-width: 150px;"
               label="Voltar"
               color="secondary"
               no-caps
               :to="{ name: 'login' }" />
             <q-btn :loading="loading"
               type="submit"
-              style="min-width: 120px;"
+              style="min-width: 150px;"
               label="Confirmar"
               color="primary"
               no-caps />
@@ -50,7 +50,7 @@ const router = useRouter()
 const loading = ref(false)
 const form = ref({ email: null })
 
-const handleSubmit = async () => {
+const submit = async () => {
   try {
     loading.value = true
     const { data } = await auth.forgotPassword(form.value)
