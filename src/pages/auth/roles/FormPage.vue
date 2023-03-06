@@ -1,21 +1,25 @@
 <template>
-  <div class="row q-gap-lg">
+  <div class="row q-gap-sm">
 
-    <q-input v-model="form.name"
-      class="col-md-6 col-xs-12"
-      label="Nome"
-      clearable
-      maxlength="125"
-      lazy-rules="ondemand"
-      :rules="[val => !!val || 'Nome é obrigatório!']" />
+    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+      <q-input v-model="form.name"
+        class="col-md-grow col-xs-12"
+        label="Nome"
+        outlined
+        clearable
+        maxlength="125"
+        lazy-rules="ondemand"
+        :rules="[val => !!val || 'Nome é obrigatório!']" />
 
-    <q-input v-model="form.description"
-      class="col-md-grow col-xs-12"
-      label="Descrição"
-      clearable
-      maxlength="125"
-      lazy-rules="ondemand"
-      :rules="[val => !!val || 'Descrição é obrigatória!']" />
+      <q-input v-model="form.description"
+        class="col-md-grow col-xs-12"
+        label="Descrição"
+        outlined
+        clearable
+        maxlength="125"
+        lazy-rules="ondemand"
+        :rules="[val => !!val || 'Descrição é obrigatória!']" />
+    </div>
 
     <div class="col-12 column q-gap-md">
       <div class="row q-gap-sm">

@@ -2,7 +2,7 @@
   <q-page padding>
     <ViewDefault crud="Estados"
       model="states">
-      <FieldView class="col-md-6 col-xs-12"
+      <FieldView class="col-md-grow col-xs-12"
         field="Nome:"
         :value="form.title" />
 

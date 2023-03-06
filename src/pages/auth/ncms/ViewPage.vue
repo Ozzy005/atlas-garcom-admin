@@ -4,35 +4,35 @@
       model="ncms">
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md col-xs-12"
+        <FieldView class="col-md-grow col-xs-12"
           field="Código:"
           :value="form.code" />
 
-        <FieldView class="col-md col-xs-12"
+        <FieldView class="col-md-grow col-xs-12"
           field="Descrição:"
           :value="form.description" />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md col-xs-12"
+        <FieldView class="col-md-grow col-xs-12"
           field="Data de Início:"
           :value="helpers.brDate(form.date_start)" />
 
-        <FieldView class="col-md col-xs-12"
+        <FieldView class="col-md-grow col-xs-12"
           field="Data Final:"
           :value="helpers.brDate(form.date_end)" />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md col-xs-12"
+        <FieldView class="col-md-grow col-xs-12"
           field="Ato Legal:"
           :value="form.ato_type" />
 
-        <FieldView class="col-md col-xs-12"
+        <FieldView class="col-md-grow col-xs-12"
           field="Número:"
           :value="form.ato_number" />
 
-        <FieldView class="col-md col-xs-12"
+        <FieldView class="col-md-grow col-xs-12"
           field="Ano:"
           :value="form.ato_year" />
       </div>

@@ -63,7 +63,7 @@ import { ref, onMounted } from 'vue'
 import helpers from 'src/utils/helpers'
 import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
 import { useAuthStore } from 'src/stores/auth'
-import BadgeStatus from 'src/components/BadgeStatus.vue'
+import BadgeStatus from 'src/components/common/BadgeStatus.vue'
 
 const auth = useAuthStore()
 

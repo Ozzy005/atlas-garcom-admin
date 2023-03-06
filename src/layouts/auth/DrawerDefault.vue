@@ -1,5 +1,6 @@
 <template>
   <q-drawer v-model="leftDrawerOpen"
+    :breakpoint="1200"
     show-if-above
     elevated>
     <div class="text-h6 text-center q-my-md">Menu</div>

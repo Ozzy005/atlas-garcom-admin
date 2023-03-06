@@ -2,7 +2,7 @@
   <q-page padding>
     <ViewDefault crud="Cidades"
       model="cities">
-      <FieldView class="col-md-6 col-xs-12"
+      <FieldView class="col-md-grow col-xs-12"
         field="Cidade:"
         :value="form.title" />
 

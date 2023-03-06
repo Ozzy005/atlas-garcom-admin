@@ -1,9 +1,10 @@
 <template>
-  <div class="row q-gap-y-lg">
+  <div class="row q-gap-y-sm">
 
     <q-input :type="isCurrentPwd ? 'password' : 'text'"
       class="col-12"
       label="Senha atual"
+      outlined
       clearable
       maxlength="100"
       lazy-rules="ondemand"
@@ -22,6 +23,7 @@
     <q-input :type="isPwd ? 'password' : 'text'"
       class="col-12"
       label="Nova senha"
+      outlined
       clearable
       maxlength="100"
       lazy-rules="ondemand"
@@ -40,6 +42,7 @@
     <q-input :type="isPwdConfirm ? 'password' : 'text'"
       class="col-12"
       label="Confirmação da nova senha"
+      outlined
       clearable
       maxlength="100"
       lazy-rules="ondemand"

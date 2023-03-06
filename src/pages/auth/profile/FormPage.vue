@@ -1,9 +1,10 @@
 <template>
-  <div class="row q-gap-y-lg">
+  <div class="row q-gap-y-sm">
 
     <q-input v-model="form.name"
       class="col-12"
       label="Nome"
+      outlined
       clearable
       maxlength="60"
       lazy-rules="ondemand"
@@ -13,6 +14,7 @@
       type="email"
       class="col-12"
       label="Email"
+      outlined
       clearable
       maxlength="100"
       lazy-rules="ondemand"

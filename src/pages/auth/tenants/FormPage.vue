@@ -1,10 +1,11 @@
 <template>
-  <div class="row q-gap-lg">
+  <div class="row q-gap-sm">
 
-    <div class="col-12 row q-gap-lg">
+    <div class="col-12 row q-gap-x-md q-gap-y-sm">
       <q-input v-model="nif"
         class="col-md-grow col-xs-12"
         label="CPF/CNPJ"
+        outlined
         clearable
         :mask="nifMask"
         unmasked-value
@@ -19,6 +20,7 @@
       <q-input v-model="form.full_name"
         class="col-md-grow col-xs-12"
         label="Nome Completo/Razão Social"
+        outlined
         clearable
         maxlength="60"
         lazy-rules="ondemand"
@@ -27,27 +29,34 @@
       <q-input v-model="form.name"
         class="col-md-grow col-xs-12"
         label="Nome Social/Nome Fantasia"
+        outlined
         clearable
-        maxlength="30" />
+        maxlength="30"
+        :rules="[val => !!val]" />
     </div>
 
-    <div class="col-12 row q-gap-lg">
+    <div class="col-12 row q-gap-x-md q-gap-y-sm">
       <q-input v-model="form.state_registration"
         class="col-md-grow col-xs-12"
         label="Inscrição Estadual"
+        outlined
         clearable
-        maxlength="15" />
+        maxlength="15"
+        :rules="[val => !!val]" />
 
       <q-input v-model="form.city_registration"
         class="col-md-grow col-xs-12"
         label="Inscrição Municipal"
+        outlined
         clearable
-        maxlength="12" />
+        maxlength="12"
+        :rules="[val => !!val]" />
 
       <q-input v-model="form.birthdate"
         type="date"
         class="col-md-grow col-xs-12"
         label="Dt. Nasc./Abertura"
+        outlined
         clearable
         stack-label
         lazy-rules="ondemand"
@@ -57,6 +66,7 @@
         class="col-md-grow col-xs-12"
         :options="statusOptions"
         label="Status"
+        outlined
         option-value="id"
         option-label="name"
         emit-value
@@ -66,11 +76,12 @@
         :rules="[val => !!val || 'Status é obrigatório!']" />
     </div>
 
-    <div class="col-12 row q-gap-lg">
+    <div class="col-12 row q-gap-x-md q-gap-y-sm">
       <q-input v-model="form.email"
         type="email"
         class="col-md-grow col-xs-12"
         label="Email"
+        outlined
         clearable
         maxlength="100"
         lazy-rules="ondemand"
@@ -79,6 +90,7 @@
       <q-input v-model="form.phone"
         class="col-md-grow col-xs-12"
         label="Telefone"
+        outlined
         clearable
         mask="(##) # ####-####"
         unmasked-value
@@ -89,10 +101,11 @@
         :options-default="[{ id: form.city_id, info: form.city }]" />
     </div>
 
-    <div class="col-12 row q-gap-lg">
+    <div class="col-12 row q-gap-x-md q-gap-y-sm">
       <q-input v-model="form.zip_code"
         class="col-md-grow col-xs-12"
         label="CEP"
+        outlined
         clearable
         mask="#####-###"
         unmasked-value
@@ -102,6 +115,7 @@
       <q-input v-model="form.address"
         class="col-md-grow col-xs-12"
         label="Endereço"
+        outlined
         clearable
         maxlength="60"
         lazy-rules="ondemand"
@@ -110,20 +124,26 @@
       <q-input v-model="form.district"
         class="col-md-grow col-xs-12"
         label="Bairro"
+        outlined
         clearable
-        maxlength="30" />
+        maxlength="30"
+        :rules="[val => !!val]" />
 
       <q-input v-model="form.number"
         class="col-md-grow col-xs-12"
         label="N°"
+        outlined
         clearable
-        maxlength="10" />
+        maxlength="10"
+        :rules="[val => !!val]" />
 
       <q-input v-model="form.complement"
         class="col-md-grow col-xs-12"
         label="Complemento"
+        outlined
         clearable
-        maxlength="30" />
+        maxlength="30"
+        :rules="[val => !!val]" />
     </div>
 
     <div class="col-12">
@@ -141,7 +161,7 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import helpers from 'src/utils/helpers'
-import SelectCity from 'src/components/SelectCity.vue'
+import SelectCity from 'src/components/common/SelectCity.vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 

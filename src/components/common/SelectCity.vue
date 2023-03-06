@@ -5,6 +5,7 @@
     @filter="filterCity"
     class="col-md-grow col-xs-12"
     label="Cidade"
+    outlined
     hint="Digite três ou mais caracteres..."
     input-debounce="300"
     option-value="id"

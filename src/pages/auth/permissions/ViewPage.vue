@@ -2,21 +2,27 @@
   <q-page padding>
     <ViewDefault crud="Permissões"
       model="permissions">
-      <FieldView class="col-md-6 col-xs-12"
-        field="Nome:"
-        :value="form.name" />
 
-      <FieldView class="col-md-grow col-xs-12"
-        field="Email:"
-        :value="form.description" />
+      <div class="col-12 row q-gap-md">
+        <FieldView class="col-md-grow col-xs-12"
+          field="Nome:"
+          :value="form.name" />
 
-      <FieldView class="col-md-6 col-xs-12"
-        field="Dt. Criação:"
-        :value="helpers.brDateTime(form.created_at)" />
+        <FieldView class="col-md-grow col-xs-12"
+          field="Email:"
+          :value="form.description" />
+      </div>
 
-      <FieldView class="col-md-grow col-xs-12"
-        field="Dt. Edição"
-        :value="helpers.brDateTime(form.updated_at)" />
+      <div class="col-12 row q-gap-md">
+        <FieldView class="col-md-grow col-xs-12"
+          field="Dt. Criação:"
+          :value="helpers.brDateTime(form.created_at)" />
+
+        <FieldView class="col-md-grow col-xs-12"
+          field="Dt. Edição"
+          :value="helpers.brDateTime(form.updated_at)" />
+      </div>
+
     </ViewDefault>
   </q-page>
 </template>
