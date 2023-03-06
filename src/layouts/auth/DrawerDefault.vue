@@ -1,8 +1,7 @@
 <template>
   <q-drawer v-model="leftDrawerOpen"
-    class="bg-grey-3"
     show-if-above
-    bordered>
+    elevated>
     <div class="text-h6 text-center q-my-md">Menu</div>
     <q-tree v-model:selected="selected"
       :nodes="nodes"
@@ -15,7 +14,7 @@
           <q-icon :name="props.node.icon"
             class="q-mr-sm"
             size="sm" />
-          <div>{{ props.node.label }}</div>
+          <div v-html="props.node.label" />
         </div>
       </template>
     </q-tree>
@@ -191,7 +190,7 @@ onMounted(async () => {
                   children: [
                     // Métodos de Pagamento
                     handleCheckPermission(['payment-methods_view']) ? {
-                      label: 'Métodos de Pagamento',
+                      label: 'Métodos de<br>Pagamento',
                       name: 'payment-methods',
                       selected: handleCheckSelected('payment-methods', ['payment-methods', 'payment-methods-create', 'payment-methods-edit', 'payment-methods-view']),
                       icon: 'mdi-wallet',
@@ -199,7 +198,7 @@ onMounted(async () => {
                     } : null,
                     // Unidades de Medida
                     handleCheckPermission(['measurement-units_view']) ? {
-                      label: 'Unidades de Medida',
+                      label: 'Unidades de<br>Medida',
                       name: 'measurement-units',
                       selected: handleCheckSelected('measurement-units', ['measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-view']),
                       icon: 'mdi-ruler',
