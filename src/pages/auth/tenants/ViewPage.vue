@@ -42,7 +42,7 @@
 
         <FieldView class="col-md-grow col-xs-12"
           field="Telefone:"
-          :value="form.phone" />
+          :value="helpers.phoneMask(form.phone)" />
 
         <FieldView class="col-md-grow col-xs-12"
           field="Cidade:"

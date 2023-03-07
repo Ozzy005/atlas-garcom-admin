@@ -12,16 +12,16 @@
     "push": "scp -P 65002 dist/spa.zip u773326111@89.117.7.238:/home/u773326111/domains/atlasgarcom.com/public_html"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@quasar/extras": "^1.15.11",
     "axios": "^0.21.1",
     "pinia": "^2.0.11",
     "pinia-plugin-persistedstate": "^3.0.2",
-    "quasar": "^2.6.0",
+    "quasar": "^2.11.7",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0"
   },
   "devDependencies": {
-    "@quasar/app-vite": "^1.0.0",
+    "@quasar/app-vite": "^1.2.1",
     "autoprefixer": "^10.4.2",
     "eslint": "^8.10.0",
     "eslint-config-standard": "^17.0.0",

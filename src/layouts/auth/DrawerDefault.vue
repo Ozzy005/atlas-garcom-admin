@@ -259,7 +259,7 @@ onMounted(async () => {
             } : null,
             // Atribuições
             checkPermission(['roles_view']) ? {
-              label: 'Atribuições',
+              label: 'Atribuições<br>/Módulos',
               name: 'roles',
               selected: checkSelected('roles', ['roles', 'roles-create', 'roles-edit', 'roles-view']),
               icon: 'mdi-account-lock',

@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <ViewDefault crud="Atribuições"
+    <ViewDefault crud="Atribuições/Módulos"
       model="roles">
 
       <div class="col-12 row q-gap-md">
@@ -11,6 +11,10 @@
         <FieldView class="col-md-grow col-xs-12"
           field="Descrição:"
           :value="form.description" />
+
+        <FieldView class="col-md-grow col-xs-12"
+          field="Tipo:"
+          :value="formatType(form.type)" />
       </div>
 
       <div class="col-12 row q-gap-md">
@@ -44,6 +48,7 @@ const form = ref({
   created_at: null,
   updated_at: null
 })
+const types = ref([])
 
 const getItem = async () => {
   try {
@@ -54,6 +59,26 @@ const getItem = async () => {
   }
 }
 
-onMounted(() => getItem())
+const getTypes = async () => {
+  try {
+    const { data } = await api({ url: '/api/role-types' })
+    types.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+const formatType = (val) => {
+  const type = types.value.find(item => item.id === val)
+  if (type) {
+    return type.name
+  }
+  return 'Não informado'
+}
+
+onMounted(() => {
+  getItem()
+  getTypes()
+})
 
 </script>

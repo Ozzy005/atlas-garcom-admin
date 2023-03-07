@@ -16,7 +16,7 @@
       <template #top>
         <div class="column q-gap-y-lg full-width">
           <ActionsGroup v-model="rows"
-            crud="Atribuições"
+            crud="Atribuições/Módulos"
             model="roles"
             :items="selected"
             :show-create="auth.hasPermission('roles_create')"
@@ -37,6 +37,12 @@
           </div>
         </div>
       </template>
+      <template #body-cell-type="props">
+        <q-td :props="props">
+          <BadgeStatus :name="formatType(props.row.type)"
+            :color="getTypeColor(props.row.type)" />
+        </q-td>
+      </template>
     </q-table>
   </q-page>
 </template>
@@ -48,6 +54,7 @@ import { ref, onMounted } from 'vue'
 import helpers from 'src/utils/helpers'
 import ActionsGroup from 'src/components/crud/ActionsGroup.vue'
 import { useAuthStore } from 'src/stores/auth'
+import BadgeStatus from 'src/components/common/BadgeStatus.vue'
 
 const auth = useAuthStore()
 
@@ -92,6 +99,13 @@ const columns = [
     align: 'center',
     sortable: true,
     format: (val) => helpers.brDateTime(val)
+  },
+  {
+    label: 'Tipo',
+    name: 'type',
+    field: 'type',
+    align: 'center',
+    sortable: true
   }
 ]
 const rows = ref([])
@@ -103,6 +117,7 @@ const pagination = ref({
   descending: false
 })
 const selected = ref([])
+const types = ref([])
 
 const getItems = async (props) => {
   try {
@@ -141,6 +156,34 @@ const rowClick = (event, row) => {
   }
 }
 
-onMounted(() => tableRef.value.requestServerInteraction())
+const getTypes = async () => {
+  try {
+    const { data } = await api({ url: '/api/role-types' })
+    types.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+const formatType = (val) => {
+  const type = types.value.find(item => item.id === val)
+  if (type) {
+    return type.name
+  }
+  return 'Não informado'
+}
+
+const getTypeColor = (val) => {
+  const type = types.value.find(item => item.id === val)
+  if (type) {
+    return type.color
+  }
+  return '#000000'
+}
+
+onMounted(() => {
+  tableRef.value.requestServerInteraction()
+  getTypes()
+})
 
 </script>

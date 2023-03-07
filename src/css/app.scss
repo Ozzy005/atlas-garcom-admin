@@ -56,4 +56,5 @@ $value in $sizes {
 
 .q-table tr {
   cursor: pointer;
+  user-select: none;
 }

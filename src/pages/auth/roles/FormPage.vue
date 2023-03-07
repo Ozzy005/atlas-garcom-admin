@@ -19,6 +19,19 @@
         maxlength="125"
         lazy-rules="ondemand"
         :rules="[val => !!val || 'Descrição é obrigatória!']" />
+
+      <q-select v-model="form.type"
+        class="col-md-grow col-xs-12"
+        :options="types"
+        label="Tipo"
+        outlined
+        option-value="id"
+        option-label="name"
+        emit-value
+        map-options
+        clearable
+        lazy-rules="ondemand"
+        :rules="[val => !!val || 'Tipo é obrigatório!']" />
     </div>
 
     <div class="col-12 column q-gap-md">
@@ -81,6 +94,7 @@ const treeRef = ref(null)
 const expandedAll = ref(false)
 const tickedAll = ref(false)
 const permissions = ref([])
+const types = ref([])
 
 const rootNodes = computed(() => {
   const nodes = []
@@ -123,6 +137,18 @@ const getPermissions = async () => {
   }
 }
 
-onMounted(() => getPermissions())
+const getTypes = async () => {
+  try {
+    const { data } = await api({ url: '/api/role-types' })
+    types.value = data.data
+  } catch (error) {
+    notify.error(error)
+  }
+}
+
+onMounted(() => {
+  getPermissions()
+  getTypes()
+})
 
 </script>

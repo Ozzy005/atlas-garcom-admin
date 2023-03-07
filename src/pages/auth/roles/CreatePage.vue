@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-lg">
-      <HeaderDefault crud="Atribuições"
+      <HeaderDefault crud="Atribuições/Módulos"
         model="roles" />
       <div class="q-mt-md">
         <q-form @submit="submit">
@@ -25,6 +25,7 @@ const router = useRouter()
 const form = ref({
   name: null,
   description: null,
+  type: null,
   permission_ids: []
 })
 
