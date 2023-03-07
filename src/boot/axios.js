@@ -28,6 +28,15 @@ const api = async (config) => {
         const property = Object.keys(errors)[0]
         throw errors[property][0]
       }
+      if (response.status === 401) {
+        const authStorage = JSON.parse(localStorage.getItem('auth'))
+        authStorage.isAuthenticated = false
+        authStorage.user = null
+        localStorage.clear()
+        localStorage.setItem('auth', JSON.stringify(authStorage))
+        window.location.href = `${window.location.origin}/login`
+        return
+      }
       throw response.data.message
     }
     throw error.message
