@@ -132,6 +132,7 @@ onMounted(async () => {
     // Agrupador Cadastros
     checkPermission([
       'tenants_view',
+      'due-days_view',
       'payment-methods_view',
       'measurement-units_view',
       'ncms_view',
@@ -143,6 +144,7 @@ onMounted(async () => {
           icon: 'mdi-folder-edit',
           expanded: checkExpanded('registrations', [
             'tenants', 'tenants-create', 'tenants-edit', 'tenants-view',
+            'due-days', 'due-days-create', 'due-days-edit', 'due-days-view',
             'payment-methods', 'payment-methods-create', 'payment-methods-edit', 'payment-methods-view',
             'measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-view',
             'ncms', 'ncms-view',
@@ -169,6 +171,28 @@ onMounted(async () => {
                 } : null
               ]
             } : null,
+            // Agrupador Operacional
+            checkPermission([
+              'due-days_view'
+            ]) ? {
+                  label: 'Operacional',
+                  name: 'operational',
+                  icon: 'mdi-sitemap',
+                  expanded: checkExpanded('operational', [
+                    'due-days', 'due-days-create', 'due-days-edit', 'due-days-view'
+                  ]),
+                  selectable: false,
+                  children: [
+                    // Dias de Vencimento
+                    checkPermission(['due-days_view']) ? {
+                      label: 'Dias de<br>Vencimento',
+                      name: 'due-days',
+                      selected: checkSelected('due-days', ['due-days', 'due-days-create', 'due-days-edit', 'due-days-view']),
+                      icon: 'mdi-calendar-multiselect',
+                      handler: nodeClick
+                    } : null
+                  ]
+                } : null,
             // Agrupador Geral
             checkPermission([
               'payment-methods_view',

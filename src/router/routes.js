@@ -65,6 +65,26 @@ const routes = [
         component: () => import('src/pages/auth/tenants/EditPage.vue')
       },
       {
+        path: 'due-days',
+        name: 'due-days',
+        component: () => import('src/pages/auth/due-days/ListPage.vue')
+      },
+      {
+        path: 'due-days/create',
+        name: 'due-days-create',
+        component: () => import('src/pages/auth/due-days/CreatePage.vue')
+      },
+      {
+        path: 'due-days/:id',
+        name: 'due-days-view',
+        component: () => import('src/pages/auth/due-days/ViewPage.vue')
+      },
+      {
+        path: 'due-days/:id/edit',
+        name: 'due-days-edit',
+        component: () => import('src/pages/auth/due-days/EditPage.vue')
+      },
+      {
         path: 'payment-methods',
         name: 'payment-methods',
         component: () => import('src/pages/auth/payment-methods/ListPage.vue')
