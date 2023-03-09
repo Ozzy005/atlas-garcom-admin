@@ -6,21 +6,21 @@
       <q-btn v-if="showDestroy"
         style="min-width: 150px;"
         label="Excluir"
-        color="negative"
+        color="primary"
         no-caps
         :disable="!items.length"
         @click="destroy" />
       <q-btn v-if="showEdit"
         style="min-width: 150px;"
         label="Editar"
-        color="accent"
+        color="primary"
         no-caps
         :disable="!(items.length === 1)"
         @click="edit" />
       <q-btn v-if="showView"
         style="min-width: 150px;"
         label="Visualizar"
-        color="secondary"
+        color="primary"
         no-caps
         :disable="!(items.length === 1)"
         @click="view" />

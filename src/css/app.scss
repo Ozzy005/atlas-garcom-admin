@@ -54,7 +54,14 @@ $value in $sizes {
 ** q-gap-x-{xs,sm,md,lg,xl} e q-gap-y-{xs,sm,md,lg,xl}
 */
 
-.q-table tr {
+.q-table tr,
+.q-table__card {
   cursor: pointer;
   user-select: none;
+}
+
+.q-table__middle,
+.q-table__grid-content {
+  padding: 4px 16px;
+  margin: 0px !important;
 }

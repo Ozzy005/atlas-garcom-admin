@@ -132,6 +132,7 @@ onMounted(async () => {
     // Agrupador Cadastros
     checkPermission([
       'tenants_view',
+      'signatures_view',
       'due-days_view',
       'payment-methods_view',
       'measurement-units_view',
@@ -144,6 +145,7 @@ onMounted(async () => {
           icon: 'mdi-folder-edit',
           expanded: checkExpanded('registrations', [
             'tenants', 'tenants-create', 'tenants-edit', 'tenants-view',
+            'signatures', 'signatures-create', 'signatures-edit', 'signatures-view',
             'due-days', 'due-days-create', 'due-days-edit', 'due-days-view',
             'payment-methods', 'payment-methods-create', 'payment-methods-edit', 'payment-methods-view',
             'measurement-units', 'measurement-units-create', 'measurement-units-edit', 'measurement-units-view',
@@ -173,16 +175,26 @@ onMounted(async () => {
             } : null,
             // Agrupador Operacional
             checkPermission([
+              'signatures_view',
               'due-days_view'
             ]) ? {
                   label: 'Operacional',
                   name: 'operational',
                   icon: 'mdi-sitemap',
                   expanded: checkExpanded('operational', [
+                    'signatures', 'signatures-create', 'signatures-edit', 'signatures-view',
                     'due-days', 'due-days-create', 'due-days-edit', 'due-days-view'
                   ]),
                   selectable: false,
                   children: [
+                    // Assinaturas
+                    checkPermission(['signatures_view']) ? {
+                      label: 'Assinaturas',
+                      name: 'signatures',
+                      selected: checkSelected('signatures', ['signatures', 'signatures-create', 'signatures-edit', 'signatures-view']),
+                      icon: 'mdi-file-document',
+                      handler: nodeClick
+                    } : null,
                     // Dias de Vencimento
                     checkPermission(['due-days_view']) ? {
                       label: 'Dias de<br>Vencimento',

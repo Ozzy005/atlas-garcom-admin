@@ -2,7 +2,7 @@ import { date } from 'quasar'
 
 const helpers = class {
   static floatToMoney (float) {
-    return parseFloat(float).toLocaleString('pt-BR', { minimumFractionDigits: 2 })
+    return parseFloat(float).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
   }
 
   static moneyToFloat (str) {

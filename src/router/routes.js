@@ -65,6 +65,26 @@ const routes = [
         component: () => import('src/pages/auth/tenants/EditPage.vue')
       },
       {
+        path: 'signatures',
+        name: 'signatures',
+        component: () => import('src/pages/auth/signatures/ListPage.vue')
+      },
+      {
+        path: 'signatures/create',
+        name: 'signatures-create',
+        component: () => import('src/pages/auth/signatures/CreatePage.vue')
+      },
+      {
+        path: 'signatures/:id',
+        name: 'signatures-view',
+        component: () => import('src/pages/auth/signatures/ViewPage.vue')
+      },
+      {
+        path: 'signatures/:id/edit',
+        name: 'signatures-edit',
+        component: () => import('src/pages/auth/signatures/EditPage.vue')
+      },
+      {
         path: 'due-days',
         name: 'due-days',
         component: () => import('src/pages/auth/due-days/ListPage.vue')
