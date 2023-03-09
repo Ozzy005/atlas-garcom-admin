@@ -45,6 +45,7 @@ const route = useRoute()
 const form = ref({
   name: null,
   description: null,
+  type: null,
   created_at: null,
   updated_at: null
 })

@@ -71,6 +71,14 @@
           :value="form.complement" />
       </div>
 
+      <FieldView class="col-12"
+        field="Atribuições:">
+        <q-chip v-for="(item, index) in roles"
+          :key="index">
+          {{ item }}
+        </q-chip>
+      </FieldView>
+
       <div class="col-12 row q-gap-md">
         <FieldView class="col-md-grow col-xs-12"
           field="Dt. Criação:"
@@ -89,14 +97,37 @@
 import notify from 'src/composables/notify'
 import helpers from 'src/utils/helpers'
 import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
 import FieldView from 'src/components/crud/FieldView.vue'
 
 const route = useRoute()
-const form = ref({})
+const form = ref({
+  nif: null,
+  full_name: null,
+  name: null,
+  state_registration: null,
+  city_registration: null,
+  birthdate: null,
+  status: null,
+  email: null,
+  phone: null,
+  city_id: null,
+  zip_code: null,
+  address: null,
+  district: null,
+  number: null,
+  complement: null,
+  roles: [],
+  created_at: null,
+  updated_at: null
+})
 const statusOptions = ref([])
+
+const roles = computed(() => {
+  return form.value.roles.map(item => item.description)
+})
 
 const getItem = async () => {
   try {

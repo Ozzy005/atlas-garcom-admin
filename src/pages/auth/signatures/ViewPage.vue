@@ -86,6 +86,7 @@ const form = ref({
   description: null,
   recurrence: null,
   price: null,
+  hasDiscount: false,
   discount: null,
   discounted_price: null,
   total_price: null,

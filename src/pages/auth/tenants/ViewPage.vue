@@ -95,7 +95,25 @@ import ViewDefault from 'src/components/crud/ViewDefault.vue'
 import FieldView from 'src/components/crud/FieldView.vue'
 
 const route = useRoute()
-const form = ref({})
+const form = ref({
+  nif: null,
+  full_name: null,
+  name: null,
+  state_registration: null,
+  city_registration: null,
+  birthdate: null,
+  status: null,
+  email: null,
+  phone: null,
+  city_id: null,
+  zip_code: null,
+  address: null,
+  district: null,
+  number: null,
+  complement: null,
+  created_at: null,
+  updated_at: null
+})
 const statusOptions = ref([])
 
 const getItem = async () => {
