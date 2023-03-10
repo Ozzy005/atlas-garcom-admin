@@ -1,7 +1,9 @@
 <template>
   <q-page padding>
-    <div class="text-h6"
-      v-if="!!auth.user">
+    <div
+      class="text-h6"
+      v-if="!!auth.user"
+    >
       Seja bem vindo {{ auth.user.name }} !
     </div>
   </q-page>

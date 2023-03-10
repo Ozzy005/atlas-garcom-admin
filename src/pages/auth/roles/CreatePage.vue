@@ -1,8 +1,10 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-lg">
-      <HeaderDefault crud="Atribuições/Módulos"
-        model="roles" />
+      <HeaderDefault
+        crud="Atribuições/Módulos"
+        model="roles"
+      />
       <div class="q-mt-md">
         <q-form @submit="submit">
           <FormPage v-model="form" />

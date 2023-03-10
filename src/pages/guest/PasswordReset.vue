@@ -1,6 +1,8 @@
 <template>
-  <q-page padding
-    class="flex flex-center">
+  <q-page
+    padding
+    class="flex flex-center"
+  >
 
     <q-card style="width: 500px;">
       <q-card-section>
@@ -9,7 +11,8 @@
       <q-card-section>
         <q-form @submit="submit">
 
-          <q-input :type="isPwd ? 'password' : 'text'"
+          <q-input
+            :type="isPwd ? 'password' : 'text'"
             label="Nova senha"
             clearable
             maxlength="100"
@@ -18,15 +21,19 @@
             :rules="[
               val => !!val || 'Nova senha é obrigatória!',
               val => val.length >= 8 || 'Minímo 8 caracteres!',
-            ]">
+            ]"
+          >
             <template #append>
-              <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
                 class="cursor-pointer"
-                @click="isPwd = !isPwd" />
+                @click="isPwd = !isPwd"
+              />
             </template>
           </q-input>
 
-          <q-input :type="isPwdConfirm ? 'password' : 'text'"
+          <q-input
+            :type="isPwdConfirm ? 'password' : 'text'"
             class="col-md-grow col-xs-12"
             label="Confirmação da senha"
             clearable
@@ -37,20 +44,25 @@
               val => !!val || 'Confirmação da nova senha é obrigatória!',
               val => val.length >= 8 || 'Minímo 8 caracteres!',
               val => val === form.password || 'A senha não corresponde!'
-            ]">
+            ]"
+          >
             <template #append>
-              <q-icon :name="isPwdConfirm ? 'visibility_off' : 'visibility'"
+              <q-icon
+                :name="isPwdConfirm ? 'visibility_off' : 'visibility'"
                 class="cursor-pointer"
-                @click="isPwdConfirm = !isPwdConfirm" />
+                @click="isPwdConfirm = !isPwdConfirm"
+              />
             </template>
           </q-input>
 
           <q-card-actions align="right">
-            <q-btn type="submit"
+            <q-btn
+              type="submit"
               style="min-width: 150px;"
               label="Confirmar"
               color="primary"
-              no-caps />
+              no-caps
+            />
           </q-card-actions>
 
         </q-form>

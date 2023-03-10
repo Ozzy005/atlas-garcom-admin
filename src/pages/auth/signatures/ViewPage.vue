@@ -1,70 +1,100 @@
 <template>
   <q-page padding>
-    <ViewDefault crud="Assinaturas"
-      model="signatures">
+    <ViewDefault
+      crud="Assinaturas"
+      model="signatures"
+    >
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Nome:"
-          :value="form.name" />
+          :value="form.name"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Descrição:"
-          :value="form.description" />
+          :value="form.description"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Status:"
-          :value="formatStatus(form.status)" />
+          :value="formatStatus(form.status)"
+        />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Recorrência:"
-          :value="formatRecurrence(form.recurrence)" />
+          :value="formatRecurrence(form.recurrence)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Preço (R$):"
-          :value="helpers.floatToMoney(form.price)" />
+          :value="helpers.floatToMoney(form.price)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Desconto (%):"
-          :value="helpers.floatToMoney(form.discount)" />
+          :value="helpers.floatToMoney(form.discount)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Preço C/ Desconto (R$):"
-          :value="helpers.floatToMoney(form.discounted_price)" />
+          :value="helpers.floatToMoney(form.discounted_price)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Preço Total (R$):"
-          :value="helpers.floatToMoney(form.total_price)" />
+          :value="helpers.floatToMoney(form.total_price)"
+        />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
-          field="Dias de Vencimento:">
-          <q-chip v-for="(item, index) in dueDays"
-            :key="index">
+        <FieldView
+          class="col-md-grow col-xs-12"
+          field="Dias de Vencimento:"
+        >
+          <q-chip
+            v-for="(item, index) in dueDays"
+            :key="index"
+          >
             {{ item }}
           </q-chip>
         </FieldView>
 
-        <FieldView class="col-md-grow col-xs-12"
-          field="Módulos:">
-          <q-chip v-for="(item, index) in modules"
-            :key="index">
+        <FieldView
+          class="col-md-grow col-xs-12"
+          field="Módulos:"
+        >
+          <q-chip
+            v-for="(item, index) in modules"
+            :key="index"
+          >
             {{ item }}
           </q-chip>
         </FieldView>
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Criação:"
-          :value="helpers.brDateTime(form.created_at)" />
+          :value="helpers.brDateTime(form.created_at)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Edição"
-          :value="helpers.brDateTime(form.updated_at)" />
+          :value="helpers.brDateTime(form.updated_at)"
+        />
       </div>
     </ViewDefault>
   </q-page>

@@ -1,30 +1,42 @@
 <template>
   <q-page padding>
-    <ViewDefault crud="Unidades de Medida"
-      model="measurement-units">
+    <ViewDefault
+      crud="Unidades de Medida"
+      model="measurement-units"
+    >
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Nome:"
-          :value="form.name" />
+          :value="form.name"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Iniciais:"
-          :value="form.initials" />
+          :value="form.initials"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Status:"
-          :value="formatStatus(form.status)" />
+          :value="formatStatus(form.status)"
+        />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Criação:"
-          :value="helpers.brDateTime(form.created_at)" />
+          :value="helpers.brDateTime(form.created_at)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Edição"
-          :value="helpers.brDateTime(form.updated_at)" />
+          :value="helpers.brDateTime(form.updated_at)"
+        />
       </div>
     </ViewDefault>
   </q-page>

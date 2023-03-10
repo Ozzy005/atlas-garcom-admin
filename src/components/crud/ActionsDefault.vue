@@ -1,31 +1,39 @@
 <template>
-  <q-btn-dropdown color="primary"
+  <q-btn-dropdown
+    color="primary"
     dropdown-icon="menu"
     size="lg"
     no-icon-animation
     dense
-    flat>
+    flat
+  >
     <q-list>
-      <q-item v-if="showView"
+      <q-item
+        v-if="showView"
         clickable
         v-close-popup
-        @click="view(item)">
+        @click="view(item)"
+      >
         <q-item-section>
           <q-item-label>Visualizar</q-item-label>
         </q-item-section>
       </q-item>
-      <q-item v-if="showEdit"
+      <q-item
+        v-if="showEdit"
         clickable
         v-close-popup
-        @click="edit(item)">
+        @click="edit(item)"
+      >
         <q-item-section>
           <q-item-label>Editar</q-item-label>
         </q-item-section>
       </q-item>
-      <q-item v-if="showDestroy"
+      <q-item
+        v-if="showDestroy"
         clickable
         v-close-popup
-        @click="destroy(item)">
+        @click="destroy(item)"
+      >
         <q-item-section>
           <q-item-label>Excluir</q-item-label>
         </q-item-section>

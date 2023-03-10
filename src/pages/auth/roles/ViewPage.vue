@@ -1,30 +1,42 @@
 <template>
   <q-page padding>
-    <ViewDefault crud="Atribuições/Módulos"
-      model="roles">
+    <ViewDefault
+      crud="Atribuições/Módulos"
+      model="roles"
+    >
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Nome:"
-          :value="form.name" />
+          :value="form.name"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Descrição:"
-          :value="form.description" />
+          :value="form.description"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Tipo:"
-          :value="formatType(form.type)" />
+          :value="formatType(form.type)"
+        />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Criação:"
-          :value="helpers.brDateTime(form.created_at)" />
+          :value="helpers.brDateTime(form.created_at)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Edição"
-          :value="helpers.brDateTime(form.updated_at)" />
+          :value="helpers.brDateTime(form.updated_at)"
+        />
       </div>
 
     </ViewDefault>

@@ -1,8 +1,10 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <HeaderDefault crud="Métodos de Pagamento"
-        model="payment-methods" />
+      <HeaderDefault
+        crud="Métodos de Pagamento"
+        model="payment-methods"
+      />
       <div class="q-mt-lg">
         <q-form @submit="submit">
           <FormPage v-model="form" />

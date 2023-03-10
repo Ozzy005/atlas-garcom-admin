@@ -1,8 +1,10 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <HeaderDefault crud="Dias de Vencimento"
-        model="due-days" />
+      <HeaderDefault
+        crud="Dias de Vencimento"
+        model="due-days"
+      />
       <div class="q-mt-lg">
         <q-form @submit="submit">
           <FormPage v-model="form" />

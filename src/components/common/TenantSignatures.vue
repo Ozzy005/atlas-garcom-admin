@@ -1,31 +1,41 @@
 <template>
   <div class="row q-gap-md">
 
-    <q-card class="cursor-pointer"
+    <q-card
+      class="cursor-pointer"
       :class="signature.id === signatureId ? 'bg-grey-5' : 'bg-grey-4'"
       style="width: 300px; min-height: 400px; user-select: none;"
       @click="() => { signatureId = signature.id, dueDays = signature.due_days, dueDayId = null }"
       v-for="(signature) in signatures"
-      :key="signature.id">
+      :key="signature.id"
+    >
 
-      <q-card-section class="flex flex-center text-h5"
-        style="position: relative;">
+      <q-card-section
+        class="flex flex-center text-h5"
+        style="position: relative;"
+      >
         <span>{{ signature.name }}</span>
-        <q-icon class="q-mr-md"
+        <q-icon
+          class="q-mr-md"
           style="position: absolute; right: 0;"
           name="mdi-check-decagram"
           color="green"
           size="md"
-          v-if="signature.id === signatureId" />
+          v-if="signature.id === signatureId"
+        />
       </q-card-section>
 
       <q-separator />
 
-      <q-card-section class="column flex-center text-subtitle1"
-        style="height: 82px;">
-        <span class="text-subtitle2 text-red"
+      <q-card-section
+        class="column flex-center text-subtitle1"
+        style="height: 82px;"
+      >
+        <span
+          class="text-subtitle2 text-red"
           style="text-decoration: line-through;"
-          v-if="signature.hasDiscount">
+          v-if="signature.hasDiscount"
+        >
           R$ {{ helpers.floatToMoney(signature.price * signature.recurrence) }} / {{
             formatRecurrence(signature.recurrence) }}
         </span>
@@ -37,13 +47,17 @@
       <q-separator />
 
       <q-card-section>
-        <div class="row justify-between items-center no-wrap"
+        <div
+          class="row justify-between items-center no-wrap"
           v-for="(module, index) in modules"
-          :key="index">
+          :key="index"
+        >
           <span>{{ module.description }}</span>
-          <q-icon :name="signature.modules.includes(module.id) ? 'check' : 'close'"
+          <q-icon
+            :name="signature.modules.includes(module.id) ? 'check' : 'close'"
             :color="signature.modules.includes(module.id) ? 'green' : 'red'"
-            size="md" />
+            size="md"
+          />
         </div>
       </q-card-section>
 

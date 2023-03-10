@@ -1,25 +1,30 @@
 <template>
   <div class="row q-gap-x-md q-gap-y-sm">
 
-    <q-input v-model="form.name"
+    <q-input
+      v-model="form.name"
       class="col-md-grow col-xs-12"
       label="Nome"
       outlined
       clearable
       maxlength="30"
       lazy-rules="ondemand"
-      :rules="[val => !!val || 'Nome é obrigatório!']" />
+      :rules="[val => !!val || 'Nome é obrigatório!']"
+    />
 
-    <q-input v-model="form.initials"
+    <q-input
+      v-model="form.initials"
       class="col-md-grow col-xs-12"
       label="Iniciais"
       outlined
       clearable
       maxlength="10"
       lazy-rules="ondemand"
-      :rules="[val => !!val || 'Iniciais é obrigatória!']" />
+      :rules="[val => !!val || 'Iniciais é obrigatória!']"
+    />
 
-    <q-select v-model="form.status"
+    <q-select
+      v-model="form.status"
       class="col-md-grow col-xs-12"
       :options="statusOptions"
       label="Status"
@@ -30,15 +35,18 @@
       map-options
       clearable
       lazy-rules="ondemand"
-      :rules="[val => !!val || 'Status é obrigatório!']" />
+      :rules="[val => !!val || 'Status é obrigatório!']"
+    />
 
     <div class="col-12">
-      <q-btn type="submit"
+      <q-btn
+        type="submit"
         class="float-right"
         style="min-width: 150px;"
         label="Salvar"
         color="secondary"
-        no-caps />
+        no-caps
+      />
     </div>
 
   </div>

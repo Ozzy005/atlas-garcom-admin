@@ -1,6 +1,8 @@
 <template>
-  <q-page padding
-    class="flex flex-center">
+  <q-page
+    padding
+    class="flex flex-center"
+  >
 
     <q-card style="width: 500px;">
       <q-card-section>
@@ -9,15 +11,18 @@
       <q-card-section>
         <q-form @submit="submit">
 
-          <q-input type="email"
+          <q-input
+            type="email"
             label="Email"
             clearable
             maxlength="100"
             lazy-rules="ondemand"
             v-model="form.email"
-            :rules="[val => !!val || 'Email é obrigatório!']" />
+            :rules="[val => !!val || 'Email é obrigatório!']"
+          />
 
-          <q-input :type="isPwd ? 'password' : 'text'"
+          <q-input
+            :type="isPwd ? 'password' : 'text'"
             label="Senha"
             clearable
             maxlength="100"
@@ -26,28 +31,37 @@
             :rules="[
               val => !!val || 'Senha é obrigatória!',
               val => val.length >= 8 || 'Minímo 8 caracteres!',
-            ]">
+            ]"
+          >
             <template #append>
-              <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
                 class="cursor-pointer"
-                @click="isPwd = !isPwd" />
+                @click="isPwd = !isPwd"
+              />
             </template>
           </q-input>
 
-          <q-checkbox v-model="auth.rememberMe"
-            label="Lembrar-me" />
+          <q-checkbox
+            v-model="auth.rememberMe"
+            label="Lembrar-me"
+          />
 
           <q-card-actions align="right">
-            <q-btn style="min-width: 150px;"
+            <q-btn
+              style="min-width: 150px;"
               label="Esqueceu sua senha?"
               no-caps
               flat
-              :to="{ name: 'forgot-password' }" />
-            <q-btn type="submit"
+              :to="{ name: 'forgot-password' }"
+            />
+            <q-btn
+              type="submit"
               style="min-width: 150px;"
               label="Entrar"
               color="primary"
-              no-caps />
+              no-caps
+            />
           </q-card-actions>
 
         </q-form>

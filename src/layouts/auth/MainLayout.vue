@@ -2,38 +2,48 @@
   <q-layout view="hHh Lpr lff">
     <q-header elevated>
       <q-toolbar>
-        <q-btn flat
+        <q-btn
+          flat
           dense
           round
           icon="menu"
           aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen" />
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
 
         <q-toolbar-title>
           Atlas Garçom
         </q-toolbar-title>
 
-        <q-btn-dropdown flat
+        <q-btn-dropdown
+          flat
           color="white"
-          icon="person">
+          icon="person"
+        >
           <q-list>
-            <q-item clickable
+            <q-item
+              clickable
               v-close-popup
-              @click="router.push({ name: 'profile' })">
+              @click="router.push({ name: 'profile' })"
+            >
               <q-item-section>
                 <q-item-label>Perfil</q-item-label>
               </q-item-section>
             </q-item>
-            <q-item clickable
+            <q-item
+              clickable
               v-close-popup
-              @click="router.push({ name: 'change-password' })">
+              @click="router.push({ name: 'change-password' })"
+            >
               <q-item-section>
                 <q-item-label>Editar senha</q-item-label>
               </q-item-section>
             </q-item>
-            <q-item clickable
+            <q-item
+              clickable
               v-close-popup
-              @click="logout">
+              @click="logout"
+            >
               <q-item-section>
                 <q-item-label>Sair</q-item-label>
               </q-item-section>

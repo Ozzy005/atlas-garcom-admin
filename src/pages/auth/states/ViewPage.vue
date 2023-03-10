@@ -1,14 +1,20 @@
 <template>
   <q-page padding>
-    <ViewDefault crud="Estados"
-      model="states">
-      <FieldView class="col-md-grow col-xs-12"
+    <ViewDefault
+      crud="Estados"
+      model="states"
+    >
+      <FieldView
+        class="col-md-grow col-xs-12"
         field="Nome:"
-        :value="form.title" />
+        :value="form.title"
+      />
 
-      <FieldView class="col-md-grow col-xs-12"
+      <FieldView
+        class="col-md-grow col-xs-12"
         field="Sigla:"
-        :value="form.letter" />
+        :value="form.letter"
+      />
     </ViewDefault>
   </q-page>
 </template>

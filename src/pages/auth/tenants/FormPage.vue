@@ -1,18 +1,23 @@
 <template>
-  <q-stepper v-model="step"
+  <q-stepper
+    v-model="step"
     vertical
     color="primary"
     animated
     flat
-    bordered>
-    <q-step :name="1"
+    bordered
+  >
+    <q-step
+      :name="1"
       title="Dados do Contratante"
       icon="mdi-account-tie"
-      :done="step > 1">
+      :done="step > 1"
+    >
 
       <div class="row q-gap-sm">
         <div class="col-12 row q-gap-x-md q-gap-y-sm">
-          <q-input v-model="nif"
+          <q-input
+            v-model="nif"
             class="col-md-grow col-xs-12"
             label="CPF/CNPJ"
             outlined
@@ -25,44 +30,54 @@
             :rules="[
               val => !!val || 'CPF/CNPJ é obrigatório!',
               val => helpers.cpfCnpj(val) || 'CPF/CNPJ é inválido!'
-            ]" />
+            ]"
+          />
 
-          <q-input v-model="form.full_name"
+          <q-input
+            v-model="form.full_name"
             class="col-md-grow col-xs-12"
             label="Nome Completo/Razão Social"
             outlined
             clearable
             maxlength="100"
             lazy-rules="ondemand"
-            :rules="[val => !!val || 'Nome Completo/Razão Social é obrigatório!']" />
+            :rules="[val => !!val || 'Nome Completo/Razão Social é obrigatório!']"
+          />
 
-          <q-input v-model="form.name"
+          <q-input
+            v-model="form.name"
             class="col-md-grow col-xs-12"
             label="Nome Social/Nome Fantasia"
             outlined
             clearable
             maxlength="50"
-            :rules="[val => true]" />
+            :rules="[val => true]"
+          />
         </div>
 
         <div class="col-12 row q-gap-x-md q-gap-y-sm">
-          <q-input v-model="form.state_registration"
+          <q-input
+            v-model="form.state_registration"
             class="col-md-grow col-xs-12"
             label="Inscrição Estadual"
             outlined
             clearable
             maxlength="15"
-            :rules="[val => true]" />
+            :rules="[val => true]"
+          />
 
-          <q-input v-model="form.city_registration"
+          <q-input
+            v-model="form.city_registration"
             class="col-md-grow col-xs-12"
             label="Inscrição Municipal"
             outlined
             clearable
             maxlength="12"
-            :rules="[val => true]" />
+            :rules="[val => true]"
+          />
 
-          <q-input v-model="form.birthdate"
+          <q-input
+            v-model="form.birthdate"
             type="date"
             class="col-md-grow col-xs-12"
             label="Dt. Nasc./Abertura"
@@ -70,9 +85,11 @@
             clearable
             stack-label
             lazy-rules="ondemand"
-            :rules="[val => !!val || 'Dt. Nasc./Abertura é obrigatório!']" />
+            :rules="[val => !!val || 'Dt. Nasc./Abertura é obrigatório!']"
+          />
 
-          <q-select v-model="form.status"
+          <q-select
+            v-model="form.status"
             class="col-md-grow col-xs-12"
             :options="statusOptions"
             label="Status"
@@ -83,11 +100,13 @@
             map-options
             clearable
             lazy-rules="ondemand"
-            :rules="[val => !!val || 'Status é obrigatório!']" />
+            :rules="[val => !!val || 'Status é obrigatório!']"
+          />
         </div>
 
         <div class="col-12 row q-gap-x-md q-gap-y-sm">
-          <q-input v-model="form.email"
+          <q-input
+            v-model="form.email"
             type="email"
             class="col-md-grow col-xs-12"
             label="Email"
@@ -95,9 +114,11 @@
             clearable
             maxlength="100"
             lazy-rules="ondemand"
-            :rules="[val => !!val || 'Email é obrigatório!']" />
+            :rules="[val => !!val || 'Email é obrigatório!']"
+          />
 
-          <q-input v-model="form.phone"
+          <q-input
+            v-model="form.phone"
             class="col-md-grow col-xs-12"
             label="Telefone"
             outlined
@@ -105,14 +126,18 @@
             mask="(##) # ####-####"
             unmasked-value
             lazy-rules="ondemand"
-            :rules="[val => !!val || 'Telefone é obrigatório!']" />
+            :rules="[val => !!val || 'Telefone é obrigatório!']"
+          />
 
-          <SelectCity v-model="form.city_id"
-            :options-default="[{ id: form.city_id, info: form.city }]" />
+          <SelectCity
+            v-model="form.city_id"
+            :options-default="[{ id: form.city_id, info: form.city }]"
+          />
         </div>
 
         <div class="col-12 row q-gap-x-md q-gap-y-sm">
-          <q-input v-model="form.zip_code"
+          <q-input
+            v-model="form.zip_code"
             class="col-md-grow col-xs-12"
             label="CEP"
             outlined
@@ -120,64 +145,80 @@
             mask="#####-###"
             unmasked-value
             lazy-rules="ondemand"
-            :rules="[val => !!val || 'CEP é obrigatório!']" />
+            :rules="[val => !!val || 'CEP é obrigatório!']"
+          />
 
-          <q-input v-model="form.address"
+          <q-input
+            v-model="form.address"
             class="col-md-grow col-xs-12"
             label="Endereço"
             outlined
             clearable
             maxlength="60"
             lazy-rules="ondemand"
-            :rules="[val => !!val || 'Endereço é obrigatório!']" />
+            :rules="[val => !!val || 'Endereço é obrigatório!']"
+          />
 
-          <q-input v-model="form.district"
+          <q-input
+            v-model="form.district"
             class="col-md-grow col-xs-12"
             label="Bairro"
             outlined
             clearable
             maxlength="30"
-            :rules="[val => true]" />
+            :rules="[val => true]"
+          />
 
-          <q-input v-model="form.number"
+          <q-input
+            v-model="form.number"
             class="col-md-grow col-xs-12"
             label="N°"
             outlined
             clearable
             maxlength="10"
-            :rules="[val => true]" />
+            :rules="[val => true]"
+          />
 
-          <q-input v-model="form.complement"
+          <q-input
+            v-model="form.complement"
             class="col-md-grow col-xs-12"
             label="Complemento"
             outlined
             clearable
             maxlength="30"
-            :rules="[val => true]" />
+            :rules="[val => true]"
+          />
         </div>
       </div>
 
       <q-stepper-navigation class="flex q-gap-md">
-        <q-btn style="min-width: 150px;"
+        <q-btn
+          style="min-width: 150px;"
           label="Continuar"
           color="primary"
           no-caps
-          @click="() => formRef.validate().then((success) => validate(success, 2))" />
+          @click="() => formRef.validate().then((success) => validate(success, 2))"
+        />
       </q-stepper-navigation>
     </q-step>
 
-    <q-step :name="2"
+    <q-step
+      :name="2"
       title="Escolha da Assinatura"
       icon="mdi-file-document"
-      :done="step > 2">
+      :done="step > 2"
+    >
 
       <div class="row q-gap-lg">
-        <TenantSginatures class="col-12"
+        <TenantSginatures
+          class="col-12"
           v-model:signature-id-model="form.signature_id"
           v-model:due-days-model="dueDays"
-          v-model:due-day-id-model="form.due_day_id" />
+          v-model:due-day-id-model="form.due_day_id"
+        />
 
-        <q-select v-model="form.due_day_id"
+        <q-select
+          v-model="form.due_day_id"
           class="col-2"
           :options="dueDays"
           label="Dia de Vencimento"
@@ -188,40 +229,51 @@
           map-options
           clearable
           lazy-rules="ondemand"
-          :rules="[val => !!val || 'Dia de Vencimento é obrigatório!']" />
+          :rules="[val => !!val || 'Dia de Vencimento é obrigatório!']"
+        />
       </div>
 
       <q-stepper-navigation class="flex q-gap-md">
-        <q-btn style="min-width: 150px;"
+        <q-btn
+          style="min-width: 150px;"
           label="Continuar"
           color="primary"
           no-caps
-          @click="() => formRef.validate().then((success) => validate(success, 3))" />
-        <q-btn style="min-width: 150px;"
+          @click="() => formRef.validate().then((success) => validate(success, 3))"
+        />
+        <q-btn
+          style="min-width: 150px;"
           label="Voltar"
           color="primary"
           outline
           no-caps
-          @click="step = 1" />
+          @click="step = 1"
+        />
       </q-stepper-navigation>
     </q-step>
 
-    <q-step :name="3"
+    <q-step
+      :name="3"
       title="Confirmar Assinatura"
-      icon="mdi-check-bold">
+      icon="mdi-check-bold"
+    >
 
       <q-stepper-navigation class="flex q-gap-md">
-        <q-btn type="submit"
+        <q-btn
+          type="submit"
           style="min-width: 150px;"
           label="Salvar"
           color="primary"
-          no-caps />
-        <q-btn style="min-width: 150px;"
+          no-caps
+        />
+        <q-btn
+          style="min-width: 150px;"
           label="Voltar"
           color="primary"
           outline
           no-caps
-          @click="step = 2" />
+          @click="step = 2"
+        />
       </q-stepper-navigation>
     </q-step>
   </q-stepper>

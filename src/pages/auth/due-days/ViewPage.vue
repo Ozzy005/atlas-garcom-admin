@@ -1,30 +1,42 @@
 <template>
   <q-page padding>
-    <ViewDefault crud="Dias de Vencimento"
-      model="due-days">
+    <ViewDefault
+      crud="Dias de Vencimento"
+      model="due-days"
+    >
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dia:"
-          :value="form.day" />
+          :value="form.day"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Descrição:"
-          :value="form.description" />
+          :value="form.description"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Status:"
-          :value="formatStatus(form.status)" />
+          :value="formatStatus(form.status)"
+        />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Criação:"
-          :value="helpers.brDateTime(form.created_at)" />
+          :value="helpers.brDateTime(form.created_at)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Edição"
-          :value="helpers.brDateTime(form.updated_at)" />
+          :value="helpers.brDateTime(form.updated_at)"
+        />
       </div>
     </ViewDefault>
   </q-page>

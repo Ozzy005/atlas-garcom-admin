@@ -1,20 +1,26 @@
 <template>
-  <q-drawer v-model="leftDrawerOpen"
+  <q-drawer
+    v-model="leftDrawerOpen"
     :breakpoint="1200"
     show-if-above
-    elevated>
+    elevated
+  >
     <div class="text-h6 text-center q-my-md">Menu</div>
-    <q-tree v-model:selected="selected"
+    <q-tree
+      v-model:selected="selected"
       :nodes="nodes"
       ref="tree"
       node-key="name"
       selected-color="secondary"
-      accordion>
+      accordion
+    >
       <template #default-header="props">
         <div class="row no-wrap items-center full-width">
-          <q-icon :name="props.node.icon"
+          <q-icon
+            :name="props.node.icon"
             class="q-mr-sm"
-            size="sm" />
+            size="sm"
+          />
           <div v-html="props.node.label" />
         </div>
       </template>

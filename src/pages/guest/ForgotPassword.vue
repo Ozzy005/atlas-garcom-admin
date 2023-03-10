@@ -1,6 +1,8 @@
 <template>
-  <q-page padding
-    class="flex flex-center">
+  <q-page
+    padding
+    class="flex flex-center"
+  >
 
     <q-card style="width: 500px;">
       <q-card-section>
@@ -9,26 +11,32 @@
       <q-card-section>
         <q-form @submit="submit">
 
-          <q-input type="email"
+          <q-input
+            type="email"
             label="Email"
             clearable
             maxlength="100"
             lazy-rules="ondemand"
             v-model="form.email"
-            :rules="[val => !!val || 'Email é obrigatório!']" />
+            :rules="[val => !!val || 'Email é obrigatório!']"
+          />
 
           <q-card-actions align="right">
-            <q-btn style="min-width: 150px;"
+            <q-btn
+              style="min-width: 150px;"
               label="Voltar"
               color="secondary"
               no-caps
-              :to="{ name: 'login' }" />
-            <q-btn :loading="loading"
+              :to="{ name: 'login' }"
+            />
+            <q-btn
+              :loading="loading"
               type="submit"
               style="min-width: 150px;"
               label="Confirmar"
               color="primary"
-              no-caps />
+              no-caps
+            />
           </q-card-actions>
 
         </q-form>

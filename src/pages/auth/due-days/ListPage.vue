@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
-    <q-table ref="tableRef"
+    <q-table
+      ref="tableRef"
       v-model:pagination="pagination"
       :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
       :rows="rows"
@@ -12,24 +13,29 @@
       binary-state-sort
       selection="multiple"
       v-model:selected="selected"
-      @row-click="rowClick">
+      @row-click="rowClick"
+    >
       <template #top>
         <div class="column q-gap-y-lg full-width">
-          <ActionsGroup v-model="rows"
+          <ActionsGroup
+            v-model="rows"
             crud="Dias de Vencimento"
             model="due-days"
             :items="selected"
             :show-create="auth.hasPermission('due-days_create')"
             :show-view="auth.hasPermission('due-days_view')"
             :show-edit="auth.hasPermission('due-days_edit')"
-            :show-destroy="auth.hasPermission('due-days_delete')" />
+            :show-destroy="auth.hasPermission('due-days_delete')"
+          />
           <div class="row">
-            <q-input class="col-md-4 col-xs-12"
+            <q-input
+              class="col-md-4 col-xs-12"
               v-model="filter"
               outlined
               dense
               debounce="300"
-              placeholder="Pesquisar por dia/descrição">
+              placeholder="Pesquisar por dia/descrição"
+            >
               <template #append>
                 <q-icon name="search" />
               </template>
@@ -39,8 +45,10 @@
       </template>
       <template #body-cell-status="props">
         <q-td :props="props">
-          <BadgeStatus :name="formatStatus(props.row.status)"
-            :color="getStatusColor(props.row.status)" />
+          <BadgeStatus
+            :name="formatStatus(props.row.status)"
+            :color="getStatusColor(props.row.status)"
+          />
         </q-td>
       </template>
     </q-table>

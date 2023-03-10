@@ -1,13 +1,19 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <HeaderDefault crud="Contratantes"
-        model="tenants" />
+      <HeaderDefault
+        crud="Contratantes"
+        model="tenants"
+      />
       <div class="q-mt-lg">
-        <q-form @submit="submit"
-          ref="formRef">
-          <FormPage v-model="form"
-            :form-ref="formRef" />
+        <q-form
+          @submit="submit"
+          ref="formRef"
+        >
+          <FormPage
+            v-model="form"
+            :form-ref="formRef"
+          />
         </q-form>
       </div>
     </q-card>

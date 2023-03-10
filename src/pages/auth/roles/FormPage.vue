@@ -2,25 +2,30 @@
   <div class="row q-gap-sm">
 
     <div class="col-12 row q-gap-x-md q-gap-y-sm">
-      <q-input v-model="form.name"
+      <q-input
+        v-model="form.name"
         class="col-md-grow col-xs-12"
         label="Nome"
         outlined
         clearable
         maxlength="125"
         lazy-rules="ondemand"
-        :rules="[val => !!val || 'Nome é obrigatório!']" />
+        :rules="[val => !!val || 'Nome é obrigatório!']"
+      />
 
-      <q-input v-model="form.description"
+      <q-input
+        v-model="form.description"
         class="col-md-grow col-xs-12"
         label="Descrição"
         outlined
         clearable
         maxlength="125"
         lazy-rules="ondemand"
-        :rules="[val => !!val || 'Descrição é obrigatória!']" />
+        :rules="[val => !!val || 'Descrição é obrigatória!']"
+      />
 
-      <q-select v-model="form.type"
+      <q-select
+        v-model="form.type"
         class="col-md-grow col-xs-12"
         :options="types"
         label="Tipo"
@@ -31,37 +36,46 @@
         map-options
         clearable
         lazy-rules="ondemand"
-        :rules="[val => !!val || 'Tipo é obrigatório!']" />
+        :rules="[val => !!val || 'Tipo é obrigatório!']"
+      />
     </div>
 
     <div class="col-12 column q-gap-md">
       <div class="row q-gap-sm">
-        <q-btn :label="expandedAll ? 'Recolher todos' : 'Expandir todos'"
+        <q-btn
+          :label="expandedAll ? 'Recolher todos' : 'Expandir todos'"
           size="md"
           color="primary"
           no-caps
-          @click="expand" />
-        <q-btn :label="tickedAll ? 'Desmarcar todos' : 'Marcar todos'"
+          @click="expand"
+        />
+        <q-btn
+          :label="tickedAll ? 'Desmarcar todos' : 'Marcar todos'"
           size="md"
           color="primary"
           no-caps
-          @click="collapse" />
+          @click="collapse"
+        />
       </div>
-      <q-tree ref="treeRef"
+      <q-tree
+        ref="treeRef"
         node-key="id"
         label-key="description"
         tick-strategy="leaf"
         :nodes="permissions"
-        v-model:ticked="form.permission_ids" />
+        v-model:ticked="form.permission_ids"
+      />
     </div>
 
     <div class="col-12">
-      <q-btn type="submit"
+      <q-btn
+        type="submit"
         class="float-right"
         style="min-width: 150px;"
         label="Salvar"
         color="secondary"
-        no-caps />
+        no-caps
+      />
     </div>
 
   </div>

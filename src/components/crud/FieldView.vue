@@ -1,13 +1,17 @@
 <template>
-  <q-card flat
-    bordered>
+  <q-card
+    flat
+    bordered
+  >
     <q-card-section>
       <span v-html="field" />
     </q-card-section>
     <q-separator />
     <q-card-section>
-      <span v-if="!slots.default"
-        v-html="value ?? 'Não informado'" />
+      <span
+        v-if="!slots.default"
+        v-html="value ?? 'Não informado'"
+      />
       <slot></slot>
     </q-card-section>
   </q-card>

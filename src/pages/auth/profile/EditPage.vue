@@ -1,8 +1,10 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <HeaderDefault crud="Editar Perfil"
-        model="dashboard" />
+      <HeaderDefault
+        crud="Editar Perfil"
+        model="dashboard"
+      />
       <div class="q-mt-lg">
         <q-form @submit="submit">
           <FormPage v-model="form" />

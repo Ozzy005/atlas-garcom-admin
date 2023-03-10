@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
-    <q-table ref="tableRef"
+    <q-table
+      ref="tableRef"
       v-model:pagination="pagination"
       :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
       :rows="rows"
@@ -12,24 +13,29 @@
       binary-state-sort
       selection="multiple"
       v-model:selected="selected"
-      @row-click="rowClick">
+      @row-click="rowClick"
+    >
       <template #top>
         <div class="column q-gap-y-lg full-width">
-          <ActionsGroup v-model="rows"
+          <ActionsGroup
+            v-model="rows"
             crud="Atribuições/Módulos"
             model="roles"
             :items="selected"
             :show-create="auth.hasPermission('roles_create')"
             :show-view="auth.hasPermission('roles_view')"
             :show-edit="auth.hasPermission('roles_edit')"
-            :show-destroy="auth.hasPermission('roles_delete')" />
+            :show-destroy="auth.hasPermission('roles_delete')"
+          />
           <div class="row">
-            <q-input class="col-md-4 col-xs-12"
+            <q-input
+              class="col-md-4 col-xs-12"
               v-model="filter"
               outlined
               dense
               debounce="300"
-              placeholder="Pesquisar por nome e descrição">
+              placeholder="Pesquisar por nome e descrição"
+            >
               <template #append>
                 <q-icon name="search" />
               </template>
@@ -39,8 +45,10 @@
       </template>
       <template #body-cell-type="props">
         <q-td :props="props">
-          <BadgeStatus :name="formatType(props.row.type)"
-            :color="getTypeColor(props.row.type)" />
+          <BadgeStatus
+            :name="formatType(props.row.type)"
+            :color="getTypeColor(props.row.type)"
+          />
         </q-td>
       </template>
     </q-table>

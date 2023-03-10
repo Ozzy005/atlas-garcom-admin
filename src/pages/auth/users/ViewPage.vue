@@ -1,92 +1,132 @@
 <template>
   <q-page padding>
-    <ViewDefault crud="Usuários"
-      model="users">
+    <ViewDefault
+      crud="Usuários"
+      model="users"
+    >
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="CPF/CNPJ"
-          :value="helpers.nifMask(form.nif)" />
+          :value="helpers.nifMask(form.nif)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Nome Completo/Razão Social:"
-          :value="form.full_name" />
+          :value="form.full_name"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Nome Social/Nome Fantasia:"
-          :value="form.name" />
+          :value="form.name"
+        />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Inscrição Estadual:"
-          :value="form.state_registration" />
+          :value="form.state_registration"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Inscrição Municipal:"
-          :value="form.city_registration" />
+          :value="form.city_registration"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt Nasc./Abertura:"
-          :value="helpers.brDate(form.birthdate)" />
+          :value="helpers.brDate(form.birthdate)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Status:"
-          :value="formatStatus(form.status)" />
+          :value="formatStatus(form.status)"
+        />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Email:"
-          :value="form.email" />
+          :value="form.email"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Telefone:"
-          :value="helpers.phoneMask(form.phone)" />
+          :value="helpers.phoneMask(form.phone)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Cidade:"
-          :value="form.city" />
+          :value="form.city"
+        />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="CEP:"
-          :value="helpers.zipCodeMask(form.zip_code)" />
+          :value="helpers.zipCodeMask(form.zip_code)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Endereço:"
-          :value="form.address" />
+          :value="form.address"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Bairro:"
-          :value="form.district" />
+          :value="form.district"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="N°:"
-          :value="form.number" />
+          :value="form.number"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Complemento:"
-          :value="form.complement" />
+          :value="form.complement"
+        />
       </div>
 
-      <FieldView class="col-12"
-        field="Atribuições:">
-        <q-chip v-for="(item, index) in roles"
-          :key="index">
+      <FieldView
+        class="col-12"
+        field="Atribuições:"
+      >
+        <q-chip
+          v-for="(item, index) in roles"
+          :key="index"
+        >
           {{ item }}
         </q-chip>
       </FieldView>
 
       <div class="col-12 row q-gap-md">
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Criação:"
-          :value="helpers.brDateTime(form.created_at)" />
+          :value="helpers.brDateTime(form.created_at)"
+        />
 
-        <FieldView class="col-md-grow col-xs-12"
+        <FieldView
+          class="col-md-grow col-xs-12"
           field="Dt. Edição"
-          :value="helpers.brDateTime(form.updated_at)" />
+          :value="helpers.brDateTime(form.updated_at)"
+        />
       </div>
 
     </ViewDefault>

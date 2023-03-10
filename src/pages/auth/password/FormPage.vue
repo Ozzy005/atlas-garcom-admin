@@ -1,7 +1,8 @@
 <template>
   <div class="row q-gap-y-sm">
 
-    <q-input :type="isCurrentPwd ? 'password' : 'text'"
+    <q-input
+      :type="isCurrentPwd ? 'password' : 'text'"
       class="col-12"
       label="Senha atual"
       outlined
@@ -12,15 +13,19 @@
       :rules="[
         val => !!val || 'Senha atual é obrigatória!',
         val => val.length >= 8 || 'Minímo 8 caracteres!'
-      ]">
+      ]"
+    >
       <template #append>
-        <q-icon :name="isCurrentPwd ? 'visibility_off' : 'visibility'"
+        <q-icon
+          :name="isCurrentPwd ? 'visibility_off' : 'visibility'"
           class="cursor-pointer"
-          @click="isCurrentPwd = !isCurrentPwd" />
+          @click="isCurrentPwd = !isCurrentPwd"
+        />
       </template>
     </q-input>
 
-    <q-input :type="isPwd ? 'password' : 'text'"
+    <q-input
+      :type="isPwd ? 'password' : 'text'"
       class="col-12"
       label="Nova senha"
       outlined
@@ -31,15 +36,19 @@
       :rules="[
         val => !!val || 'Nova senha é obrigatória!',
         val => val.length >= 8 || 'Minímo 8 caracteres!'
-      ]">
+      ]"
+    >
       <template #append>
-        <q-icon :name="isPwd ? 'visibility_off' : 'visibility'"
+        <q-icon
+          :name="isPwd ? 'visibility_off' : 'visibility'"
           class="cursor-pointer"
-          @click="isPwd = !isPwd" />
+          @click="isPwd = !isPwd"
+        />
       </template>
     </q-input>
 
-    <q-input :type="isPwdConfirm ? 'password' : 'text'"
+    <q-input
+      :type="isPwdConfirm ? 'password' : 'text'"
       class="col-12"
       label="Confirmação da nova senha"
       outlined
@@ -51,21 +60,26 @@
         val => !!val || 'Confirmação da nova senha é obrigatório!',
         val => val.length >= 8 || 'Minímo 8 caracteres!',
         val => val === form.password || 'A senha não corresponde!'
-      ]">
+      ]"
+    >
       <template #append>
-        <q-icon :name="isPwdConfirm ? 'visibility_off' : 'visibility'"
+        <q-icon
+          :name="isPwdConfirm ? 'visibility_off' : 'visibility'"
           class="cursor-pointer"
-          @click="isPwdConfirm = !isPwdConfirm" />
+          @click="isPwdConfirm = !isPwdConfirm"
+        />
       </template>
     </q-input>
 
     <div class="col-12">
-      <q-btn type="submit"
+      <q-btn
+        type="submit"
         class="float-right"
         style="min-width: 150px;"
         label="Salvar"
         color="secondary"
-        no-caps />
+        no-caps
+      />
     </div>
 
   </div>

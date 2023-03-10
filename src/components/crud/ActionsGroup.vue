@@ -3,33 +3,41 @@
     <span class="text-h6">{{ crud }}</span>
     <q-space />
     <div class="row q-gap-sm">
-      <q-btn v-if="showDestroy"
+      <q-btn
+        v-if="showDestroy"
         style="min-width: 150px;"
         label="Excluir"
         color="primary"
         no-caps
         :disable="!items.length"
-        @click="destroy" />
-      <q-btn v-if="showEdit"
+        @click="destroy"
+      />
+      <q-btn
+        v-if="showEdit"
         style="min-width: 150px;"
         label="Editar"
         color="primary"
         no-caps
         :disable="!(items.length === 1)"
-        @click="edit" />
-      <q-btn v-if="showView"
+        @click="edit"
+      />
+      <q-btn
+        v-if="showView"
         style="min-width: 150px;"
         label="Visualizar"
         color="primary"
         no-caps
         :disable="!(items.length === 1)"
-        @click="view" />
-      <q-btn v-if="showCreate"
+        @click="view"
+      />
+      <q-btn
+        v-if="showCreate"
         style="min-width: 150px;"
         label="Adicionar novo"
         color="primary"
         no-caps
-        :to="{ name: `${props.model}-create` }" />
+        :to="{ name: `${props.model}-create` }"
+      />
     </div>
   </div>
 </template>

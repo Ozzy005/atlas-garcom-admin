@@ -1,5 +1,6 @@
 <template>
-  <q-select v-model="cityId"
+  <q-select
+    v-model="cityId"
     :loading="loading"
     :options="options"
     @filter="filterCity"
@@ -15,7 +16,8 @@
     use-input
     clearable
     lazy-rules="ondemand"
-    :rules="[val => !!val || !required || 'Cidade é obrigatória!']" />
+    :rules="[val => !!val || !required || 'Cidade é obrigatória!']"
+  />
 </template>
 
 <script setup>

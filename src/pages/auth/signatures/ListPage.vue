@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
-    <q-table ref="tableRef"
+    <q-table
+      ref="tableRef"
       v-model:pagination="pagination"
       :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
       :rows="rows"
@@ -16,24 +17,29 @@
       card-class="bg-grey-4"
       grid
       grid-header
-      hide-header>
+      hide-header
+    >
       <template #top>
         <div class="column q-gap-y-lg full-width">
-          <ActionsGroup v-model="rows"
+          <ActionsGroup
+            v-model="rows"
             crud="Assinaturas"
             model="signatures"
             :items="selected"
             :show-create="auth.hasPermission('signatures_create')"
             :show-view="auth.hasPermission('signatures_view')"
             :show-edit="auth.hasPermission('signatures_edit')"
-            :show-destroy="auth.hasPermission('signatures_delete')" />
+            :show-destroy="auth.hasPermission('signatures_delete')"
+          />
           <div class="row">
-            <q-input class="col-md-4 col-xs-12"
+            <q-input
+              class="col-md-4 col-xs-12"
               v-model="filter"
               outlined
               dense
               debounce="300"
-              placeholder="Pesquisar por dia/descrição">
+              placeholder="Pesquisar por dia/descrição"
+            >
               <template #append>
                 <q-icon name="search" />
               </template>
@@ -43,14 +49,18 @@
       </template>
       <template #body-cell-recurrence="props">
         <q-td :props="props">
-          <BadgeStatus :name="formatRecurrence(props.row.recurrence)"
-            :color="getRecurrenceColor(props.row.recurrence)" />
+          <BadgeStatus
+            :name="formatRecurrence(props.row.recurrence)"
+            :color="getRecurrenceColor(props.row.recurrence)"
+          />
         </q-td>
       </template>
       <template #body-cell-status="props">
         <q-td :props="props">
-          <BadgeStatus :name="formatStatus(props.row.status)"
-            :color="getStatusColor(props.row.status)" />
+          <BadgeStatus
+            :name="formatStatus(props.row.status)"
+            :color="getStatusColor(props.row.status)"
+          />
         </q-td>
       </template>
     </q-table>

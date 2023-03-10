@@ -1,8 +1,10 @@
 <template>
   <q-page padding>
     <q-card class="q-pa-md">
-      <HeaderDefault crud="Assinaturas"
-        model="signatures" />
+      <HeaderDefault
+        crud="Assinaturas"
+        model="signatures"
+      />
       <div class="q-mt-lg">
         <q-form @submit="submit">
           <FormPage v-model="form" />

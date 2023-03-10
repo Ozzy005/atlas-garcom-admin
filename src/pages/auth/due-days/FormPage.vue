@@ -1,7 +1,8 @@
 <template>
   <div class="row q-gap-x-md q-gap-y-sm">
 
-    <q-input v-model="form.day"
+    <q-input
+      v-model="form.day"
       class="col-md-grow col-xs-12"
       label="Dia"
       outlined
@@ -13,18 +14,22 @@
       :rules="[
         val => !!val || 'Dia é obrigatória!',
         val => val >= 1 && val <= 31 || 'Dia deve ser entre 1 a 31!'
-      ]" />
+      ]"
+    />
 
-    <q-input v-model="form.description"
+    <q-input
+      v-model="form.description"
       class="col-md-grow col-xs-12"
       label="Descrição"
       outlined
       clearable
       maxlength="50"
       lazy-rules="ondemand"
-      :rules="[val => !!val || 'Descrição é obrigatório!']" />
+      :rules="[val => !!val || 'Descrição é obrigatório!']"
+    />
 
-    <q-select v-model="form.status"
+    <q-select
+      v-model="form.status"
       class="col-md-grow col-xs-12"
       :options="statusOptions"
       label="Status"
@@ -35,15 +40,18 @@
       map-options
       clearable
       lazy-rules="ondemand"
-      :rules="[val => !!val || 'Status é obrigatório!']" />
+      :rules="[val => !!val || 'Status é obrigatório!']"
+    />
 
     <div class="col-12">
-      <q-btn type="submit"
+      <q-btn
+        type="submit"
         class="float-right"
         style="min-width: 150px;"
         label="Salvar"
         color="secondary"
-        no-caps />
+        no-caps
+      />
     </div>
 
   </div>
