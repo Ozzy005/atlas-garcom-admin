@@ -4,8 +4,10 @@
       <HeaderDefault crud="Contratantes"
         model="tenants" />
       <div class="q-mt-lg">
-        <q-form @submit="submit">
-          <FormPage v-model="form" />
+        <q-form @submit="submit"
+          ref="formRef">
+          <FormPage v-model="form"
+            :form-ref="formRef" />
         </q-form>
       </div>
     </q-card>
@@ -22,7 +24,7 @@ import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
 
 const router = useRouter()
 const route = useRoute()
-
+const formRef = ref(null)
 const form = ref({
   nif: null,
   full_name: null,
@@ -38,7 +40,9 @@ const form = ref({
   address: null,
   district: null,
   number: null,
-  complement: null
+  complement: null,
+  signature_id: null,
+  due_day_id: null
 })
 
 const getItem = async () => {

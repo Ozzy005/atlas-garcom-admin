@@ -118,7 +118,6 @@ const destroy = () => {
   }).onOk(async () => {
     try {
       const { data } = await api({ method: 'delete', url: `/api/${props.model}`, data: { items: items.value } })
-      console.log(items.value)
       rows.value = rows.value.filter(val => !(items.value.includes(val.id)))
       notify.success(data.message)
     } catch (error) {

@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import notify from 'src/composables/notify'
 import { api } from 'src/boot/axios'
 
@@ -53,7 +53,7 @@ const loading = ref(false)
 const cities = ref(null)
 const options = ref(null)
 
-setTimeout(() => { options.value = props.optionsDefault }, 500)
+watch(() => props.optionsDefault, () => { options.value = props.optionsDefault })
 
 const filterCity = async (val, update, abort) => {
   if (val.length < 3) {

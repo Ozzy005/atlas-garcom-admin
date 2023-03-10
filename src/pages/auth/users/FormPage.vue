@@ -22,7 +22,7 @@
         label="Nome Completo/Razão Social"
         outlined
         clearable
-        maxlength="60"
+        maxlength="100"
         lazy-rules="ondemand"
         :rules="[val => !!val || 'Nome Completo/Razão Social é obrigatório!']" />
 
@@ -31,7 +31,7 @@
         label="Nome Social/Nome Fantasia"
         outlined
         clearable
-        maxlength="30"
+        maxlength="50"
         :rules="[val => !!val]" />
     </div>
 

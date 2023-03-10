@@ -158,7 +158,6 @@ const helpers = class {
   }
 
   static validateCnpj (cnpj) {
-    console.log(cnpj)
     cnpj = cnpj.replace(/[^\d]+/g, '')
 
     if (cnpj.length !== 14) {
