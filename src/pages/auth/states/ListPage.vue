@@ -3,44 +3,33 @@
     <q-table
       ref="tableRef"
       v-model:pagination="pagination"
-      :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
-      :rows="rows"
-      :columns="columns"
-      :loading="loading"
-      @request="getItems"
-      :filter="filter"
-      row-key="id"
-      binary-state-sort
-      selection="multiple"
       v-model:selected="selected"
+      :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
+      :columns="columns"
+      :rows="rows"
+      :loading="loading"
+      :filter="filter"
+      @request="getItems"
       @row-click="rowClick"
+      selection="multiple"
+      row-key="id"
     >
       <template #top>
         <div class="column q-gap-y-lg full-width">
-          <ActionsGroup
+          <ActionsDefault
             v-model="rows"
-            crud="Estados"
-            model="states"
-            :items="selected"
             :show-create="auth.hasPermission('states_create')"
             :show-view="auth.hasPermission('states_view')"
             :show-edit="auth.hasPermission('states_edit')"
             :show-destroy="auth.hasPermission('states_delete')"
+            :items="selected"
+            crud="Estados"
+            model="states"
           />
-          <div class="row">
-            <q-input
-              class="col-md-4 col-xs-12"
-              v-model="filter"
-              outlined
-              dense
-              debounce="300"
-              placeholder="Pesquisar por nome/sigla"
-            >
-              <template #append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </div>
+          <FilterDefault
+            v-model:filter-value="filter"
+            placeholder="Pesquisar por nome/sigla"
+          />
         </div>
       </template>
     </q-table>
@@ -48,23 +37,21 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
+import { useAuthStore } from 'src/stores/auth'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
-import { ref, onMounted } from 'vue'
-import ActionsGroup from 'src/components/crud/ActionsGroup.vue'
-import { useAuthStore } from 'src/stores/auth'
+import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
+import FilterDefault from 'src/components/crud/FilterDefault.vue'
 
 const auth = useAuthStore()
-
-const tableRef = ref(null)
-const filter = ref(null)
-const loading = ref(false)
+const tableRef = ref()
 const columns = [
   {
     label: 'ID',
     name: 'id',
     field: 'id',
-    align: 'left',
+    align: 'center',
     required: true,
     sortable: true
   },
@@ -91,7 +78,18 @@ const pagination = ref({
   sortBy: 'id',
   descending: false
 })
+const filter = ref()
+const loading = ref(false)
 const selected = ref([])
+
+const rowClick = (event, row) => {
+  const exists = selected.value.find(item => item.id === row.id)
+  if (exists) {
+    selected.value = selected.value.filter(item => item.id !== row.id)
+  } else {
+    selected.value.push(row)
+  }
+}
 
 const getItems = async (props) => {
   try {
@@ -118,15 +116,6 @@ const getItems = async (props) => {
     loading.value = false
   } catch (error) {
     notify.error(error)
-  }
-}
-
-const rowClick = (event, row) => {
-  const exists = selected.value.find(item => item.id === row.id)
-  if (exists) {
-    selected.value = selected.value.filter(item => item.id !== row.id)
-  } else {
-    selected.value.push(row)
   }
 }
 

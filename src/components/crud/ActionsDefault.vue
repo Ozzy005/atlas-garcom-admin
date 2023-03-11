@@ -1,69 +1,74 @@
 <template>
-  <q-btn-dropdown
-    color="primary"
-    dropdown-icon="menu"
-    size="lg"
-    no-icon-animation
-    dense
-    flat
-  >
-    <q-list>
-      <q-item
-        v-if="showView"
-        clickable
-        v-close-popup
-        @click="view(item)"
-      >
-        <q-item-section>
-          <q-item-label>Visualizar</q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item
-        v-if="showEdit"
-        clickable
-        v-close-popup
-        @click="edit(item)"
-      >
-        <q-item-section>
-          <q-item-label>Editar</q-item-label>
-        </q-item-section>
-      </q-item>
-      <q-item
+  <div class="row q-gap-x-xs q-gap-y-md items-center">
+    <span class="text-h6">{{ crud }}</span>
+    <q-space />
+    <div class="row q-gap-sm">
+      <q-btn
         v-if="showDestroy"
-        clickable
-        v-close-popup
-        @click="destroy(item)"
-      >
-        <q-item-section>
-          <q-item-label>Excluir</q-item-label>
-        </q-item-section>
-      </q-item>
-    </q-list>
-  </q-btn-dropdown>
+        style="min-width: 150px;"
+        label="Excluir"
+        color="primary"
+        no-caps
+        :disable="!items.length"
+        @click="destroy"
+      />
+      <q-btn
+        v-if="showEdit"
+        style="min-width: 150px;"
+        label="Editar"
+        color="primary"
+        no-caps
+        :disable="!(items.length === 1)"
+        @click="edit"
+      />
+      <q-btn
+        v-if="showView"
+        style="min-width: 150px;"
+        label="Visualizar"
+        color="primary"
+        no-caps
+        :disable="!(items.length === 1)"
+        @click="view"
+      />
+      <q-btn
+        v-if="showCreate"
+        style="min-width: 150px;"
+        label="Adicionar novo"
+        color="primary"
+        no-caps
+        :to="{ name: `${props.model}-create` }"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { useQuasar } from 'quasar'
-import { useRouter } from 'vue-router'
 import notify from 'src/composables/notify'
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
 
-const $q = useQuasar()
-const router = useRouter()
-
 const props = defineProps({
+  modelValue: {
+    type: Array,
+    required: true
+  },
+  crud: {
+    type: String,
+    required: true
+  },
   model: {
     type: String,
     required: true
   },
-  item: {
-    type: Object,
-    required: true
-  },
-  modelValue: {
+  items: {
     type: Array,
     required: true
+  },
+  showCreate: {
+    type: Boolean,
+    default: true
   },
   showView: {
     type: Boolean,
@@ -90,28 +95,43 @@ const rows = computed({
   }
 })
 
-const view = (item) => {
-  router.push({ name: `${props.model}-view`, params: { id: item.id } })
+const router = useRouter()
+const $q = useQuasar()
+
+const items = computed(() => {
+  return props.items.map(item => item.id)
+})
+
+const item = computed(() => {
+  if (props.items.length) {
+    return props.items[0]
+  }
+  return null
+})
+
+const view = () => {
+  router.push({ name: `${props.model}-view`, params: { id: item.value.id } })
 }
 
-const edit = (item) => {
-  router.push({ name: `${props.model}-edit`, params: { id: item.id } })
+const edit = () => {
+  router.push({ name: `${props.model}-edit`, params: { id: item.value.id } })
 }
 
-const destroy = (item) => {
+const destroy = () => {
   $q.dialog({
     title: 'Atenção !',
-    message: 'Tem certeza que deseja excluir esse item?',
+    message: 'Tem certeza que deseja excluir todos os itens selecionados?',
     cancel: true,
     persistent: true
   }).onOk(async () => {
     try {
-      const { data } = await api({ method: 'delete', url: `/api/${props.model}/${item.id}` })
-      rows.value = rows.value.filter(val => val.id !== item.id)
+      const { data } = await api({ method: 'delete', url: `/api/${props.model}`, data: { items: items.value } })
+      rows.value = rows.value.filter(val => !(items.value.includes(val.id)))
       notify.success(data.message)
     } catch (error) {
       notify.error(error)
     }
   })
 }
+
 </script>

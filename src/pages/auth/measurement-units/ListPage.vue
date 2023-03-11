@@ -3,44 +3,33 @@
     <q-table
       ref="tableRef"
       v-model:pagination="pagination"
-      :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
-      :rows="rows"
-      :columns="columns"
-      :loading="loading"
-      @request="getItems"
-      :filter="filter"
-      row-key="id"
-      binary-state-sort
-      selection="multiple"
       v-model:selected="selected"
+      :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
+      :columns="columns"
+      :rows="rows"
+      :loading="loading"
+      :filter="filter"
+      @request="getItems"
       @row-click="rowClick"
+      selection="multiple"
+      row-key="id"
     >
       <template #top>
         <div class="column q-gap-y-lg full-width">
-          <ActionsGroup
+          <ActionsDefault
             v-model="rows"
-            crud="Unidades de Medida"
-            model="measurement-units"
-            :items="selected"
             :show-create="auth.hasPermission('measurement-units_create')"
             :show-view="auth.hasPermission('measurement-units_view')"
             :show-edit="auth.hasPermission('measurement-units_edit')"
             :show-destroy="auth.hasPermission('measurement-units_delete')"
+            :items="selected"
+            crud="Unidades de Medida"
+            model="measurement-units"
           />
-          <div class="row">
-            <q-input
-              class="col-md-4 col-xs-12"
-              v-model="filter"
-              outlined
-              dense
-              debounce="300"
-              placeholder="Pesquisar por nome/iniciais"
-            >
-              <template #append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </div>
+          <FilterDefault
+            v-model:filter-value="filter"
+            placeholder="Pesquisar por nome/iniciais"
+          />
         </div>
       </template>
       <template #body-cell-status="props">
@@ -56,25 +45,23 @@
 </template>
 
 <script setup>
-import { api } from 'src/boot/axios'
-import notify from 'src/composables/notify'
 import { ref, onMounted } from 'vue'
-import helpers from 'src/utils/helpers'
-import ActionsGroup from 'src/components/crud/ActionsGroup.vue'
 import { useAuthStore } from 'src/stores/auth'
+import { api } from 'src/boot/axios'
+import helpers from 'src/utils/helpers'
+import notify from 'src/composables/notify'
+import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
+import FilterDefault from 'src/components/crud/FilterDefault.vue'
 import BadgeStatus from 'src/components/common/BadgeStatus.vue'
 
 const auth = useAuthStore()
-
-const tableRef = ref(null)
-const filter = ref(null)
-const loading = ref(false)
+const tableRef = ref()
 const columns = [
   {
     label: 'ID',
     name: 'id',
     field: 'id',
-    align: 'left',
+    align: 'center',
     required: true,
     sortable: true
   },
@@ -124,8 +111,19 @@ const pagination = ref({
   sortBy: 'id',
   descending: false
 })
+const filter = ref()
+const loading = ref(false)
 const selected = ref([])
 const statusOptions = ref([])
+
+const rowClick = (event, row) => {
+  const exists = selected.value.find(item => item.id === row.id)
+  if (exists) {
+    selected.value = selected.value.filter(item => item.id !== row.id)
+  } else {
+    selected.value.push(row)
+  }
+}
 
 const getItems = async (props) => {
   try {
@@ -152,15 +150,6 @@ const getItems = async (props) => {
     loading.value = false
   } catch (error) {
     notify.error(error)
-  }
-}
-
-const rowClick = (event, row) => {
-  const exists = selected.value.find(item => item.id === row.id)
-  if (exists) {
-    selected.value = selected.value.filter(item => item.id !== row.id)
-  } else {
-    selected.value.push(row)
   }
 }
 

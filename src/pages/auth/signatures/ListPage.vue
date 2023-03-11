@@ -3,48 +3,33 @@
     <q-table
       ref="tableRef"
       v-model:pagination="pagination"
-      :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
-      :rows="rows"
-      :columns="columns"
-      :loading="loading"
-      @request="getItems"
-      :filter="filter"
-      row-key="id"
-      binary-state-sort
-      selection="multiple"
       v-model:selected="selected"
+      :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
+      :columns="columns"
+      :rows="rows"
+      :loading="loading"
+      :filter="filter"
+      @request="getItems"
       @row-click="rowClick"
-      card-class="bg-grey-4"
-      grid
-      grid-header
-      hide-header
+      selection="multiple"
+      row-key="id"
     >
       <template #top>
         <div class="column q-gap-y-lg full-width">
-          <ActionsGroup
+          <ActionsDefault
             v-model="rows"
-            crud="Assinaturas"
-            model="signatures"
-            :items="selected"
             :show-create="auth.hasPermission('signatures_create')"
             :show-view="auth.hasPermission('signatures_view')"
             :show-edit="auth.hasPermission('signatures_edit')"
             :show-destroy="auth.hasPermission('signatures_delete')"
+            :items="selected"
+            crud="Assinaturas"
+            model="signatures"
           />
-          <div class="row">
-            <q-input
-              class="col-md-4 col-xs-12"
-              v-model="filter"
-              outlined
-              dense
-              debounce="300"
-              placeholder="Pesquisar por dia/descrição"
-            >
-              <template #append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </div>
+          <FilterDefault
+            v-model:filter-value="filter"
+            placeholder="Pesquisar por nome/descrição"
+          />
         </div>
       </template>
       <template #body-cell-recurrence="props">
@@ -68,19 +53,17 @@
 </template>
 
 <script setup>
-import { api } from 'src/boot/axios'
-import notify from 'src/composables/notify'
 import { ref, onMounted } from 'vue'
-import helpers from 'src/utils/helpers'
 import { useAuthStore } from 'src/stores/auth'
+import { api } from 'src/boot/axios'
+import helpers from 'src/utils/helpers'
+import notify from 'src/composables/notify'
+import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
+import FilterDefault from 'src/components/crud/FilterDefault.vue'
 import BadgeStatus from 'src/components/common/BadgeStatus.vue'
-import ActionsGroup from 'src/components/crud/ActionsGroup.vue'
 
 const auth = useAuthStore()
-
-const tableRef = ref(null)
-const filter = ref(null)
-const loading = ref(false)
+const tableRef = ref()
 const columns = [
   {
     label: 'ID',
@@ -105,28 +88,12 @@ const columns = [
     sortable: true
   },
   {
-    label: 'Recorrência',
-    name: 'recurrence',
-    field: 'recurrence',
-    align: 'center',
-    sortable: true,
-    format: (val) => formatRecurrence(val)
-  },
-  {
     label: 'Preço Total (R$)',
     name: 'total_price',
     field: 'total_price',
     align: 'center',
     sortable: true,
     format: (val) => helpers.floatToMoney(val)
-  },
-  {
-    label: 'Status',
-    name: 'status',
-    field: 'status',
-    align: 'center',
-    sortable: true,
-    format: (val) => formatStatus(val)
   },
   {
     label: 'Dt.Criação',
@@ -143,6 +110,22 @@ const columns = [
     align: 'center',
     sortable: true,
     format: (val) => helpers.brDateTime(val)
+  },
+  {
+    label: 'Recorrência',
+    name: 'recurrence',
+    field: 'recurrence',
+    align: 'center',
+    sortable: true,
+    format: (val) => formatRecurrence(val)
+  },
+  {
+    label: 'Status',
+    name: 'status',
+    field: 'status',
+    align: 'center',
+    sortable: true,
+    format: (val) => formatStatus(val)
   }
 ]
 const rows = ref([])
@@ -153,9 +136,20 @@ const pagination = ref({
   sortBy: 'id',
   descending: false
 })
+const filter = ref()
+const loading = ref(false)
 const selected = ref([])
-const statusOptions = ref([])
 const recurrenceOptions = ref([])
+const statusOptions = ref([])
+
+const rowClick = (event, row) => {
+  const exists = selected.value.find(item => item.id === row.id)
+  if (exists) {
+    selected.value = selected.value.filter(item => item.id !== row.id)
+  } else {
+    selected.value.push(row)
+  }
+}
 
 const getItems = async (props) => {
   try {
@@ -182,15 +176,6 @@ const getItems = async (props) => {
     loading.value = false
   } catch (error) {
     notify.error(error)
-  }
-}
-
-const rowClick = (event, row) => {
-  const exists = selected.value.find(item => item.id === row.id)
-  if (exists) {
-    selected.value = selected.value.filter(item => item.id !== row.id)
-  } else {
-    selected.value.push(row)
   }
 }
 

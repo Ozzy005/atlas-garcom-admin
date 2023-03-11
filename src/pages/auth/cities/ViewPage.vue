@@ -25,7 +25,7 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldView from 'src/components/crud/FieldView.vue'
+import FieldView from 'src/components/crud/FieldDefault.vue'
 
 const route = useRoute()
 
