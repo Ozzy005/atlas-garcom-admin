@@ -72,14 +72,7 @@
     </q-input>
 
     <div class="col-12">
-      <q-btn
-        type="submit"
-        class="float-right"
-        style="min-width: 150px;"
-        label="Salvar"
-        color="secondary"
-        no-caps
-      />
+      <XSbtBtn class="float-right" />
     </div>
 
   </div>
@@ -87,6 +80,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
+import XSbtBtn from 'src/components/common/XSbtBtn.vue'
 
 const props = defineProps({
   modelValue: {

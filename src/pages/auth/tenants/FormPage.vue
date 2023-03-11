@@ -192,13 +192,7 @@
       </div>
 
       <q-stepper-navigation class="flex q-gap-md">
-        <q-btn
-          style="min-width: 150px;"
-          label="Continuar"
-          color="primary"
-          no-caps
-          @click="() => formRef.validate().then((success) => validate(success, 2))"
-        />
+        <XCtnBtn @click="() => formRef.validate().then((success) => validate(success, 2))" />
       </q-stepper-navigation>
     </q-step>
 
@@ -234,21 +228,8 @@
       </div>
 
       <q-stepper-navigation class="flex q-gap-md">
-        <q-btn
-          style="min-width: 150px;"
-          label="Continuar"
-          color="primary"
-          no-caps
-          @click="() => formRef.validate().then((success) => validate(success, 3))"
-        />
-        <q-btn
-          style="min-width: 150px;"
-          label="Voltar"
-          color="primary"
-          outline
-          no-caps
-          @click="step = 1"
-        />
+        <XCtnBtn @click="() => formRef.validate().then((success) => validate(success, 3))" />
+        <XBackBtn @click="step = 1" />
       </q-stepper-navigation>
     </q-step>
 
@@ -259,21 +240,8 @@
     >
 
       <q-stepper-navigation class="flex q-gap-md">
-        <q-btn
-          type="submit"
-          style="min-width: 150px;"
-          label="Salvar"
-          color="primary"
-          no-caps
-        />
-        <q-btn
-          style="min-width: 150px;"
-          label="Voltar"
-          color="primary"
-          outline
-          no-caps
-          @click="step = 2"
-        />
+        <XSbtBtn />
+        <XBackBtn @click="step = 2" />
       </q-stepper-navigation>
     </q-step>
   </q-stepper>
@@ -286,6 +254,9 @@ import SelectCity from 'src/components/common/SelectCity.vue'
 import notify from 'src/composables/notify'
 import TenantSginatures from 'src/components/common/TenantSignatures.vue'
 import { useEnumsStore } from 'src/stores/enums'
+import XSbtBtn from 'src/components/common/XSbtBtn.vue'
+import XBackBtn from 'src/components/common/XBackBtn.vue'
+import XCtnBtn from 'src/components/common/XCtnBtn.vue'
 
 const enums = useEnumsStore()
 

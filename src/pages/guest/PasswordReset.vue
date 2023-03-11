@@ -56,13 +56,7 @@
           </q-input>
 
           <q-card-actions align="right">
-            <q-btn
-              type="submit"
-              style="min-width: 150px;"
-              label="Confirmar"
-              color="primary"
-              no-caps
-            />
+            <XSbtBtn />
           </q-card-actions>
 
         </q-form>
@@ -77,6 +71,7 @@ import { ref } from 'vue'
 import notify from 'src/composables/notify'
 import { useAuthStore } from 'src/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
+import XSbtBtn from 'src/components/common/XSbtBtn.vue'
 
 const auth = useAuthStore()
 const router = useRouter()

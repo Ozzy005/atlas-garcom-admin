@@ -68,14 +68,7 @@
     </div>
 
     <div class="col-12">
-      <q-btn
-        type="submit"
-        class="float-right"
-        style="min-width: 150px;"
-        label="Salvar"
-        color="secondary"
-        no-caps
-      />
+      <XSbtBtn class="float-right" />
     </div>
 
   </div>
@@ -86,6 +79,7 @@ import { computed, ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import { useEnumsStore } from 'src/stores/enums'
+import XSbtBtn from 'src/components/common/XSbtBtn.vue'
 
 const props = defineProps({
   modelValue: {

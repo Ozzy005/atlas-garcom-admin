@@ -3,40 +3,32 @@
     <span class="text-h6">{{ crud }}</span>
     <q-space />
     <div class="row q-gap-sm">
-      <q-btn
+      <XBtn
         v-if="showDestroy"
-        style="min-width: 150px;"
-        label="Excluir"
-        color="primary"
-        no-caps
-        :disable="!items.length"
         @click="destroy"
+        :disable="!items.length"
+        label="Excluir"
+        icon="mdi-close"
       />
-      <q-btn
+      <XBtn
         v-if="showEdit"
-        style="min-width: 150px;"
-        label="Editar"
-        color="primary"
-        no-caps
-        :disable="!(items.length === 1)"
         @click="edit"
-      />
-      <q-btn
-        v-if="showView"
-        style="min-width: 150px;"
-        label="Visualizar"
-        color="primary"
-        no-caps
         :disable="!(items.length === 1)"
-        @click="view"
+        label="Editar"
+        icon="mdi-pencil"
       />
-      <q-btn
+      <XBtn
+        v-if="showView"
+        @click="view"
+        :disable="!(items.length === 1)"
+        label="Visualizar"
+        icon="mdi-eye"
+      />
+      <XBtn
         v-if="showCreate"
-        style="min-width: 150px;"
-        label="Adicionar novo"
-        color="primary"
-        no-caps
         :to="{ name: `${props.model}-create` }"
+        label="Adicionar novo"
+        icon="mdi-plus"
       />
     </div>
   </div>
@@ -48,6 +40,7 @@ import notify from 'src/composables/notify'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
+import XBtn from '../common/XBtn.vue'
 
 const props = defineProps({
   modelValue: {

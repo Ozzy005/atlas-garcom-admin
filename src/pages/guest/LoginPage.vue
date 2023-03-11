@@ -48,19 +48,14 @@
           />
 
           <q-card-actions align="right">
-            <q-btn
-              style="min-width: 150px;"
-              label="Esqueceu sua senha?"
-              no-caps
-              flat
+            <XBtn
               :to="{ name: 'forgot-password' }"
+              label="Esqueceu sua senha?"
+              flat
             />
-            <q-btn
-              type="submit"
-              style="min-width: 150px;"
+            <XSbtBtn
               label="Entrar"
-              color="primary"
-              no-caps
+              icon="mdi-login"
             />
           </q-card-actions>
 
@@ -76,6 +71,8 @@ import { ref } from 'vue'
 import notify from 'src/composables/notify'
 import { useAuthStore } from 'src/stores/auth'
 import { useRouter } from 'vue-router'
+import XSbtBtn from 'src/components/common/XSbtBtn.vue'
+import XBtn from 'src/components/common/XBtn.vue'
 
 const auth = useAuthStore()
 const router = useRouter()

@@ -1,18 +1,16 @@
 <template>
   <div class="row justify-between items-center">
     <div class="text-h6">{{ crud }}</div>
-    <q-btn
+    <XBackBtn
       v-if="showBackBtn"
-      style="min-width: 150px;"
-      label="Voltar"
-      color="primary"
-      no-caps
-      :to="{ name: model }"
+      :model="model"
     />
   </div>
 </template>
 
 <script setup>
+import XBackBtn from '../common/XBackBtn.vue'
+
 defineProps({
   crud: {
     type: String,
