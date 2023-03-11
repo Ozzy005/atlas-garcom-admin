@@ -6,33 +6,33 @@
     >
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Nome:"
           :value="form.name"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Descrição:"
           :value="form.description"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Tipo:"
-          :value="formatType(form.type)"
+          :value="enums.getName('role-types', form.type)"
         />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Criação:"
           :value="helpers.brDateTime(form.created_at)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Edição"
           :value="helpers.brDateTime(form.updated_at)"
@@ -50,10 +50,11 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldView from 'src/components/crud/FieldDefault.vue'
+import FieldDefault from 'src/components/crud/FieldDefault.vue'
+import { useEnumsStore } from 'src/stores/enums'
 
+const enums = useEnumsStore()
 const route = useRoute()
-
 const form = ref({
   name: null,
   description: null,
@@ -61,7 +62,6 @@ const form = ref({
   created_at: null,
   updated_at: null
 })
-const types = ref([])
 
 const getItem = async () => {
   try {
@@ -72,26 +72,8 @@ const getItem = async () => {
   }
 }
 
-const getTypes = async () => {
-  try {
-    const { data } = await api({ url: '/api/role-types' })
-    types.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatType = (val) => {
-  const type = types.value.find(item => item.id === val)
-  if (type) {
-    return type.name
-  }
-  return 'Não informado'
-}
-
 onMounted(() => {
   getItem()
-  getTypes()
 })
 
 </script>

@@ -6,19 +6,19 @@
     >
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="CPF/CNPJ"
           :value="helpers.nifMask(form.nif)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Nome Completo/Razão Social:"
           :value="form.full_name"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Nome Social/Nome Fantasia:"
           :value="form.name"
@@ -26,45 +26,45 @@
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Inscrição Estadual:"
           :value="form.state_registration"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Inscrição Municipal:"
           :value="form.city_registration"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt Nasc./Abertura:"
           :value="helpers.brDate(form.birthdate)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Status:"
-          :value="formatStatus(form.status)"
+          :value="enums.getName('status', form.status)"
         />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Email:"
           :value="form.email"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Telefone:"
           :value="helpers.phoneMask(form.phone)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Cidade:"
           :value="form.city"
@@ -72,38 +72,38 @@
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="CEP:"
           :value="helpers.zipCodeMask(form.zip_code)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Endereço:"
           :value="form.address"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Bairro:"
           :value="form.district"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="N°:"
           :value="form.number"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Complemento:"
           :value="form.complement"
         />
       </div>
 
-      <FieldView
+      <FieldDefault
         class="col-12"
         field="Atribuições:"
       >
@@ -113,16 +113,16 @@
         >
           {{ item }}
         </q-chip>
-      </FieldView>
+      </FieldDefault>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Criação:"
           :value="helpers.brDateTime(form.created_at)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Edição"
           :value="helpers.brDateTime(form.updated_at)"
@@ -140,8 +140,10 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldView from 'src/components/crud/FieldDefault.vue'
+import FieldDefault from 'src/components/crud/FieldDefault.vue'
+import { useEnumsStore } from 'src/stores/enums'
 
+const enums = useEnumsStore()
 const route = useRoute()
 const form = ref({
   nif: null,
@@ -163,7 +165,6 @@ const form = ref({
   created_at: null,
   updated_at: null
 })
-const statusOptions = ref([])
 
 const roles = computed(() => {
   return form.value.roles.map(item => item.description)
@@ -178,26 +179,8 @@ const getItem = async () => {
   }
 }
 
-const getStatus = async () => {
-  try {
-    const { data } = await api({ url: '/api/status' })
-    statusOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatStatus = (val) => {
-  const status = statusOptions.value.find(item => item.id === val)
-  if (status) {
-    return status.name
-  }
-  return 'Não informado'
-}
-
 onMounted(() => {
   getItem()
-  getStatus()
 })
 
 </script>

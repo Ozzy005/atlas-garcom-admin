@@ -4,13 +4,13 @@
       crud="Cidades"
       model="cities"
     >
-      <FieldView
+      <FieldDefault
         class="col-md-grow col-xs-12"
         field="Cidade:"
         :value="form.title"
       />
 
-      <FieldView
+      <FieldDefault
         class="col-md-grow col-xs-12"
         field="Estado:"
         :value="form.state"
@@ -25,7 +25,7 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldView from 'src/components/crud/FieldDefault.vue'
+import FieldDefault from 'src/components/crud/FieldDefault.vue'
 
 const route = useRoute()
 

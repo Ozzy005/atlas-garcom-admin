@@ -62,14 +62,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
+import { useEnumsStore } from 'src/stores/enums'
 import { useRouter } from 'vue-router'
 import notify from 'src/composables/notify'
 import DrawerDefault from './DrawerDefault.vue'
 
 const router = useRouter()
 const auth = useAuthStore()
+const enums = useEnumsStore()
 const leftDrawerOpen = ref(false)
 
 const logout = () => {
@@ -85,4 +87,7 @@ const logout = () => {
     router.push({ name: 'login' })
   }
 }
+
+onMounted(() => enums.getEnums())
+
 </script>

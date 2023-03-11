@@ -37,7 +37,7 @@
         outlined
         clearable
         maxlength="50"
-        :rules="[val => !!val]"
+        :rules="[val => true]"
       />
     </div>
 
@@ -49,7 +49,7 @@
         outlined
         clearable
         maxlength="15"
-        :rules="[val => !!val]"
+        :rules="[val => !!val || 'Inscrição Estadual é obrigatório!']"
       />
 
       <q-input
@@ -59,7 +59,7 @@
         outlined
         clearable
         maxlength="12"
-        :rules="[val => !!val]"
+        :rules="[val => true]"
       />
 
       <q-input
@@ -77,7 +77,7 @@
       <q-select
         v-model="form.status"
         class="col-md-grow col-xs-12"
-        :options="statusOptions"
+        :options="enums.getEnum('status')"
         label="Status"
         outlined
         option-value="id"
@@ -152,7 +152,7 @@
         outlined
         clearable
         maxlength="30"
-        :rules="[val => !!val]"
+        :rules="[val => true]"
       />
 
       <q-input
@@ -162,7 +162,7 @@
         outlined
         clearable
         maxlength="10"
-        :rules="[val => !!val]"
+        :rules="[val => true]"
       />
 
       <q-input
@@ -172,7 +172,7 @@
         outlined
         clearable
         maxlength="30"
-        :rules="[val => !!val]"
+        :rules="[val => true]"
       />
     </div>
 
@@ -267,6 +267,7 @@ import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import helpers from 'src/utils/helpers'
 import SelectCity from 'src/components/common/SelectCity.vue'
+import { useEnumsStore } from 'src/stores/enums'
 
 const props = defineProps({
   modelValue: {
@@ -286,6 +287,11 @@ const form = computed({
   }
 })
 
+const enums = useEnumsStore()
+const isPwd = ref(true)
+const isPwdConfirm = ref(true)
+const roles = ref([])
+
 const nif = computed({
   get () {
     return helpers.nifMask(form.value.nif)
@@ -302,11 +308,6 @@ const nifMask = computed(() => {
   return '##.###.###/####-##'
 })
 
-const isPwd = ref(true)
-const isPwdConfirm = ref(true)
-const roles = ref([])
-const statusOptions = ref([])
-
 const getRoles = async () => {
   try {
     const { data } = await api({ url: '/api/roles' })
@@ -316,18 +317,8 @@ const getRoles = async () => {
   }
 }
 
-const getStatus = async () => {
-  try {
-    const { data } = await api({ url: '/api/status' })
-    statusOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
 onMounted(() => {
   getRoles()
-  getStatus()
 })
 
 </script>

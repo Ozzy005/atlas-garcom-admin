@@ -26,7 +26,7 @@
     <q-select
       v-model="form.status"
       class="col-md-grow col-xs-12"
-      :options="statusOptions"
+      :options="enums.getEnum('status')"
       label="Status"
       outlined
       option-value="id"
@@ -53,9 +53,8 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
-import { api } from 'src/boot/axios'
-import notify from 'src/composables/notify'
+import { useEnumsStore } from 'src/stores/enums'
+import { computed } from 'vue'
 
 const props = defineProps({
   modelValue: {
@@ -74,17 +73,7 @@ const form = computed({
     emit('update:modelValue', value)
   }
 })
-const statusOptions = ref([])
 
-const getStatus = async () => {
-  try {
-    const { data } = await api({ url: '/api/status' })
-    statusOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-onMounted(() => getStatus())
+const enums = useEnumsStore()
 
 </script>

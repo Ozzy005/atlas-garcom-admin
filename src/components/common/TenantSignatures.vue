@@ -37,10 +37,10 @@
           v-if="signature.hasDiscount"
         >
           R$ {{ helpers.floatToMoney(signature.price * signature.recurrence) }} / {{
-            formatRecurrence(signature.recurrence) }}
+            enums.getName('recurrences', signature.recurrence) }}
         </span>
         <span class="text-subtitle1">
-          R$ {{ helpers.floatToMoney(signature.total_price) }} / {{ formatRecurrence(signature.recurrence) }}
+          R$ {{ helpers.floatToMoney(signature.total_price) }} / {{ enums.getName('recurrences', signature.recurrence) }}
         </span>
       </q-card-section>
 
@@ -71,6 +71,7 @@ import { computed, onMounted, ref } from 'vue'
 import notify from 'src/composables/notify'
 import { api } from 'src/boot/axios'
 import helpers from 'src/utils/helpers'
+import { useEnumsStore } from 'src/stores/enums'
 
 const props = defineProps({
   signatureIdModel: {
@@ -113,8 +114,8 @@ const dueDayId = computed({
   }
 })
 
+const enums = useEnumsStore()
 const signatures = ref([])
-const recurrences = ref([])
 const modules = ref([])
 
 const getSignatures = async () => {
@@ -129,23 +130,6 @@ const getSignatures = async () => {
   }
 }
 
-const getRecurrences = async () => {
-  try {
-    const { data } = await api({ url: '/api/recurrences' })
-    recurrences.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatRecurrence = (val) => {
-  const recurrence = recurrences.value.find(item => item.id === val)
-  if (recurrence) {
-    return recurrence.name
-  }
-  return 'Não informado'
-}
-
 const getModules = async () => {
   try {
     const { data } = await api({ url: '/api/roles', params: { type: 2 } })
@@ -157,7 +141,6 @@ const getModules = async () => {
 
 onMounted(() => {
   getSignatures()
-  getRecurrences()
   getModules()
 })
 </script>

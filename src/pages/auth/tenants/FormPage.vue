@@ -63,7 +63,7 @@
             outlined
             clearable
             maxlength="15"
-            :rules="[val => true]"
+            :rules="[val => !!val || 'Inscrição Estadual é obrigatório!']"
           />
 
           <q-input
@@ -91,7 +91,7 @@
           <q-select
             v-model="form.status"
             class="col-md-grow col-xs-12"
-            :options="statusOptions"
+            :options="enums.getEnum('tenant-status')"
             label="Status"
             outlined
             option-value="id"
@@ -219,7 +219,7 @@
 
         <q-select
           v-model="form.due_day_id"
-          class="col-2"
+          class="col-auto"
           :options="dueDays"
           label="Dia de Vencimento"
           outlined
@@ -280,12 +280,14 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import helpers from 'src/utils/helpers'
 import SelectCity from 'src/components/common/SelectCity.vue'
-import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import TenantSginatures from 'src/components/common/TenantSignatures.vue'
+import { useEnumsStore } from 'src/stores/enums'
+
+const enums = useEnumsStore()
 
 const props = defineProps({
   modelValue: {
@@ -332,24 +334,11 @@ const nif = computed({
   }
 })
 
-const statusOptions = ref([])
-
 const nifMask = computed(() => {
   if (form.value.nif) {
     return form.value.nif.length > 11 ? '##.###.###/####-##' : '###.###.###-##'
   }
   return '##.###.###/####-##'
 })
-
-const getStatus = async () => {
-  try {
-    const { data } = await api({ url: '/api/tenant-status' })
-    statusOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-onMounted(() => getStatus())
 
 </script>

@@ -6,51 +6,51 @@
     >
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Nome:"
           :value="form.name"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Descrição:"
           :value="form.description"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Status:"
-          :value="formatStatus(form.status)"
+          :value="enums.getName('status', form.status)"
         />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Recorrência:"
-          :value="formatRecurrence(form.recurrence)"
+          :value="enums.getName('recurrences', form.recurrence)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Preço (R$):"
           :value="helpers.floatToMoney(form.price)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Desconto (%):"
           :value="helpers.floatToMoney(form.discount)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Preço C/ Desconto (R$):"
           :value="helpers.floatToMoney(form.discounted_price)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Preço Total (R$):"
           :value="helpers.floatToMoney(form.total_price)"
@@ -58,7 +58,7 @@
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dias de Vencimento:"
         >
@@ -68,9 +68,9 @@
           >
             {{ item }}
           </q-chip>
-        </FieldView>
+        </FieldDefault>
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Módulos:"
         >
@@ -80,17 +80,17 @@
           >
             {{ item }}
           </q-chip>
-        </FieldView>
+        </FieldDefault>
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Criação:"
           :value="helpers.brDateTime(form.created_at)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Edição"
           :value="helpers.brDateTime(form.updated_at)"
@@ -107,7 +107,10 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldView from 'src/components/crud/FieldDefault.vue'
+import FieldDefault from 'src/components/crud/FieldDefault.vue'
+import { useEnumsStore } from 'src/stores/enums'
+
+const enums = useEnumsStore()
 
 const route = useRoute()
 
@@ -126,8 +129,6 @@ const form = ref({
   created_at: null,
   updated_at: null
 })
-const statusOptions = ref([])
-const recurrenceOptions = ref([])
 
 const dueDays = computed(() => {
   return form.value.due_days.map(item => item.day)
@@ -146,44 +147,8 @@ const getItem = async () => {
   }
 }
 
-const getStatus = async () => {
-  try {
-    const { data } = await api({ url: '/api/status' })
-    statusOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatStatus = (val) => {
-  const status = statusOptions.value.find(item => item.id === val)
-  if (status) {
-    return status.name
-  }
-  return 'Não informado'
-}
-
-const getRecurrences = async () => {
-  try {
-    const { data } = await api({ url: '/api/recurrences' })
-    recurrenceOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatRecurrence = (val) => {
-  const recurrence = recurrenceOptions.value.find(item => item.id === val)
-  if (recurrence) {
-    return recurrence.name
-  }
-  return 'Não informado'
-}
-
 onMounted(() => {
   getItem()
-  getStatus()
-  getRecurrences()
 })
 
 </script>

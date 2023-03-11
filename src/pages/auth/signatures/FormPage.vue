@@ -36,7 +36,7 @@
       <q-select
         v-model="form.status"
         class="col-md-2 col-xs-12"
-        :options="statusOptions"
+        :options="enums.getEnum('status')"
         label="Status"
         outlined
         option-value="id"
@@ -53,7 +53,7 @@
       <q-select
         v-model="form.recurrence"
         class="col-md-grow col-xs-12"
-        :options="recurrenceOptions"
+        :options="enums.getEnum('recurrences')"
         label="Recorrência"
         outlined
         option-value="id"
@@ -203,6 +203,7 @@ import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import { vMaska } from 'maska'
 import helpers from 'src/utils/helpers'
+import { useEnumsStore } from 'src/stores/enums'
 
 const props = defineProps({
   modelValue: {
@@ -222,8 +223,7 @@ const form = computed({
   }
 })
 
-const statusOptions = ref([])
-const recurrenceOptions = ref([])
+const enums = useEnumsStore()
 const dueDaysOptions = ref([])
 const modulesOptions = ref([])
 
@@ -240,24 +240,6 @@ watch(
     }
   }
 )
-
-const getStatus = async () => {
-  try {
-    const { data } = await api({ url: '/api/status' })
-    statusOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const getRecurrences = async () => {
-  try {
-    const { data } = await api({ url: '/api/recurrences' })
-    recurrenceOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
 
 const getModules = async () => {
   try {
@@ -278,8 +260,6 @@ const getDueDays = async () => {
 }
 
 onMounted(() => {
-  getStatus()
-  getRecurrences()
   getModules()
   getDueDays()
 })

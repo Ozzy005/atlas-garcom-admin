@@ -6,33 +6,33 @@
     >
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Código:"
           :value="form.code"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Nome:"
           :value="form.name"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Status:"
-          :value="formatStatus(form.status)"
+          :value="enums.getName('status', form.status)"
         />
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Criação:"
           :value="helpers.brDateTime(form.created_at)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Edição"
           :value="helpers.brDateTime(form.updated_at)"
@@ -49,8 +49,10 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldView from 'src/components/crud/FieldDefault.vue'
+import FieldDefault from 'src/components/crud/FieldDefault.vue'
+import { useEnumsStore } from 'src/stores/enums'
 
+const enums = useEnumsStore()
 const route = useRoute()
 
 const form = ref({
@@ -60,7 +62,6 @@ const form = ref({
   created_at: null,
   updated_at: null
 })
-const statusOptions = ref([])
 
 const getItem = async () => {
   try {
@@ -71,26 +72,8 @@ const getItem = async () => {
   }
 }
 
-const getStatus = async () => {
-  try {
-    const { data } = await api({ url: '/api/status' })
-    statusOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatStatus = (val) => {
-  const status = statusOptions.value.find(item => item.id === val)
-  if (status) {
-    return status.name
-  }
-  return 'Não informado'
-}
-
 onMounted(() => {
   getItem()
-  getStatus()
 })
 
 </script>

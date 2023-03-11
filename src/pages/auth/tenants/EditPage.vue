@@ -60,8 +60,6 @@ const getItem = async () => {
   }
 }
 
-onMounted(() => getItem())
-
 const submit = async () => {
   try {
     const { data } = await api({
@@ -75,5 +73,7 @@ const submit = async () => {
     notify.error(error)
   }
 }
+
+onMounted(() => getItem())
 
 </script>

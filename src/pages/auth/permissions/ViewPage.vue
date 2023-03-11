@@ -6,13 +6,13 @@
     >
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Nome:"
           :value="form.name"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Email:"
           :value="form.description"
@@ -20,13 +20,13 @@
       </div>
 
       <div class="col-12 row q-gap-md">
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Criação:"
           :value="helpers.brDateTime(form.created_at)"
         />
 
-        <FieldView
+        <FieldDefault
           class="col-md-grow col-xs-12"
           field="Dt. Edição"
           :value="helpers.brDateTime(form.updated_at)"
@@ -44,7 +44,7 @@ import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldView from 'src/components/crud/FieldDefault.vue'
+import FieldDefault from 'src/components/crud/FieldDefault.vue'
 
 const route = useRoute()
 

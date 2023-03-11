@@ -35,8 +35,8 @@
       <template #body-cell-type="props">
         <q-td :props="props">
           <BadgeStatus
-            :name="formatType(props.row.type)"
-            :color="getTypeColor(props.row.type)"
+            :name="enums.getName('role-types', props.row.type)"
+            :color="enums.getColor('role-types', props.row.type)"
           />
         </q-td>
       </template>
@@ -53,7 +53,9 @@ import notify from 'src/composables/notify'
 import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
 import FilterDefault from 'src/components/crud/FilterDefault.vue'
 import BadgeStatus from 'src/components/common/BadgeStatus.vue'
+import { useEnumsStore } from 'src/stores/enums'
 
+const enums = useEnumsStore()
 const auth = useAuthStore()
 const tableRef = ref()
 const columns = [
@@ -114,7 +116,6 @@ const pagination = ref({
 const filter = ref()
 const loading = ref(false)
 const selected = ref([])
-const types = ref([])
 
 const rowClick = (event, row) => {
   const exists = selected.value.find(item => item.id === row.id)
@@ -153,34 +154,8 @@ const getItems = async (props) => {
   }
 }
 
-const getTypes = async () => {
-  try {
-    const { data } = await api({ url: '/api/role-types' })
-    types.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatType = (val) => {
-  const type = types.value.find(item => item.id === val)
-  if (type) {
-    return type.name
-  }
-  return 'Não informado'
-}
-
-const getTypeColor = (val) => {
-  const type = types.value.find(item => item.id === val)
-  if (type) {
-    return type.color
-  }
-  return '#000000'
-}
-
 onMounted(() => {
   tableRef.value.requestServerInteraction()
-  getTypes()
 })
 
 </script>

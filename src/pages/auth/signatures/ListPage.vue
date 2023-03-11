@@ -35,16 +35,16 @@
       <template #body-cell-recurrence="props">
         <q-td :props="props">
           <BadgeStatus
-            :name="formatRecurrence(props.row.recurrence)"
-            :color="getRecurrenceColor(props.row.recurrence)"
+            :name="enums.getName('recurrences', props.row.recurrence)"
+            :color="enums.getColor('recurrences', props.row.recurrence)"
           />
         </q-td>
       </template>
       <template #body-cell-status="props">
         <q-td :props="props">
           <BadgeStatus
-            :name="formatStatus(props.row.status)"
-            :color="getStatusColor(props.row.status)"
+            :name="enums.getName('status', props.row.status)"
+            :color="enums.getColor('status', props.row.status)"
           />
         </q-td>
       </template>
@@ -61,8 +61,10 @@ import notify from 'src/composables/notify'
 import ActionsDefault from 'src/components/crud/ActionsDefault.vue'
 import FilterDefault from 'src/components/crud/FilterDefault.vue'
 import BadgeStatus from 'src/components/common/BadgeStatus.vue'
+import { useEnumsStore } from 'src/stores/enums'
 
 const auth = useAuthStore()
+const enums = useEnumsStore()
 const tableRef = ref()
 const columns = [
   {
@@ -116,16 +118,14 @@ const columns = [
     name: 'recurrence',
     field: 'recurrence',
     align: 'center',
-    sortable: true,
-    format: (val) => formatRecurrence(val)
+    sortable: true
   },
   {
     label: 'Status',
     name: 'status',
     field: 'status',
     align: 'center',
-    sortable: true,
-    format: (val) => formatStatus(val)
+    sortable: true
   }
 ]
 const rows = ref([])
@@ -139,8 +139,6 @@ const pagination = ref({
 const filter = ref()
 const loading = ref(false)
 const selected = ref([])
-const recurrenceOptions = ref([])
-const statusOptions = ref([])
 
 const rowClick = (event, row) => {
   const exists = selected.value.find(item => item.id === row.id)
@@ -179,60 +177,8 @@ const getItems = async (props) => {
   }
 }
 
-const getStatus = async () => {
-  try {
-    const { data } = await api({ url: '/api/status' })
-    statusOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatStatus = (val) => {
-  const status = statusOptions.value.find(item => item.id === val)
-  if (status) {
-    return status.name
-  }
-  return 'Não informado'
-}
-
-const getStatusColor = (val) => {
-  const status = statusOptions.value.find(item => item.id === val)
-  if (status) {
-    return status.color
-  }
-  return '#000000'
-}
-
-const getRecurrences = async () => {
-  try {
-    const { data } = await api({ url: '/api/recurrences' })
-    recurrenceOptions.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const formatRecurrence = (val) => {
-  const recurrence = recurrenceOptions.value.find(item => item.id === val)
-  if (recurrence) {
-    return recurrence.name
-  }
-  return 'Não informado'
-}
-
-const getRecurrenceColor = (val) => {
-  const recurrence = recurrenceOptions.value.find(item => item.id === val)
-  if (recurrence) {
-    return recurrence.color
-  }
-  return '#000000'
-}
-
 onMounted(() => {
   tableRef.value.requestServerInteraction()
-  getStatus()
-  getRecurrences()
 })
 
 </script>

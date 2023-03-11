@@ -27,7 +27,7 @@
       <q-select
         v-model="form.type"
         class="col-md-grow col-xs-12"
-        :options="types"
+        :options="enums.getEnum('role-types')"
         label="Tipo"
         outlined
         option-value="id"
@@ -85,6 +85,7 @@
 import { computed, ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
+import { useEnumsStore } from 'src/stores/enums'
 
 const props = defineProps({
   modelValue: {
@@ -104,11 +105,12 @@ const form = computed({
   }
 })
 
+const enums = useEnumsStore()
+
 const treeRef = ref(null)
 const expandedAll = ref(false)
 const tickedAll = ref(false)
 const permissions = ref([])
-const types = ref([])
 
 const rootNodes = computed(() => {
   const nodes = []
@@ -151,18 +153,8 @@ const getPermissions = async () => {
   }
 }
 
-const getTypes = async () => {
-  try {
-    const { data } = await api({ url: '/api/role-types' })
-    types.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
 onMounted(() => {
   getPermissions()
-  getTypes()
 })
 
 </script>
