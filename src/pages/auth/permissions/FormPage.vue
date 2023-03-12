@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-gap-x-md q-gap-y-sm">
+  <XFormGroup>
 
     <XInput
       v-model="form.name"
@@ -18,17 +18,20 @@
       maxlength="125"
     />
 
-    <div class="col-12">
-      <XSbtBtn class="float-right" />
-    </div>
+    <XBtnGroup>
+      <q-space />
+      <XSbtBtn />
+    </XBtnGroup>
 
-  </div>
+  </XFormGroup>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
 import XInput from 'src/components/common/inputs/XInput.vue'
+import XFormGroup from 'src/components/crud/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

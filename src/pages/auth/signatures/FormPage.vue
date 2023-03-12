@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-gap-sm">
+  <XFormGroup>
 
     <q-toggle
       v-model="form.hasDiscount"
@@ -10,7 +10,7 @@
       unchecked-icon="clear"
     />
 
-    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+    <XFormGroup>
       <XInput
         v-model="form.name"
         :rules="[val => !!val || 'Nome é obrigatório!']"
@@ -34,9 +34,9 @@
         label="Status"
         enum-name="status"
       />
-    </div>
+    </XFormGroup>
 
-    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+    <XFormGroup>
       <XEnumSelect
         v-model="form.recurrence"
         :rules="[val => !!val || 'Recorrência é obrigatório!']"
@@ -84,9 +84,9 @@
           Preço total é calculado automaticamente com base na recorrência, preço ou preço c/ desconto.
         </q-tooltip>
       </XMoneyInput>
-    </div>
+    </XFormGroup>
 
-    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+    <XFormGroup>
       <XChipSelect
         v-model="form.due_days"
         :options="dueDays"
@@ -104,13 +104,14 @@
         label="Módulos"
         option-label="description"
       />
-    </div>
+    </XFormGroup>
 
-    <div class="col-12">
-      <XSbtBtn class="float-right" />
-    </div>
+    <XBtnGroup>
+      <q-space />
+      <XSbtBtn />
+    </XBtnGroup>
 
-  </div>
+  </XFormGroup>
 </template>
 
 <script setup>
@@ -124,6 +125,8 @@ import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
 import XMoneyInput from 'src/components/common/inputs/XMoneyInput.vue'
 import XPctInput from 'src/components/common/inputs/XPctInput.vue'
 import XChipSelect from 'src/components/common/inputs/XChipSelect.vue'
+import XFormGroup from 'src/components/crud/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

@@ -1,7 +1,7 @@
 <template>
-  <div class="row q-gap-sm">
+  <XFormGroup>
 
-    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+    <XFormGroup>
       <XNifInput
         v-model="form.nif"
         class="col-md-grow"
@@ -16,9 +16,9 @@
         v-model="form.name"
         class="col-md-grow"
       />
-    </div>
+    </XFormGroup>
 
-    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+    <XFormGroup>
       <XStateRegistrationInput
         v-model="form.state_registration"
         class="col-md-grow"
@@ -41,9 +41,9 @@
         label="Status"
         enum-name="status"
       />
-    </div>
+    </XFormGroup>
 
-    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+    <XFormGroup>
       <XEmailInput
         v-model="form.email"
         class="col-md-grow"
@@ -59,9 +59,9 @@
         :cities="[{ id: form.city_id, info: form.city }]"
         class="col-md-grow"
       />
-    </div>
+    </XFormGroup>
 
-    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+    <XFormGroup>
       <XZipcodeInput
         v-model="form.zip_code"
         class="col-md-grow"
@@ -86,12 +86,9 @@
         v-model="form.complement"
         class="col-md-grow"
       />
-    </div>
+    </XFormGroup>
 
-    <div
-      class="col-12 row q-gap-x-md q-gap-y-sm"
-      v-if="$route.name === 'users-create'"
-    >
+    <XFormGroup v-if="$route.name === 'users-create'">
       <XPwdInput
         v-model="form.password"
         class="col-md-grow"
@@ -104,21 +101,24 @@
         class="col-md-grow"
         label="Confirmação da senha"
       />
-    </div>
+    </XFormGroup>
 
-    <XChipSelect
-      v-model="form.roles"
-      :rules="[val => val.length > 0 || 'Ao menos uma atribuição é obrigatória!']"
-      :options="roles"
-      label="Atribuições"
-      option-label="description"
-    />
+    <XFormGroup>
+      <XChipSelect
+        v-model="form.roles"
+        :rules="[val => val.length > 0 || 'Ao menos uma atribuição é obrigatória!']"
+        :options="roles"
+        label="Atribuições"
+        option-label="description"
+      />
+    </XFormGroup>
 
-    <div class="col-12">
-      <XSbtBtn class="float-right" />
-    </div>
+    <XBtnGroup>
+      <q-space />
+      <XSbtBtn />
+    </XBtnGroup>
 
-  </div>
+  </XFormGroup>
 </template>
 
 <script setup>
@@ -143,6 +143,8 @@ import XNumberInput from 'src/components/common/inputs/person/XNumberInput.vue'
 import XComplementInput from 'src/components/common/inputs/person/XComplementInput.vue'
 import XPwdInput from 'src/components/common/inputs/XPwdInput.vue'
 import XChipSelect from 'src/components/common/inputs/XChipSelect.vue'
+import XFormGroup from 'src/components/crud/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

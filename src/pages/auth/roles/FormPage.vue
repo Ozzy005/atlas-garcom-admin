@@ -1,7 +1,7 @@
 <template>
-  <div class="row q-gap-sm">
+  <XFormGroup>
 
-    <div class="col-12 row q-gap-x-md q-gap-y-sm">
+    <XFormGroup>
       <XInput
         v-model="form.name"
         :rules="[val => !!val || 'Nome é obrigatório!']"
@@ -25,10 +25,10 @@
         label="Tipo"
         enum-name="role-types"
       />
-    </div>
+    </XFormGroup>
 
-    <div class="col-12 column q-gap-md">
-      <div class="row q-gap-sm">
+    <XFormGroup>
+      <XFormGroup>
         <XBtn
           @click="expand"
           :label="expandedAll ? 'Recolher todos' : 'Expandir todos'"
@@ -39,22 +39,25 @@
           :label="tickedAll ? 'Desmarcar todos' : 'Marcar todos'"
           size="md"
         />
-      </div>
-      <q-tree
-        ref="treeRef"
-        node-key="id"
-        label-key="description"
-        tick-strategy="leaf"
-        :nodes="permissions"
-        v-model:ticked="form.permission_ids"
-      />
-    </div>
+      </XFormGroup>
+      <XFormGroup>
+        <q-tree
+          ref="treeRef"
+          node-key="id"
+          label-key="description"
+          tick-strategy="leaf"
+          :nodes="permissions"
+          v-model:ticked="form.permission_ids"
+        />
+      </XFormGroup>
+    </XFormGroup>
 
-    <div class="col-12">
-      <XSbtBtn class="float-right" />
-    </div>
+    <XBtnGroup>
+      <q-space />
+      <XSbtBtn />
+    </XBtnGroup>
 
-  </div>
+  </XFormGroup>
 </template>
 
 <script setup>
@@ -65,6 +68,8 @@ import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
 import XInput from 'src/components/common/inputs/XInput.vue'
 import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
 import XBtn from 'src/components/common/buttons/XBtn.vue'
+import XFormGroup from 'src/components/crud/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

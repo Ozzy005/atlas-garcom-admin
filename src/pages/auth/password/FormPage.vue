@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-gap-y-sm">
+  <XFormGroup>
 
     <XPwdInput
       v-model="form.current_password"
@@ -17,17 +17,20 @@
       label="Confirmação da nova senha"
     />
 
-    <div class="col-12">
-      <XSaveBtn class="float-right" />
-    </div>
+    <XBtnGroup>
+      <q-space />
+      <XSaveBtn />
+    </XBtnGroup>
 
-  </div>
+  </XFormGroup>
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import XSaveBtn from 'src/components/common/buttons/XSbtBtn.vue'
 import XPwdInput from 'src/components/common/inputs/XPwdInput.vue'
+import XFormGroup from 'src/components/crud/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

@@ -13,9 +13,8 @@
       title="Dados do Contratante"
       icon="mdi-account-tie"
     >
-
-      <div class="row q-gap-sm">
-        <div class="col-12 row q-gap-x-md q-gap-y-sm">
+      <XFormGroup>
+        <XFormGroup>
           <XNifInput
             v-model="form.nif"
             class="col-md-grow"
@@ -30,9 +29,9 @@
             v-model="form.name"
             class="col-md-grow"
           />
-        </div>
+        </XFormGroup>
 
-        <div class="col-12 row q-gap-x-md q-gap-y-sm">
+        <XFormGroup>
           <XStateRegistrationInput
             v-model="form.state_registration"
             class="col-md-grow"
@@ -55,9 +54,9 @@
             label="Status"
             enum-name="tenant-status"
           />
-        </div>
+        </XFormGroup>
 
-        <div class="col-12 row q-gap-x-md q-gap-y-sm">
+        <XFormGroup>
           <XEmailInput
             v-model="form.email"
             class="col-md-grow"
@@ -73,9 +72,9 @@
             :cities="[{ id: form.city_id, info: form.city }]"
             class="col-md-grow"
           />
-        </div>
+        </XFormGroup>
 
-        <div class="col-12 row q-gap-x-md q-gap-y-sm">
+        <XFormGroup>
           <XZipcodeInput
             v-model="form.zip_code"
             class="col-md-grow"
@@ -100,11 +99,13 @@
             v-model="form.complement"
             class="col-md-grow"
           />
-        </div>
-      </div>
+        </XFormGroup>
+      </XFormGroup>
 
-      <q-stepper-navigation class="flex q-gap-md">
-        <XCtnBtn @click="() => formRef.validate().then((success) => validate(success, 2))" />
+      <q-stepper-navigation>
+        <XBtnGroup>
+          <XCtnBtn @click="() => formRef.validate().then((success) => validate(success, 2))" />
+        </XBtnGroup>
       </q-stepper-navigation>
     </q-step>
 
@@ -114,7 +115,6 @@
       title="Escolha da Assinatura"
       icon="mdi-file-document"
     >
-
       <div class="row q-gap-lg">
         <TenantSginatures
           v-model:signature-id-model="form.signature_id"
@@ -122,7 +122,6 @@
           v-model:due-day-id-model="form.due_day_id"
           class="col-12"
         />
-
         <XSelect
           v-model="form.due_day_id"
           :rules="[val => !!val || 'Dia de Vencimento é obrigatório!']"
@@ -133,9 +132,11 @@
         />
       </div>
 
-      <q-stepper-navigation class="flex q-gap-md">
-        <XCtnBtn @click="() => formRef.validate().then((success) => validate(success, 3))" />
-        <XBackBtn @click="step = 1" />
+      <q-stepper-navigation>
+        <XBtnGroup>
+          <XCtnBtn @click="() => formRef.validate().then((success) => validate(success, 3))" />
+          <XBackBtn @click="step = 1" />
+        </XBtnGroup>
       </q-stepper-navigation>
     </q-step>
 
@@ -144,10 +145,11 @@
       title="Confirmar Assinatura"
       icon="mdi-check-bold"
     >
-
-      <q-stepper-navigation class="flex q-gap-md">
-        <XSbtBtn />
-        <XBackBtn @click="step = 2" />
+      <q-stepper-navigation>
+        <XBtnGroup>
+          <XSbtBtn />
+          <XBackBtn @click="step = 2" />
+        </XBtnGroup>
       </q-stepper-navigation>
     </q-step>
   </q-stepper>
@@ -176,6 +178,8 @@ import XDistrictInput from 'src/components/common/inputs/person/XDistrictInput.v
 import XNumberInput from 'src/components/common/inputs/person/XNumberInput.vue'
 import XComplementInput from 'src/components/common/inputs/person/XComplementInput.vue'
 import XSelect from 'src/components/common/inputs/XSelect.vue'
+import XFormGroup from 'src/components/crud/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {
