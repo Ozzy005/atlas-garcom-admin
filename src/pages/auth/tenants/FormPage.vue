@@ -156,7 +156,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 import notify from 'src/composables/notify'
 import TenantSginatures from 'src/components/common/TenantSignatures.vue'
 import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
@@ -205,7 +205,13 @@ const form = computed({
 const step = ref(1)
 const dueDays = ref([])
 
-watch(() => form.value.signature, () => { dueDays.value = form.value.signature.due_days })
+watchEffect(
+  () => {
+    if ('signature' in form.value) {
+      dueDays.value = form.value.signature.due_days
+    }
+  }
+)
 
 const validate = (success, stepVl) => {
   if (stepVl === 3 && !form.value.signature_id) {

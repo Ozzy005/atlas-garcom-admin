@@ -42,7 +42,7 @@ const routes = [
       {
         path: 'change-password',
         name: 'change-password',
-        component: () => import('src/pages/auth/password/EditPage.vue')
+        component: () => import('src/pages/auth/change-password/EditPage.vue')
       },
       {
         path: 'tenants',

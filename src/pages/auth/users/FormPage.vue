@@ -105,7 +105,7 @@
 
     <XFormGroup>
       <XChipSelect
-        v-model="form.roles"
+        v-model="form.roles_ids"
         :rules="[val => val.length > 0 || 'Ao menos uma atribuição é obrigatória!']"
         :options="roles"
         label="Atribuições"
@@ -148,6 +148,10 @@ import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {
+    type: Object,
+    required: true
+  },
+  formRef: {
     type: Object,
     required: true
   }

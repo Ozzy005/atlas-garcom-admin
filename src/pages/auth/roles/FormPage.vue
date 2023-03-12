@@ -47,7 +47,7 @@
           label-key="description"
           tick-strategy="leaf"
           :nodes="permissions"
-          v-model:ticked="form.permission_ids"
+          v-model:ticked="form.permissions_ids"
         />
       </XFormGroup>
     </XFormGroup>
@@ -73,6 +73,10 @@ import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {
+    type: Object,
+    required: true
+  },
+  formRef: {
     type: Object,
     required: true
   }
@@ -118,10 +122,10 @@ const expand = () => {
 
 const collapse = () => {
   if (tickedAll.value) {
-    form.value.permission_ids = []
+    form.value.permissions_ids = []
     tickedAll.value = false
   } else {
-    form.value.permission_ids = rootNodes.value
+    form.value.permissions_ids = rootNodes.value
     tickedAll.value = true
   }
 }

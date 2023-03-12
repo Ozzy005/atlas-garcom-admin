@@ -88,7 +88,7 @@
 
     <XFormGroup>
       <XChipSelect
-        v-model="form.due_days"
+        v-model="form.due_days_ids"
         :options="dueDays"
         :rules="[val => val.length > 0 || 'Ao menos um dia de vencimento é obrigatório!']"
         class="col-md-grow"
@@ -97,7 +97,7 @@
       />
 
       <XChipSelect
-        v-model="form.modules"
+        v-model="form.modules_ids"
         :options="modules"
         :rules="[val => val.length > 0 || 'Ao menos um módulo é obrigatório!']"
         class="col-md-grow"
@@ -132,6 +132,9 @@ const props = defineProps({
   modelValue: {
     type: Object,
     required: true
+  },
+  formRef: {
+    type: Object
   }
 })
 

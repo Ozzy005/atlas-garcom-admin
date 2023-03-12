@@ -1,9 +1,9 @@
 <template>
-  <div class="row justify-between items-center">
+  <div class="row justify-between items-center q-gap-md">
     <div class="text-h6">{{ crud }}</div>
     <XBackBtn
       v-if="showBackBtn"
-      :model="model"
+      :model="returnTo ?? model"
     />
   </div>
 </template>
@@ -23,6 +23,7 @@ defineProps({
   showBackBtn: {
     type: Boolean,
     default: true
-  }
+  },
+  returnTo: String
 })
 </script>

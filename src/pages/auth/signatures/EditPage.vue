@@ -1,29 +1,14 @@
 <template>
-  <q-page padding>
-    <q-card class="q-pa-md">
-      <HeaderDefault
-        crud="Assinaturas"
-        model="signatures"
-      />
-      <div class="q-mt-lg">
-        <q-form @submit="submit">
-          <FormPage v-model="form" />
-        </q-form>
-      </div>
-    </q-card>
-  </q-page>
+  <XEditPage
+    v-model="form"
+    crud="Assinaturas"
+    model="signatures"
+  />
 </template>
 
 <script setup>
-import notify from 'src/composables/notify'
-import FormPage from './FormPage.vue'
-import { useRoute, useRouter } from 'vue-router'
-import { ref, onMounted } from 'vue'
-import { api } from 'src/boot/axios'
-import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
-
-const router = useRouter()
-const route = useRoute()
+import { ref } from 'vue'
+import XEditPage from 'src/components/crud/XEditPage.vue'
 
 const form = ref({
   name: null,
@@ -34,36 +19,9 @@ const form = ref({
   discount: null,
   discounted_price: null,
   total_price: null,
-  due_days: [],
-  modules: [],
+  due_days_ids: [],
+  modules_ids: [],
   status: null
 })
-
-const getItem = async () => {
-  try {
-    const { data } = await api({ url: `/api/signatures/${route.params.id}` })
-    form.value = data.data
-    form.value.due_days = form.value.due_days.map(item => item.id)
-    form.value.modules = form.value.modules.map(item => item.id)
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-const submit = async () => {
-  try {
-    const { data } = await api({
-      method: 'put',
-      url: `/api/signatures/${route.params.id}`,
-      data: form.value
-    })
-    router.push({ name: 'signatures' })
-    notify.success(data.message)
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-onMounted(() => getItem())
 
 </script>

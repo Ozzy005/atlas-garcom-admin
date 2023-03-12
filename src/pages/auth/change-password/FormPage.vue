@@ -36,6 +36,10 @@ const props = defineProps({
   modelValue: {
     type: Object,
     required: true
+  },
+  formRef: {
+    type: Object,
+    required: true
   }
 })
 

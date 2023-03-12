@@ -1,28 +1,14 @@
 <template>
-  <q-page padding>
-    <q-card class="q-pa-md">
-      <HeaderDefault
-        crud="Usuários"
-        model="users"
-      />
-      <div class="q-mt-lg">
-        <q-form @submit="submit">
-          <FormPage v-model="form" />
-        </q-form>
-      </div>
-    </q-card>
-  </q-page>
+  <XCreatePage
+    v-model="form"
+    crud="Usuários"
+    model="users"
+  />
 </template>
 
 <script setup>
-import notify from 'src/composables/notify'
 import { ref } from 'vue'
-import FormPage from './FormPage.vue'
-import { useRouter } from 'vue-router'
-import HeaderDefault from 'src/components/crud/HeaderDefault.vue'
-import { api } from 'src/boot/axios'
-
-const router = useRouter()
+import XCreatePage from 'src/components/crud/XCreatePage.vue'
 
 const form = ref({
   nif: null,
@@ -42,17 +28,7 @@ const form = ref({
   complement: null,
   password: null,
   password_confirmation: null,
-  roles: []
+  roles_ids: []
 })
-
-const submit = async () => {
-  try {
-    const { data } = await api({ method: 'post', url: '/api/users', data: form.value })
-    router.push({ name: 'users' })
-    notify.success(data.message)
-  } catch (error) {
-    notify.error(error)
-  }
-}
 
 </script>

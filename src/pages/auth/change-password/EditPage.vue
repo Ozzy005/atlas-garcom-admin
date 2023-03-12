@@ -1,10 +1,11 @@
 <template>
   <XEditPage
     v-model="form"
+    :fetch-item="false"
     :route-has-parameter="false"
     return-to="dashboard"
-    crud="Editar Perfil"
-    model="profile"
+    crud="Editar senha"
+    model="change-password"
   />
 </template>
 
@@ -13,8 +14,9 @@ import { ref } from 'vue'
 import XEditPage from 'src/components/crud/XEditPage.vue'
 
 const form = ref({
-  name: null,
-  email: null
+  current_password: null,
+  password: null,
+  password_confirmation: null
 })
 
 </script>

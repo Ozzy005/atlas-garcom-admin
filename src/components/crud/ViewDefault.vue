@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import HeaderDefault from './HeaderDefault.vue'
+import HeaderDefault from './XHeader.vue'
 
 defineProps({
   crud: {
