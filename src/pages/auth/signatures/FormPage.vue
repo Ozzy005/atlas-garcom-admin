@@ -11,175 +11,98 @@
     />
 
     <div class="col-12 row q-gap-x-md q-gap-y-sm">
-      <q-input
+      <XInput
         v-model="form.name"
-        class="col-md-3 col-xs-12"
+        :rules="[val => !!val || 'Nome é obrigatório!']"
+        class="col-md-3"
         label="Nome"
-        outlined
-        clearable
-        lazy-rules="ondemand"
         maxlength="30"
-        :rules="[val => !!val || 'Nome é obrigatória!']"
       />
 
-      <q-input
-        v-model="form.description"
-        class="col-md-grow col-xs-12"
-        label="Descrição"
-        outlined
-        clearable
-        maxlength="100"
-        lazy-rules="ondemand"
+      <XInput
         :rules="[val => !!val || 'Descrição é obrigatório!']"
+        v-model="form.description"
+        class="col-md-grow"
+        label="Descrição"
+        maxlength="100"
       />
 
-      <q-select
+      <XEnumSelect
         v-model="form.status"
-        class="col-md-2 col-xs-12"
-        :options="enums.getEnum('status')"
-        label="Status"
-        outlined
-        option-value="id"
-        option-label="name"
-        emit-value
-        map-options
-        clearable
-        lazy-rules="ondemand"
         :rules="[val => !!val || 'Status é obrigatório!']"
+        class="col-md-2"
+        label="Status"
+        enum-name="status"
       />
     </div>
 
     <div class="col-12 row q-gap-x-md q-gap-y-sm">
-      <q-select
+      <XEnumSelect
         v-model="form.recurrence"
-        class="col-md-grow col-xs-12"
-        :options="enums.getEnum('recurrences')"
+        :rules="[val => !!val || 'Recorrência é obrigatório!']"
+        class="col-md-3"
         label="Recorrência"
-        outlined
-        option-value="id"
-        option-label="name"
-        emit-value
-        map-options
-        clearable
-        lazy-rules="ondemand"
-        :rules="[val => !!val || 'Recorrência é obrigatória!']"
+        enum-name="recurrences"
       />
 
-      <q-input
+      <XMoneyInput
         v-model="form.price"
-        class="col-md-grow col-xs-12"
-        label="Preço"
-        outlined
-        clearable
-        maxlength="12"
-        lazy-rules="ondemand"
         :rules="[val => !!val || 'Preço é obrigatório!']"
-        prefix="R$"
-        v-maska
-        data-maska="9.99#,##"
-        data-maska-reversed
-        data-maska-tokens="9:[0-9]:repeated"
+        class="col-md-grow"
+        label="Preço"
       />
 
-      <q-input
+      <XPctInput
+        v-if="form.hasDiscount"
         v-model="form.discount"
-        v-if="form.hasDiscount"
-        class="col-md-grow col-xs-12"
-        label="Desconto"
-        outlined
-        clearable
-        maxlength="6"
-        lazy-rules="ondemand"
         :rules="[val => !!val || 'Desconto é obrigatório!']"
-        prefix="%"
-        v-maska
-        data-maska="9.99#,##"
-        data-maska-reversed
-        data-maska-tokens="9:[0-9]:repeated"
-        @change="(vl) => helpers.moneyToFloat(vl) > 99.99 ? form.discount = '100,00' : form.discount = vl"
+        class="col-md-grow"
+        label="Desconto"
       />
 
-      <q-input
-        v-model="form.discounted_price"
+      <XMoneyInput
         v-if="form.hasDiscount"
-        class="col-md-grow col-xs-12"
+        v-model="form.discounted_price"
+        :rules="[val => !!val || 'Preço C/ Desconto é obrigatório!']"
+        class="col-md-grow"
         label="Preço C/ Desconto"
         readonly
-        outlined
-        clearable
-        maxlength="12"
-        lazy-rules="ondemand"
-        :rules="[val => !!val || 'Preço C/ Desconto é obrigatório!']"
-        prefix="R$"
-        v-maska
-        data-maska="9.99#,##"
-        data-maska-reversed
-        data-maska-tokens="9:[0-9]:repeated"
       >
         <q-tooltip class="fs-14">
           Preço C/Desconto é calculado automaticamente com base no preço e desconto.
         </q-tooltip>
-      </q-input>
+      </XMoneyInput>
 
-      <q-input
+      <XMoneyInput
         v-model="form.total_price"
-        class="col-md-grow col-xs-12"
+        :rules="[val => !!val || 'Preço Total é obrigatório!']"
+        class="col-md-grow"
         label="Preço Total"
         readonly
-        outlined
-        clearable
-        maxlength="12"
-        lazy-rules="ondemand"
-        :rules="[val => !!val || 'Preço Total é obrigatório!']"
-        prefix="R$"
-        v-maska
-        data-maska="9.99#,##"
-        data-maska-reversed
-        data-maska-tokens="9:[0-9]:repeated"
       >
         <q-tooltip class="fs-14">
           Preço total é calculado automaticamente com base na recorrência, preço ou preço c/ desconto.
         </q-tooltip>
-      </q-input>
+      </XMoneyInput>
     </div>
 
     <div class="col-12 row q-gap-x-md q-gap-y-sm">
-      <q-select
-        class="col-md-grow col-xs-12"
+      <XChipSelect
         v-model="form.due_days"
-        :options="dueDaysOptions"
-        label="Dias de Vencimento"
-        outlined
-        option-value="id"
-        option-label="day"
-        emit-value
-        map-options
-        filled
-        multiple
-        use-chips
-        stack-label
-        clearable
-        lazy-rules="ondemand"
+        :options="dueDays"
         :rules="[val => val.length > 0 || 'Ao menos um dia de vencimento é obrigatório!']"
+        class="col-md-grow"
+        label="Dias de Vencimento"
+        option-label="day"
       />
 
-      <q-select
-        class="col-md-grow col-xs-12"
+      <XChipSelect
         v-model="form.modules"
-        :options="modulesOptions"
-        label="Módulos"
-        outlined
-        option-value="id"
-        option-label="description"
-        emit-value
-        map-options
-        filled
-        multiple
-        use-chips
-        stack-label
-        clearable
-        lazy-rules="ondemand"
+        :options="modules"
         :rules="[val => val.length > 0 || 'Ao menos um módulo é obrigatório!']"
+        class="col-md-grow"
+        label="Módulos"
+        option-label="description"
       />
     </div>
 
@@ -194,10 +117,13 @@
 import { computed, ref, onMounted, watch } from 'vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
-import { vMaska } from 'maska'
 import helpers from 'src/utils/helpers'
-import { useEnumsStore } from 'src/stores/enums'
-import XSbtBtn from 'src/components/common/XSbtBtn.vue'
+import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
+import XInput from 'src/components/common/inputs/XInput.vue'
+import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
+import XMoneyInput from 'src/components/common/inputs/XMoneyInput.vue'
+import XPctInput from 'src/components/common/inputs/XPctInput.vue'
+import XChipSelect from 'src/components/common/inputs/XChipSelect.vue'
 
 const props = defineProps({
   modelValue: {
@@ -217,18 +143,17 @@ const form = computed({
   }
 })
 
-const enums = useEnumsStore()
-const dueDaysOptions = ref([])
-const modulesOptions = ref([])
+const dueDays = ref([])
+const modules = ref([])
 
 watch(
-  () => [form.value.price, form.value.discount, form.value.recurrence, form.value.hasDiscount],
+  () => [form.value.hasDiscount, form.value.recurrence, form.value.price, form.value.discount],
   () => {
     const price = helpers.moneyToFloat(form.value.price)
     const discount = helpers.moneyToFloat(form.value.discount)
     const vl = (price - ((discount * price) / 100))
     form.value.discounted_price = helpers.floatToMoney(vl)
-    form.value.total_price = helpers.floatToMoney(vl * form.value.recurrence)
+    form.value.total_price = helpers.floatToMoney(vl * (form.value.recurrence ?? 1))
     if (!form.value.hasDiscount) {
       form.value.discount = '0'
     }
@@ -238,7 +163,7 @@ watch(
 const getModules = async () => {
   try {
     const { data } = await api({ url: '/api/roles', params: { type: 2 } })
-    modulesOptions.value = data.data
+    modules.value = data.data
   } catch (error) {
     notify.error(error)
   }
@@ -247,7 +172,7 @@ const getModules = async () => {
 const getDueDays = async () => {
   try {
     const { data } = await api({ url: '/api/due-days', params: { status: 1 } })
-    dueDaysOptions.value = data.data
+    dueDays.value = data.data
   } catch (error) {
     notify.error(error)
   }

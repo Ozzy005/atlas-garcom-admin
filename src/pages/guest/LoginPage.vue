@@ -11,36 +11,16 @@
       <q-card-section>
         <q-form @submit="submit">
 
-          <q-input
-            type="email"
-            label="Email"
-            clearable
-            maxlength="100"
-            lazy-rules="ondemand"
+          <XEmailInput
             v-model="form.email"
-            :rules="[val => !!val || 'Email é obrigatório!']"
+            :outlined="false"
           />
 
-          <q-input
-            :type="isPwd ? 'password' : 'text'"
-            label="Senha"
-            clearable
-            maxlength="100"
-            lazy-rules="ondemand"
+          <XPwdInput
             v-model="form.password"
-            :rules="[
-              val => !!val || 'Senha é obrigatória!',
-              val => val.length >= 8 || 'Minímo 8 caracteres!',
-            ]"
-          >
-            <template #append>
-              <q-icon
-                :name="isPwd ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="isPwd = !isPwd"
-              />
-            </template>
-          </q-input>
+            :outlined="false"
+            label="Senha"
+          />
 
           <q-checkbox
             v-model="auth.rememberMe"
@@ -71,15 +51,15 @@ import { ref } from 'vue'
 import notify from 'src/composables/notify'
 import { useAuthStore } from 'src/stores/auth'
 import { useRouter } from 'vue-router'
-import XSbtBtn from 'src/components/common/XSbtBtn.vue'
-import XBtn from 'src/components/common/XBtn.vue'
+import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
+import XBtn from 'src/components/common/buttons/XBtn.vue'
+import XPwdInput from 'src/components/common/inputs/XPwdInput.vue'
+import XEmailInput from 'src/components/common/inputs/person/XEmailInput.vue'
 
 const auth = useAuthStore()
 const router = useRouter()
 
 const form = ref(JSON.parse(JSON.stringify(auth.userLogin)))
-
-const isPwd = ref(true)
 
 const submit = async () => {
   try {

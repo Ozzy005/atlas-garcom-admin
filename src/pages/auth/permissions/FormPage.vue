@@ -1,27 +1,21 @@
 <template>
   <div class="row q-gap-x-md q-gap-y-sm">
 
-    <q-input
+    <XInput
       v-model="form.name"
-      class="col-md-grow col-xs-12"
-      label="Nome"
-      outlined
-      clearable
-      disable
-      maxlength="125"
-      lazy-rules="ondemand"
       :rules="[val => !!val || 'Nome é obrigatório!']"
+      class="col-md-grow"
+      label="Nome"
+      maxlength="125"
+      disable
     />
 
-    <q-input
+    <XInput
       v-model="form.description"
-      class="col-md-grow col-xs-12"
-      label="Descrição"
-      outlined
-      clearable
-      maxlength="125"
-      lazy-rules="ondemand"
       :rules="[val => !!val || 'Descrição é obrigatório!']"
+      class="col-md-grow"
+      label="Descrição"
+      maxlength="125"
     />
 
     <div class="col-12">
@@ -33,7 +27,8 @@
 
 <script setup>
 import { computed } from 'vue'
-import XSbtBtn from 'src/components/common/XSbtBtn.vue'
+import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
+import XInput from 'src/components/common/inputs/XInput.vue'
 
 const props = defineProps({
   modelValue: {

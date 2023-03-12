@@ -1,28 +1,12 @@
 <template>
   <div class="row q-gap-y-sm">
 
-    <q-input
+    <XNameInput
       v-model="form.name"
-      class="col-12"
-      label="Nome"
-      outlined
-      clearable
-      maxlength="60"
-      lazy-rules="ondemand"
-      :rules="[val => !!val || 'Nome é obrigatório!']"
+      :required="true"
     />
 
-    <q-input
-      v-model="form.email"
-      type="email"
-      class="col-12"
-      label="Email"
-      outlined
-      clearable
-      maxlength="100"
-      lazy-rules="ondemand"
-      :rules="[val => !!val || 'Email é obrigatório!']"
-    />
+    <XEmailInput v-model="form.email" />
 
     <div class="col-12">
       <XSbtBtn class="float-right" />
@@ -33,7 +17,9 @@
 
 <script setup>
 import { computed } from 'vue'
-import XSbtBtn from 'src/components/common/XSbtBtn.vue'
+import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
+import XEmailInput from 'src/components/common/inputs/person/XEmailInput.vue'
+import XNameInput from 'src/components/common/inputs/person/XNameInput.vue'
 
 const props = defineProps({
   modelValue: {

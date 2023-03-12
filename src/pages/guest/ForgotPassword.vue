@@ -11,14 +11,9 @@
       <q-card-section>
         <q-form @submit="submit">
 
-          <q-input
-            type="email"
-            label="Email"
-            clearable
-            maxlength="100"
-            lazy-rules="ondemand"
+          <XEmailInput
             v-model="form.email"
-            :rules="[val => !!val || 'Email é obrigatório!']"
+            :outlined="false"
           />
 
           <q-card-actions align="right">
@@ -42,8 +37,9 @@ import { ref } from 'vue'
 import notify from 'src/composables/notify'
 import { useAuthStore } from 'src/stores/auth'
 import { useRouter } from 'vue-router'
-import XBackBtn from 'src/components/common/XBackBtn.vue'
-import XSbtBtn from 'src/components/common/XSbtBtn.vue'
+import XBackBtn from 'src/components/common/buttons/XBackBtn.vue'
+import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
+import XEmailInput from 'src/components/common/inputs/person/XEmailInput.vue'
 
 const auth = useAuthStore()
 const router = useRouter()

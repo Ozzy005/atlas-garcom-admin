@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import XBackBtn from '../common/XBackBtn.vue'
+import XBackBtn from '../common/buttons/XBackBtn.vue'
 
 defineProps({
   crud: {

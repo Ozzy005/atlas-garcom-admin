@@ -2,59 +2,42 @@
   <div class="row q-gap-sm">
 
     <div class="col-12 row q-gap-x-md q-gap-y-sm">
-      <q-input
+      <XInput
         v-model="form.name"
-        class="col-md-grow col-xs-12"
-        label="Nome"
-        outlined
-        clearable
-        maxlength="125"
-        lazy-rules="ondemand"
         :rules="[val => !!val || 'Nome é obrigatório!']"
-      />
-
-      <q-input
-        v-model="form.description"
-        class="col-md-grow col-xs-12"
-        label="Descrição"
-        outlined
-        clearable
+        class="col-md-grow"
+        label="Nome"
         maxlength="125"
-        lazy-rules="ondemand"
-        :rules="[val => !!val || 'Descrição é obrigatória!']"
       />
 
-      <q-select
+      <XInput
+        v-model="form.description"
+        :rules="[val => !!val || 'Descrição é obrigatória!']"
+        class="col-md-grow"
+        label="Descrição"
+        maxlength="125"
+      />
+
+      <XEnumSelect
         v-model="form.type"
-        class="col-md-grow col-xs-12"
-        :options="enums.getEnum('role-types')"
-        label="Tipo"
-        outlined
-        option-value="id"
-        option-label="name"
-        emit-value
-        map-options
-        clearable
-        lazy-rules="ondemand"
         :rules="[val => !!val || 'Tipo é obrigatório!']"
+        class="col-md-grow"
+        label="Tipo"
+        enum-name="role-types"
       />
     </div>
 
     <div class="col-12 column q-gap-md">
       <div class="row q-gap-sm">
-        <q-btn
+        <XBtn
+          @click="expand"
           :label="expandedAll ? 'Recolher todos' : 'Expandir todos'"
           size="md"
-          color="primary"
-          no-caps
-          @click="expand"
         />
-        <q-btn
+        <XBtn
+          @click="collapse"
           :label="tickedAll ? 'Desmarcar todos' : 'Marcar todos'"
           size="md"
-          color="primary"
-          no-caps
-          @click="collapse"
         />
       </div>
       <q-tree
@@ -78,8 +61,10 @@
 import { computed, ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
-import { useEnumsStore } from 'src/stores/enums'
-import XSbtBtn from 'src/components/common/XSbtBtn.vue'
+import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
+import XInput from 'src/components/common/inputs/XInput.vue'
+import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
+import XBtn from 'src/components/common/buttons/XBtn.vue'
 
 const props = defineProps({
   modelValue: {
@@ -98,8 +83,6 @@ const form = computed({
     emit('update:modelValue', value)
   }
 })
-
-const enums = useEnumsStore()
 
 const treeRef = ref(null)
 const expandedAll = ref(false)

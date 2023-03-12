@@ -27,7 +27,7 @@
       <XBtn
         v-if="showCreate"
         :to="{ name: `${props.model}-create` }"
-        label="Adicionar novo"
+        label="Adicionar"
         icon="mdi-plus"
       />
     </div>
@@ -40,7 +40,7 @@ import notify from 'src/composables/notify'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
-import XBtn from '../common/XBtn.vue'
+import XBtn from '../common/buttons/XBtn.vue'
 
 const props = defineProps({
   modelValue: {

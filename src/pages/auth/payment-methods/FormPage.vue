@@ -1,41 +1,28 @@
 <template>
   <div class="row q-gap-x-md q-gap-y-sm">
 
-    <q-input
+    <XInput
       v-model="form.code"
-      class="col-md-grow col-xs-12"
-      label="Código"
-      outlined
-      clearable
-      maxlength="10"
-      lazy-rules="ondemand"
       :rules="[val => !!val || 'Código é obrigatória!']"
+      class="col-md-grow"
+      label="Código"
+      maxlength="10"
     />
 
-    <q-input
+    <XInput
       v-model="form.name"
-      class="col-md-grow col-xs-12"
-      label="Nome"
-      outlined
-      clearable
-      maxlength="30"
-      lazy-rules="ondemand"
+      class="col-md-grow"
       :rules="[val => !!val || 'Nome é obrigatório!']"
+      label="Nome"
+      maxlength="30"
     />
 
-    <q-select
+    <XEnumSelect
       v-model="form.status"
-      class="col-md-grow col-xs-12"
-      :options="enums.getEnum('status')"
-      label="Status"
-      outlined
-      option-value="id"
-      option-label="name"
-      emit-value
-      map-options
-      clearable
-      lazy-rules="ondemand"
       :rules="[val => !!val || 'Status é obrigatório!']"
+      class="col-md-grow"
+      label="Status"
+      enum-name="status"
     />
 
     <div class="col-12">
@@ -46,9 +33,10 @@
 </template>
 
 <script setup>
-import { useEnumsStore } from 'src/stores/enums'
 import { computed } from 'vue'
-import XSbtBtn from 'src/components/common/XSbtBtn.vue'
+import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
+import XInput from 'src/components/common/inputs/XInput.vue'
+import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
 
 const props = defineProps({
   modelValue: {
@@ -67,7 +55,5 @@ const form = computed({
     emit('update:modelValue', value)
   }
 })
-
-const enums = useEnumsStore()
 
 </script>

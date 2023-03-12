@@ -1,17 +1,17 @@
 <template>
   <XBtn
-    :to="{ name: model }"
-    label="Voltar"
-    icon="mdi-arrow-left"
-    outline
+    label="Continuar"
+    icon="mdi-arrow-right"
   >
     <template
       v-for="(_, slot) in $slots"
+      :key="slot"
       v-slot:[slot]="scope"
     >
       <slot
         :name="slot"
         v-bind="scope"
+        :key="slot"
       />
     </template>
   </XBtn>
@@ -19,11 +19,4 @@
 
 <script setup>
 import XBtn from './XBtn.vue'
-
-defineProps({
-  model: {
-    type: String,
-    required: false
-  }
-})
 </script>

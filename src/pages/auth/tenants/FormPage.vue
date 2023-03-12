@@ -1,192 +1,104 @@
 <template>
   <q-stepper
     v-model="step"
-    vertical
     color="primary"
+    vertical
     animated
     flat
     bordered
   >
     <q-step
       :name="1"
+      :done="step > 1"
       title="Dados do Contratante"
       icon="mdi-account-tie"
-      :done="step > 1"
     >
 
       <div class="row q-gap-sm">
         <div class="col-12 row q-gap-x-md q-gap-y-sm">
-          <q-input
-            v-model="nif"
-            class="col-md-grow col-xs-12"
-            label="CPF/CNPJ"
-            outlined
-            clearable
-            :mask="nifMask"
-            unmasked-value
-            reverse-fill-mask
-            maxlength="18"
-            lazy-rules="ondemand"
-            :rules="[
-              val => !!val || 'CPF/CNPJ é obrigatório!',
-              val => helpers.cpfCnpj(val) || 'CPF/CNPJ é inválido!'
-            ]"
+          <XNifInput
+            v-model="form.nif"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XFullNameInput
             v-model="form.full_name"
-            class="col-md-grow col-xs-12"
-            label="Nome Completo/Razão Social"
-            outlined
-            clearable
-            maxlength="100"
-            lazy-rules="ondemand"
-            :rules="[val => !!val || 'Nome Completo/Razão Social é obrigatório!']"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XNameInput
             v-model="form.name"
-            class="col-md-grow col-xs-12"
-            label="Nome Social/Nome Fantasia"
-            outlined
-            clearable
-            maxlength="50"
-            :rules="[val => true]"
+            class="col-md-grow"
           />
         </div>
 
         <div class="col-12 row q-gap-x-md q-gap-y-sm">
-          <q-input
+          <XStateRegistrationInput
             v-model="form.state_registration"
-            class="col-md-grow col-xs-12"
-            label="Inscrição Estadual"
-            outlined
-            clearable
-            maxlength="15"
-            :rules="[val => !!val || 'Inscrição Estadual é obrigatório!']"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XCityRegistrationInput
             v-model="form.city_registration"
-            class="col-md-grow col-xs-12"
-            label="Inscrição Municipal"
-            outlined
-            clearable
-            maxlength="12"
-            :rules="[val => true]"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XBirthdateInput
             v-model="form.birthdate"
-            type="date"
-            class="col-md-grow col-xs-12"
-            label="Dt. Nasc./Abertura"
-            outlined
-            clearable
-            stack-label
-            lazy-rules="ondemand"
-            :rules="[val => !!val || 'Dt. Nasc./Abertura é obrigatório!']"
+            class="col-md-grow"
           />
 
-          <q-select
+          <XEnumSelect
             v-model="form.status"
-            class="col-md-grow col-xs-12"
-            :options="enums.getEnum('tenant-status')"
-            label="Status"
-            outlined
-            option-value="id"
-            option-label="name"
-            emit-value
-            map-options
-            clearable
-            lazy-rules="ondemand"
             :rules="[val => !!val || 'Status é obrigatório!']"
+            class="col-md-grow"
+            label="Status"
+            enum-name="tenant-status"
           />
         </div>
 
         <div class="col-12 row q-gap-x-md q-gap-y-sm">
-          <q-input
+          <XEmailInput
             v-model="form.email"
-            type="email"
-            class="col-md-grow col-xs-12"
-            label="Email"
-            outlined
-            clearable
-            maxlength="100"
-            lazy-rules="ondemand"
-            :rules="[val => !!val || 'Email é obrigatório!']"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XPhoneInput
             v-model="form.phone"
-            class="col-md-grow col-xs-12"
-            label="Telefone"
-            outlined
-            clearable
-            mask="(##) # ####-####"
-            unmasked-value
-            lazy-rules="ondemand"
-            :rules="[val => !!val || 'Telefone é obrigatório!']"
+            class="col-md-grow"
           />
 
-          <SelectCity
+          <XCitySelect
             v-model="form.city_id"
-            :options-default="[{ id: form.city_id, info: form.city }]"
+            :cities="[{ id: form.city_id, info: form.city }]"
+            class="col-md-grow"
           />
         </div>
 
         <div class="col-12 row q-gap-x-md q-gap-y-sm">
-          <q-input
+          <XZipcodeInput
             v-model="form.zip_code"
-            class="col-md-grow col-xs-12"
-            label="CEP"
-            outlined
-            clearable
-            mask="#####-###"
-            unmasked-value
-            lazy-rules="ondemand"
-            :rules="[val => !!val || 'CEP é obrigatório!']"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XAddressInput
             v-model="form.address"
-            class="col-md-grow col-xs-12"
-            label="Endereço"
-            outlined
-            clearable
-            maxlength="60"
-            lazy-rules="ondemand"
-            :rules="[val => !!val || 'Endereço é obrigatório!']"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XDistrictInput
             v-model="form.district"
-            class="col-md-grow col-xs-12"
-            label="Bairro"
-            outlined
-            clearable
-            maxlength="30"
-            :rules="[val => true]"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XNumberInput
             v-model="form.number"
-            class="col-md-grow col-xs-12"
-            label="N°"
-            outlined
-            clearable
-            maxlength="10"
-            :rules="[val => true]"
+            class="col-md-grow"
           />
 
-          <q-input
+          <XComplementInput
             v-model="form.complement"
-            class="col-md-grow col-xs-12"
-            label="Complemento"
-            outlined
-            clearable
-            maxlength="30"
-            :rules="[val => true]"
+            class="col-md-grow"
           />
         </div>
       </div>
@@ -198,32 +110,26 @@
 
     <q-step
       :name="2"
+      :done="step > 2"
       title="Escolha da Assinatura"
       icon="mdi-file-document"
-      :done="step > 2"
     >
 
       <div class="row q-gap-lg">
         <TenantSginatures
-          class="col-12"
           v-model:signature-id-model="form.signature_id"
           v-model:due-days-model="dueDays"
           v-model:due-day-id-model="form.due_day_id"
+          class="col-12"
         />
 
-        <q-select
+        <XSelect
           v-model="form.due_day_id"
-          class="col-auto"
-          :options="dueDays"
-          label="Dia de Vencimento"
-          outlined
-          option-value="id"
-          option-label="description"
-          emit-value
-          map-options
-          clearable
-          lazy-rules="ondemand"
           :rules="[val => !!val || 'Dia de Vencimento é obrigatório!']"
+          :options="dueDays"
+          class="col-md-auto"
+          label="Dia de Vencimento"
+          option-label="description"
         />
       </div>
 
@@ -249,16 +155,27 @@
 
 <script setup>
 import { computed, ref, watch } from 'vue'
-import helpers from 'src/utils/helpers'
-import SelectCity from 'src/components/common/SelectCity.vue'
 import notify from 'src/composables/notify'
 import TenantSginatures from 'src/components/common/TenantSignatures.vue'
-import { useEnumsStore } from 'src/stores/enums'
-import XSbtBtn from 'src/components/common/XSbtBtn.vue'
-import XBackBtn from 'src/components/common/XBackBtn.vue'
-import XCtnBtn from 'src/components/common/XCtnBtn.vue'
-
-const enums = useEnumsStore()
+import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
+import XBackBtn from 'src/components/common/buttons/XBackBtn.vue'
+import XCtnBtn from 'src/components/common/buttons/XCtnBtn.vue'
+import XNifInput from 'src/components/common/inputs/person/XNifInput.vue'
+import XFullNameInput from 'src/components/common/inputs/person/XFullNameInput.vue'
+import XNameInput from 'src/components/common/inputs/person/XNameInput.vue'
+import XStateRegistrationInput from 'src/components/common/inputs/person/XStateRegistrationInput.vue'
+import XCityRegistrationInput from 'src/components/common/inputs/person/XCityRegistrationInput.vue'
+import XBirthdateInput from 'src/components/common/inputs/person/XBirthdateInput.vue'
+import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
+import XEmailInput from 'src/components/common/inputs/person/XEmailInput.vue'
+import XPhoneInput from 'src/components/common/inputs/person/XPhoneInput.vue'
+import XCitySelect from 'src/components/common/inputs/person/XCitySelect.vue'
+import XZipcodeInput from 'src/components/common/inputs/person/XZipcodeInput.vue'
+import XAddressInput from 'src/components/common/inputs/person/XAddressInput.vue'
+import XDistrictInput from 'src/components/common/inputs/person/XDistrictInput.vue'
+import XNumberInput from 'src/components/common/inputs/person/XNumberInput.vue'
+import XComplementInput from 'src/components/common/inputs/person/XComplementInput.vue'
+import XSelect from 'src/components/common/inputs/XSelect.vue'
 
 const props = defineProps({
   modelValue: {
@@ -295,21 +212,5 @@ const validate = (success, stepVl) => {
     step.value = stepVl
   }
 }
-
-const nif = computed({
-  get () {
-    return helpers.nifMask(form.value.nif)
-  },
-  set (value) {
-    form.value.nif = value
-  }
-})
-
-const nifMask = computed(() => {
-  if (form.value.nif) {
-    return form.value.nif.length > 11 ? '##.###.###/####-##' : '###.###.###-##'
-  }
-  return '##.###.###/####-##'
-})
 
 </script>

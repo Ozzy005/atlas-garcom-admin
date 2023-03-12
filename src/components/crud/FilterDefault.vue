@@ -1,22 +1,22 @@
 <template>
   <div class="row">
-    <q-input
-      class="col-md-4 col-xs-12"
+    <XInput
       v-model="filter"
-      outlined
-      dense
-      debounce="300"
       :placeholder="placeholder"
+      class="col-md-4"
+      debounce="300"
+      dense
     >
       <template #append>
         <q-icon name="search" />
       </template>
-    </q-input>
+    </XInput>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import XInput from '../common/inputs/XInput.vue'
 
 const props = defineProps({
   filterValue: String,
