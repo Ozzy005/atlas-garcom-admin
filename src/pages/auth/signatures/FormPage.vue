@@ -2,7 +2,7 @@
   <XFormGroup>
 
     <q-toggle
-      v-model="form.hasDiscount"
+      v-model="form.has_discount"
       left-label
       label="Tem desconto?"
       checked-icon="check"
@@ -53,7 +53,7 @@
       />
 
       <XPctInput
-        v-if="form.hasDiscount"
+        v-if="form.has_discount"
         v-model="form.discount"
         :rules="[val => !!val || 'Desconto é obrigatório!']"
         class="col-md-grow"
@@ -61,7 +61,7 @@
       />
 
       <XMoneyInput
-        v-if="form.hasDiscount"
+        v-if="form.has_discount"
         v-model="form.discounted_price"
         :rules="[val => !!val || 'Preço C/ Desconto é obrigatório!']"
         class="col-md-grow"
@@ -153,14 +153,14 @@ const dueDays = ref([])
 const modules = ref([])
 
 watch(
-  () => [form.value.hasDiscount, form.value.recurrence, form.value.price, form.value.discount],
+  () => [form.value.has_discount, form.value.recurrence, form.value.price, form.value.discount],
   () => {
     const price = helpers.moneyToFloat(form.value.price)
     const discount = helpers.moneyToFloat(form.value.discount)
     const vl = (price - ((discount * price) / 100))
     form.value.discounted_price = helpers.floatToMoney(vl)
     form.value.total_price = helpers.floatToMoney(vl * (form.value.recurrence ?? 1))
-    if (!form.value.hasDiscount) {
+    if (!form.value.has_discount) {
       form.value.discount = '0'
     }
   }

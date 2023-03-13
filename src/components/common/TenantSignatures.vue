@@ -34,7 +34,7 @@
         <span
           class="text-subtitle2 text-red"
           style="text-decoration: line-through;"
-          v-if="signature.hasDiscount"
+          v-if="signature.has_discount"
         >
           R$ {{ helpers.floatToMoney(signature.price * signature.recurrence) }} / {{
             enums.getName('recurrences', signature.recurrence) }}
