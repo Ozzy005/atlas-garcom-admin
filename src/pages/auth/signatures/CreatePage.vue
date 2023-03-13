@@ -13,6 +13,7 @@ import XCreatePage from 'src/components/crud/XCreatePage.vue'
 const form = ref({
   name: null,
   description: null,
+  color: null,
   recurrence: null,
   price: null,
   has_discount: false,

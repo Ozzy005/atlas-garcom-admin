@@ -1,10 +1,17 @@
+<style lang="scss" scoped>
+.active-card {
+  filter: brightness(60%);
+}
+</style>
+
 <template>
   <div class="row q-gap-md">
 
     <q-card
       class="cursor-pointer"
-      :class="signature.id === signatureId ? 'bg-grey-5' : 'bg-grey-4'"
+      :class="{ 'active-card': signature.id === signatureId }"
       style="width: 300px; min-height: 400px; user-select: none;"
+      :style="{ backgroundColor: signature.color }"
       @click="() => { signatureId = signature.id, dueDays = signature.due_days, dueDayId = null }"
       v-for="(signature) in signatures"
       :key="signature.id"

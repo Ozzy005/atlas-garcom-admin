@@ -27,10 +27,16 @@
         maxlength="100"
       />
 
+      <XColorInput
+        v-model="form.color"
+        :rules="[val => !!val || 'Cor é obrigatório!']"
+        class="col-md-auto"
+      />
+
       <XEnumSelect
         v-model="form.status"
         :rules="[val => !!val || 'Status é obrigatório!']"
-        class="col-md-2"
+        class="col-md-auto"
         label="Status"
         enum-name="status"
       />
@@ -127,6 +133,7 @@ import XPctInput from 'src/components/common/inputs/XPctInput.vue'
 import XChipSelect from 'src/components/common/inputs/XChipSelect.vue'
 import XFormGroup from 'src/components/crud/XFormGroup.vue'
 import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
+import XColorInput from 'src/components/common/inputs/XColorInput.vue'
 
 const props = defineProps({
   modelValue: {
