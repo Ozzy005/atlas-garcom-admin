@@ -1,81 +1,61 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import { api } from 'src/boot/axios'
 
-export const useAuthStore = defineStore(
-  'auth',
-  () => {
-    const userLogin = ref({ email: null, password: null })
-    const rememberMe = ref(false)
-    const isAuthenticated = ref(false)
-    const user = ref(null)
-    const permissions = ref(null)
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    userLogin: { email: null, password: null },
+    rememberMe: false,
+    isAuthenticated: false,
+    user: null,
+    permissions: null
 
-    const hasPermission = (permission) => {
-      const has = permissions.value.find(item => item.name === permission)
+  }),
+  actions: {
+    hasPermission (permission) {
+      const has = this.permissions.find(item => item.name === permission)
       return !!has
-    }
-
-    const csrf = async () => {
+    },
+    async csrf () {
       await api({ url: '/sanctum/csrf-cookie' })
-    }
-
-    const forgotPassword = async (data) => {
-      await csrf()
+    },
+    async forgotPassword (data) {
+      await this.csrf()
       const rsp = await api({
         method: 'post',
         url: '/forgot-password',
         data
       })
       return rsp
-    }
-
-    const resetPassword = async (data) => {
-      await csrf()
+    },
+    async resetPassword (data) {
+      await this.csrf()
       const rsp = await api({
         method: 'post',
         url: '/reset-password',
         data
       })
       return rsp
-    }
-
-    const login = async (data) => {
-      await csrf()
+    },
+    async login (data) {
+      await this.csrf()
       await api({
         method: 'post',
         url: '/login',
         data
       })
-      isAuthenticated.value = true
-      if (rememberMe.value) {
-        userLogin.value = data
+      this.isAuthenticated = true
+      if (this.rememberMe) {
+        this.userLogin = data
       } else {
-        userLogin.value = { email: null, password: null }
+        this.userLogin = { email: null, password: null }
       }
-    }
-
-    const logout = async () => {
+    },
+    async logout () {
       await api({
         method: 'post',
         url: '/logout'
       })
     }
-
-    return {
-      userLogin,
-      rememberMe,
-      isAuthenticated,
-      user,
-      permissions,
-      hasPermission,
-      forgotPassword,
-      resetPassword,
-      login,
-      logout
-    }
   },
-  {
-    persist: true
-  }
-)
+  persist: true
+})

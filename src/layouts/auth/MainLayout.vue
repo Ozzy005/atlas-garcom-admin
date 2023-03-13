@@ -15,6 +15,13 @@
           Atlas Garçom
         </q-toolbar-title>
 
+        <q-btn
+          round
+          dense
+          :icon="$q.dark.isActive ? 'light_mode' : 'dark_mode'"
+          @click="darkMode.toggle()"
+        />
+
         <q-btn-dropdown
           flat
           color="white"
@@ -63,6 +70,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useDarkModeStore } from 'src/stores/darkMode'
 import { useAuthStore } from 'src/stores/auth'
 import { useEnumsStore } from 'src/stores/enums'
 import { useRouter } from 'vue-router'
@@ -70,9 +78,12 @@ import notify from 'src/composables/notify'
 import DrawerDefault from './DrawerDefault.vue'
 
 const router = useRouter()
+const darkMode = useDarkModeStore()
 const auth = useAuthStore()
 const enums = useEnumsStore()
 const leftDrawerOpen = ref(false)
+
+darkMode.initialize()
 
 const logout = () => {
   try {
