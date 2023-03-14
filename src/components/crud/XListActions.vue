@@ -9,6 +9,7 @@
         :disable="!items.length"
         label="Excluir"
         icon="mdi-close"
+        color="red"
       />
       <XBtn
         v-if="showEdit"
