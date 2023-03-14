@@ -16,10 +16,17 @@
         </q-toolbar-title>
 
         <q-btn
+          :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+          @click="$q.fullscreen.toggle()"
           round
           dense
+        />
+
+        <q-btn
           :icon="$q.dark.isActive ? 'light_mode' : 'dark_mode'"
           @click="darkMode.toggle()"
+          round
+          dense
         />
 
         <q-btn-dropdown
