@@ -3,7 +3,7 @@
     <div class="text-h6">{{ crud }}</div>
     <XBackBtn
       v-if="showBackBtn"
-      :model="returnTo ?? model"
+      :model="returnTo ?? `${model}-list`"
     />
   </div>
 </template>

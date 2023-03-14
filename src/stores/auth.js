@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
+import notify from 'src/composables/notify'
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -11,6 +12,18 @@ export const useAuthStore = defineStore('auth', {
 
   }),
   actions: {
+    async getPermissions () {
+      try {
+        const { data } = await api({ url: '/api/user-permissions' })
+        this.permissions = data.data
+      } catch (error) {
+        notify.error(error)
+      }
+    },
+    hasPermissions (permissions) {
+      const has = this.permissions.find(item => permissions.includes(item.name))
+      return !!has
+    },
     hasPermission (permission) {
       const has = this.permissions.find(item => item.name === permission)
       return !!has

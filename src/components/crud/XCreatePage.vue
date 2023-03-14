@@ -58,7 +58,7 @@ const formRef = ref()
 const submit = async () => {
   try {
     const { data } = await api({ method: 'post', url: `/api/${props.model}`, data: form.value })
-    router.push({ name: props.model })
+    router.push({ name: props.afterSavingGoTo ?? `${props.model}-list` })
     notify.success(data.message)
   } catch (error) {
     notify.error(error)

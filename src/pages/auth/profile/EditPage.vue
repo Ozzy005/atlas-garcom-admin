@@ -3,6 +3,7 @@
     v-model="form"
     :route-has-parameter="false"
     return-to="dashboard"
+    after-saving-go-to="dashboard"
     crud="Editar Perfil"
     model="profile"
   />

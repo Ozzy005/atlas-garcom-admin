@@ -4,6 +4,7 @@
     :fetch-item="false"
     :route-has-parameter="false"
     return-to="dashboard"
+    after-saving-go-to="dashboard"
     crud="Editar senha"
     model="change-password"
   />

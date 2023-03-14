@@ -44,6 +44,7 @@ const props = defineProps({
     default: true
   },
   returnTo: String,
+  afterSavingGoTo: String,
   fetchItem: {
     type: Boolean,
     default: true
@@ -80,7 +81,7 @@ const submit = async () => {
   try {
     const url = props.routeHasParameter ? `/api/${props.model}/${route.params.id}` : `/api/${props.model}`
     const { data } = await api({ method: 'put', url, data: form.value })
-    router.push({ name: props.model })
+    router.push({ name: props.afterSavingGoTo ?? `${props.model}-list` })
     notify.success(data.message)
   } catch (error) {
     notify.error(error)

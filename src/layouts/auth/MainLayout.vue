@@ -67,7 +67,7 @@
       </q-toolbar>
     </q-header>
 
-    <DrawerDefault v-model="leftDrawerOpen" />
+    <XDrawer v-model="leftDrawerOpen" />
 
     <q-page-container>
       <router-view />
@@ -82,7 +82,7 @@ import { useAuthStore } from 'src/stores/auth'
 import { useEnumsStore } from 'src/stores/enums'
 import { useRouter } from 'vue-router'
 import notify from 'src/composables/notify'
-import DrawerDefault from './DrawerDefault.vue'
+import XDrawer from './XDrawer.vue'
 
 const router = useRouter()
 const darkMode = useDarkModeStore()
@@ -91,6 +91,11 @@ const enums = useEnumsStore()
 const leftDrawerOpen = ref(false)
 
 darkMode.initialize()
+
+onMounted(() => {
+  auth.getPermissions()
+  enums.getEnums()
+})
 
 const logout = () => {
   try {
@@ -105,7 +110,5 @@ const logout = () => {
     router.push({ name: 'login' })
   }
 }
-
-onMounted(() => enums.getEnums())
 
 </script>
