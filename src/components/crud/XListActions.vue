@@ -4,31 +4,31 @@
     <q-space />
     <div class="row q-gap-sm">
       <XBtn
-        v-if="showDestroy"
         @click="destroy"
         :disable="!items.length"
-        label="Excluir"
+        v-if="showDestroy"
+        tooltip-label="Excluir"
         icon="mdi-close"
         color="red"
       />
       <XBtn
-        v-if="showEdit"
         @click="edit"
         :disable="!(items.length === 1)"
-        label="Editar"
+        v-if="showEdit"
+        tooltip-label="Editar"
         icon="mdi-pencil"
       />
       <XBtn
-        v-if="showView"
         @click="view"
         :disable="!(items.length === 1)"
-        label="Visualizar"
+        v-if="showView"
+        tooltip-label="Visualizar"
         icon="mdi-eye"
       />
       <XBtn
-        v-if="showCreate"
         :to="{ name: `${props.model}-create` }"
-        label="Adicionar"
+        v-if="showCreate"
+        tooltip-label="Adicionar"
         icon="mdi-plus"
       />
     </div>

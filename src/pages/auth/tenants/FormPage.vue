@@ -134,8 +134,8 @@
 
       <q-stepper-navigation>
         <XBtnGroup>
-          <XCtnBtn @click="() => formRef.validate().then((success) => validate(success, 3))" />
           <XBackBtn @click="step = 1" />
+          <XCtnBtn @click="() => formRef.validate().then((success) => validate(success, 3))" />
         </XBtnGroup>
       </q-stepper-navigation>
     </q-step>
@@ -147,8 +147,8 @@
     >
       <q-stepper-navigation>
         <XBtnGroup>
-          <XSbtBtn />
           <XBackBtn @click="step = 2" />
+          <XSbtBtn />
         </XBtnGroup>
       </q-stepper-navigation>
     </q-step>

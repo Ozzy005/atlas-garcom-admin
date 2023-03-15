@@ -2,31 +2,30 @@
   <q-layout view="hHh Lpr lff">
     <q-header elevated>
       <q-toolbar>
-        <q-btn
+        <XBtn
+          @click="leftDrawerOpen = !leftDrawerOpen"
+          aria-label="Menu"
+          icon="menu"
+          color="white"
           flat
           dense
           round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
         <q-toolbar-title>
           Atlas Garçom
         </q-toolbar-title>
 
-        <q-btn
-          :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+        <XBtn
           @click="$q.fullscreen.toggle()"
-          round
-          dense
+          :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+          :tooltip-label="$q.fullscreen.isActive ? 'Sair do modo fullscreen' : 'Colocar em modo fullscreen'"
         />
 
-        <q-btn
-          :icon="$q.dark.isActive ? 'light_mode' : 'dark_mode'"
+        <XBtn
           @click="darkMode.toggle()"
-          round
-          dense
+          :icon="$q.dark.isActive ? 'light_mode' : 'dark_mode'"
+          :tooltip-label="$q.dark.isActive ? 'Sair do modo escuro' : 'Colocar em modo escuro'"
         />
 
         <q-btn-dropdown
@@ -82,7 +81,8 @@ import { useAuthStore } from 'src/stores/auth'
 import { useEnumsStore } from 'src/stores/enums'
 import { useRouter } from 'vue-router'
 import notify from 'src/composables/notify'
-import XDrawer from './XDrawer.vue'
+import XDrawer from '../../components/layouts/XDrawer.vue'
+import XBtn from 'src/components/common/buttons/XBtn.vue'
 
 const router = useRouter()
 const darkMode = useDarkModeStore()

@@ -20,7 +20,7 @@
     <q-list>
       <!-- Dashboard -->
       <q-item
-        v-show="auth.hasPermissions(['dashboard_view'])"
+        v-if="auth.hasPermissions(['dashboard_view'])"
         @click="() => hideMiniMode(false)"
         :to="{ name: 'dashboard' }"
         active-class="text-secondary"
@@ -31,19 +31,15 @@
         <q-item-section>
           <q-item-label>Dashboard</q-item-label>
         </q-item-section>
-        <q-tooltip
+        <XTooltip
           v-if="miniState"
-          :offset="[10, 10]"
-          class="fs-14"
-          anchor="center right"
-          self="center left"
-        >
-          Dashboard
-        </q-tooltip>
+          label="Dashboard"
+          position="right"
+        />
       </q-item>
       <!-- Pessoas -->
       <q-expansion-item
-        v-show="auth.hasPermissions(['tenants_view'])"
+        v-if="auth.hasPermissions(['tenants_view'])"
         @click="() => hideMiniMode()"
         ref="peopleExpansionItemRef"
         group="menu"
@@ -72,20 +68,16 @@
           ].includes($route.name) ? 'text-secondary' : ''">
             Pessoas
           </q-item-section>
-          <q-tooltip
+          <XTooltip
             v-if="miniState"
-            :offset="[10, 10]"
-            class="fs-14"
-            anchor="center right"
-            self="center left"
-          >
-            Pessoas
-          </q-tooltip>
+            label="Pessoas"
+            position="right"
+          />
         </template>
         <q-list>
           <!-- Contratantes -->
           <q-item
-            v-show="auth.hasPermissions(['tenants_view'])"
+            v-if="auth.hasPermissions(['tenants_view'])"
             :to="{ name: 'tenants-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -101,7 +93,7 @@
       </q-expansion-item>
       <!-- Operacional -->
       <q-expansion-item
-        v-show="auth.hasPermissions([
+        v-if="auth.hasPermissions([
           'signatures_view',
           'due-days_view'
         ])"
@@ -142,20 +134,16 @@
             Operacional
           </q-item-section>
 
-          <q-tooltip
+          <XTooltip
             v-if="miniState"
-            :offset="[10, 10]"
-            class="fs-14"
-            anchor="center right"
-            self="center left"
-          >
-            Operacional
-          </q-tooltip>
+            label="Operacional"
+            position="right"
+          />
         </template>
         <q-list>
           <!-- Assinaturas -->
           <q-item
-            v-show="auth.hasPermissions(['signatures_view'])"
+            v-if="auth.hasPermissions(['signatures_view'])"
             :to="{ name: 'signatures-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -169,7 +157,7 @@
           </q-item>
           <!-- Dias de Vencimento -->
           <q-item
-            v-show="auth.hasPermissions(['due-days_view'])"
+            v-if="auth.hasPermissions(['due-days_view'])"
             :to="{ name: 'due-days-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -185,7 +173,7 @@
       </q-expansion-item>
       <!-- Geral -->
       <q-expansion-item
-        v-show="auth.hasPermissions([
+        v-if="auth.hasPermissions([
           'payment-methods_view',
           'measurement-units_view',
           'ncms_view',
@@ -241,20 +229,16 @@
             Geral
           </q-item-section>
 
-          <q-tooltip
+          <XTooltip
             v-if="miniState"
-            :offset="[10, 10]"
-            class="fs-14"
-            anchor="center right"
-            self="center left"
-          >
-            Geral
-          </q-tooltip>
+            label="Geral"
+            position="right"
+          />
         </template>
         <q-list>
           <!-- Métodos de Pagamento -->
           <q-item
-            v-show="auth.hasPermissions(['payment-methods_view'])"
+            v-if="auth.hasPermissions(['payment-methods_view'])"
             :to="{ name: 'payment-methods-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -268,7 +252,7 @@
           </q-item>
           <!-- Unidades de Medida -->
           <q-item
-            v-show="auth.hasPermissions(['measurement-units_view'])"
+            v-if="auth.hasPermissions(['measurement-units_view'])"
             :to="{ name: 'measurement-units-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -282,7 +266,7 @@
           </q-item>
           <!-- Ncms -->
           <q-item
-            v-show="auth.hasPermissions(['ncms_view'])"
+            v-if="auth.hasPermissions(['ncms_view'])"
             :to="{ name: 'ncms-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -296,7 +280,7 @@
           </q-item>
           <!-- Estados -->
           <q-item
-            v-show="auth.hasPermissions(['states_view'])"
+            v-if="auth.hasPermissions(['states_view'])"
             :to="{ name: 'states-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -310,7 +294,7 @@
           </q-item>
           <!-- Cidades -->
           <q-item
-            v-show="auth.hasPermissions(['cities_view'])"
+            v-if="auth.hasPermissions(['cities_view'])"
             :to="{ name: 'cities-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -326,7 +310,7 @@
       </q-expansion-item>
       <!-- Gerenciamento -->
       <q-expansion-item
-        v-show="auth.hasPermissions([
+        v-if="auth.hasPermissions([
           'users_view',
           'roles_view',
           'permissions_view'
@@ -374,20 +358,16 @@
             Gerenciamento
           </q-item-section>
 
-          <q-tooltip
+          <XTooltip
             v-if="miniState"
-            :offset="[10, 10]"
-            class="fs-14"
-            anchor="center right"
-            self="center left"
-          >
-            Gerenciamento
-          </q-tooltip>
+            label="Gerenciamento"
+            position="right"
+          />
         </template>
         <q-list>
           <!-- Usuários -->
           <q-item
-            v-show="auth.hasPermissions(['users_view'])"
+            v-if="auth.hasPermissions(['users_view'])"
             :to="{ name: 'users-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -401,7 +381,7 @@
           </q-item>
           <!-- Atribuições/Módulos -->
           <q-item
-            v-show="auth.hasPermissions(['roles_view'])"
+            v-if="auth.hasPermissions(['roles_view'])"
             :to="{ name: 'roles-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -415,7 +395,7 @@
           </q-item>
           <!--Permissões -->
           <q-item
-            v-show="auth.hasPermissions(['permissions_view'])"
+            v-if="auth.hasPermissions(['permissions_view'])"
             :to="{ name: 'permissions-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -434,13 +414,13 @@
       class="q-mini-drawer-hide absolute"
       style="top: 15px; right: -17px"
     >
-      <q-btn
+      <XBtn
+        @click="showMiniMode"
+        tooltip-label="Esconder Menu"
+        icon="chevron_left"
         dense
         round
         unelevated
-        color="primary"
-        icon="chevron_left"
-        @click="showMiniMode"
       />
     </div>
   </q-drawer>
@@ -449,6 +429,8 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
+import XTooltip from '../common/XTooltip.vue'
+import XBtn from '../common/buttons/XBtn.vue'
 
 const props = defineProps({
   modelValue: {

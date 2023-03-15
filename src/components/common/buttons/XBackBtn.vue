@@ -1,7 +1,7 @@
 <template>
   <XBtn
     :to="{ name: model }"
-    label="Voltar"
+    tooltip-label="Voltar"
     icon="mdi-arrow-left"
     outline
   >
@@ -23,6 +23,8 @@
 import XBtn from './XBtn.vue'
 
 defineProps({
-  model: String
+  model: {
+    type: String
+  }
 })
 </script>
