@@ -3,19 +3,25 @@
     v-model="leftDrawerOpen"
     :breakpoint="1200"
     :mini-width="80"
-    :mini="!leftDrawerOpen || miniState"
-    @click.capture="drawerClick"
+    :mini="miniState"
+    ref="drawerRef"
     show-if-above
     elevated
   >
-    <div class="text-h6 text-center q-my-md">Menu</div>
+    <div
+      class="text-h6 text-center q-my-md cursor-pointer"
+      @click="() => hideMiniMode()"
+    >
+      Menu
+    </div>
 
     <q-separator />
 
     <q-list>
       <!-- Dashboard -->
       <q-item
-        v-if="auth.hasPermissions(['dashboard_view'])"
+        v-show="auth.hasPermissions(['dashboard_view'])"
+        @click="() => hideMiniMode(false)"
         :to="{ name: 'dashboard' }"
         active-class="text-secondary"
       >
@@ -25,18 +31,61 @@
         <q-item-section>
           <q-item-label>Dashboard</q-item-label>
         </q-item-section>
+        <q-tooltip
+          v-if="miniState"
+          :offset="[10, 10]"
+          class="fs-14"
+          anchor="center right"
+          self="center left"
+        >
+          Dashboard
+        </q-tooltip>
       </q-item>
       <!-- Pessoas -->
       <q-expansion-item
-        v-if="auth.hasPermissions(['tenants_view'])"
-        icon="mdi-account-group"
-        label="Pessoas"
+        v-show="auth.hasPermissions(['tenants_view'])"
+        @click="() => hideMiniMode()"
+        ref="peopleExpansionItemRef"
         group="menu"
       >
+        <template #header>
+          <q-item-section avatar>
+            <q-avatar>
+              <q-icon
+                name="mdi-account-group"
+                size="sm"
+                :color="[
+                  'tenants-list',
+                  'tenants-create',
+                  'tenants-view',
+                  'tenants-edit'
+                ].includes($route.name) ? 'secondary' : ''"
+              />
+            </q-avatar>
+          </q-item-section>
+
+          <q-item-section :class="[
+            'tenants-list',
+            'tenants-create',
+            'tenants-view',
+            'tenants-edit'
+          ].includes($route.name) ? 'text-secondary' : ''">
+            Pessoas
+          </q-item-section>
+          <q-tooltip
+            v-if="miniState"
+            :offset="[10, 10]"
+            class="fs-14"
+            anchor="center right"
+            self="center left"
+          >
+            Pessoas
+          </q-tooltip>
+        </template>
         <q-list>
           <!-- Contratantes -->
           <q-item
-            v-if="auth.hasPermissions(['tenants_view'])"
+            v-show="auth.hasPermissions(['tenants_view'])"
             :to="{ name: 'tenants-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -52,18 +101,61 @@
       </q-expansion-item>
       <!-- Operacional -->
       <q-expansion-item
-        v-if="auth.hasPermissions([
+        v-show="auth.hasPermissions([
           'signatures_view',
           'due-days_view'
         ])"
-        icon="mdi-sitemap"
-        label="Operacional"
+        @click="() => hideMiniMode()"
+        ref="operationalExpansionItemRef"
         group="menu"
       >
+        <template #header>
+          <q-item-section avatar>
+            <q-avatar>
+              <q-icon
+                name="mdi-sitemap"
+                size="sm"
+                :color="[
+                  'signatures-list',
+                  'signatures-create',
+                  'signatures-view',
+                  'signatures-edit',
+                  'due-days-list',
+                  'due-days-create',
+                  'due-days-view',
+                  'due-days-edit'
+                ].includes($route.name) ? 'secondary' : ''"
+              />
+            </q-avatar>
+          </q-item-section>
+
+          <q-item-section :class="[
+            'signatures-list',
+            'signatures-create',
+            'signatures-view',
+            'signatures-edit',
+            'due-days-list',
+            'due-days-create',
+            'due-days-view',
+            'due-days-edit'
+          ].includes($route.name) ? 'text-secondary' : ''">
+            Operacional
+          </q-item-section>
+
+          <q-tooltip
+            v-if="miniState"
+            :offset="[10, 10]"
+            class="fs-14"
+            anchor="center right"
+            self="center left"
+          >
+            Operacional
+          </q-tooltip>
+        </template>
         <q-list>
           <!-- Assinaturas -->
           <q-item
-            v-if="auth.hasPermissions(['signatures_view'])"
+            v-show="auth.hasPermissions(['signatures_view'])"
             :to="{ name: 'signatures-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -77,7 +169,7 @@
           </q-item>
           <!-- Dias de Vencimento -->
           <q-item
-            v-if="auth.hasPermissions(['due-days_view'])"
+            v-show="auth.hasPermissions(['due-days_view'])"
             :to="{ name: 'due-days-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -93,21 +185,76 @@
       </q-expansion-item>
       <!-- Geral -->
       <q-expansion-item
-        v-if="auth.hasPermissions([
+        v-show="auth.hasPermissions([
           'payment-methods_view',
           'measurement-units_view',
           'ncms_view',
           'states_view',
           'cities_view'
         ])"
-        icon="mdi-menu"
-        label="Geral"
+        @click="() => hideMiniMode()"
+        ref="generalExpansionItemRef"
         group="menu"
       >
+        <template #header>
+          <q-item-section avatar>
+            <q-avatar>
+              <q-icon
+                name="mdi-menu"
+                size="sm"
+                :color="[
+                  'payment-methods-list',
+                  'payment-methods-create',
+                  'payment-methods-view',
+                  'payment-methods-edit',
+                  'measurement-units-list',
+                  'measurement-units-create',
+                  'measurement-units-view',
+                  'measurement-units-edit',
+                  'ncms-list',
+                  'ncms-view',
+                  'states-list',
+                  'states-view',
+                  'cities-list',
+                  'cities-view',
+                ].includes($route.name) ? 'secondary' : ''"
+              />
+            </q-avatar>
+          </q-item-section>
+
+          <q-item-section :class="[
+            'payment-methods-list',
+            'payment-methods-create',
+            'payment-methods-view',
+            'payment-methods-edit',
+            'measurement-units-list',
+            'measurement-units-create',
+            'measurement-units-view',
+            'measurement-units-edit',
+            'ncms-list',
+            'ncms-view',
+            'states-list',
+            'states-view',
+            'cities-list',
+            'cities-view',
+          ].includes($route.name) ? 'text-secondary' : ''">
+            Geral
+          </q-item-section>
+
+          <q-tooltip
+            v-if="miniState"
+            :offset="[10, 10]"
+            class="fs-14"
+            anchor="center right"
+            self="center left"
+          >
+            Geral
+          </q-tooltip>
+        </template>
         <q-list>
           <!-- Métodos de Pagamento -->
           <q-item
-            v-if="auth.hasPermissions(['payment-methods_view'])"
+            v-show="auth.hasPermissions(['payment-methods_view'])"
             :to="{ name: 'payment-methods-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -121,7 +268,7 @@
           </q-item>
           <!-- Unidades de Medida -->
           <q-item
-            v-if="auth.hasPermissions(['measurement-units_view'])"
+            v-show="auth.hasPermissions(['measurement-units_view'])"
             :to="{ name: 'measurement-units-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -135,7 +282,7 @@
           </q-item>
           <!-- Ncms -->
           <q-item
-            v-if="auth.hasPermissions(['ncms_view'])"
+            v-show="auth.hasPermissions(['ncms_view'])"
             :to="{ name: 'ncms-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -149,7 +296,7 @@
           </q-item>
           <!-- Estados -->
           <q-item
-            v-if="auth.hasPermissions(['states_view'])"
+            v-show="auth.hasPermissions(['states_view'])"
             :to="{ name: 'states-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -163,7 +310,7 @@
           </q-item>
           <!-- Cidades -->
           <q-item
-            v-if="auth.hasPermissions(['cities_view'])"
+            v-show="auth.hasPermissions(['cities_view'])"
             :to="{ name: 'cities-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -179,19 +326,68 @@
       </q-expansion-item>
       <!-- Gerenciamento -->
       <q-expansion-item
-        v-if="auth.hasPermissions([
+        v-show="auth.hasPermissions([
           'users_view',
           'roles_view',
           'permissions_view'
         ])"
-        icon="mdi-account-cog"
-        label="Gerenciamento"
+        @click="() => hideMiniMode()"
+        ref="managementExpansionItemRef"
         group="menu"
       >
+        <template #header>
+          <q-item-section avatar>
+            <q-avatar>
+              <q-icon
+                name="mdi-account-cog"
+                size="sm"
+                :color="[
+                  'users-list',
+                  'users-create',
+                  'users-view',
+                  'users-edit',
+                  'roles-list',
+                  'roles-create',
+                  'roles-view',
+                  'roles-edit',
+                  'permissions-list',
+                  'permissions-view',
+                  'permissions-edit'
+                ].includes($route.name) ? 'secondary' : ''"
+              />
+            </q-avatar>
+          </q-item-section>
+
+          <q-item-section :class="[
+            'users-list',
+            'users-create',
+            'users-view',
+            'users-edit',
+            'roles-list',
+            'roles-create',
+            'roles-view',
+            'roles-edit',
+            'permissions-list',
+            'permissions-view',
+            'permissions-edit'
+          ].includes($route.name) ? 'text-secondary' : ''">
+            Gerenciamento
+          </q-item-section>
+
+          <q-tooltip
+            v-if="miniState"
+            :offset="[10, 10]"
+            class="fs-14"
+            anchor="center right"
+            self="center left"
+          >
+            Gerenciamento
+          </q-tooltip>
+        </template>
         <q-list>
           <!-- Usuários -->
           <q-item
-            v-if="auth.hasPermissions(['users_view'])"
+            v-show="auth.hasPermissions(['users_view'])"
             :to="{ name: 'users-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -205,7 +401,7 @@
           </q-item>
           <!-- Atribuições/Módulos -->
           <q-item
-            v-if="auth.hasPermissions(['roles_view'])"
+            v-show="auth.hasPermissions(['roles_view'])"
             :to="{ name: 'roles-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -219,7 +415,7 @@
           </q-item>
           <!--Permissões -->
           <q-item
-            v-if="auth.hasPermissions(['permissions_view'])"
+            v-show="auth.hasPermissions(['permissions_view'])"
             :to="{ name: 'permissions-list' }"
             :inset-level="0.5"
             active-class="text-secondary"
@@ -244,7 +440,7 @@
         unelevated
         color="primary"
         icon="chevron_left"
-        @click="miniState = true"
+        @click="showMiniMode"
       />
     </div>
   </q-drawer>
@@ -273,12 +469,25 @@ const leftDrawerOpen = computed({
 })
 
 const auth = useAuthStore()
+const drawerRef = ref()
 const miniState = ref(true)
+const peopleExpansionItemRef = ref()
+const operationalExpansionItemRef = ref()
+const generalExpansionItemRef = ref()
+const managementExpansionItemRef = ref()
 
-const drawerClick = (e) => {
-  if (miniState.value) {
+const showMiniMode = () => {
+  miniState.value = true
+  peopleExpansionItemRef.value.hide()
+  operationalExpansionItemRef.value.hide()
+  generalExpansionItemRef.value.hide()
+  managementExpansionItemRef.value.hide()
+}
+
+const hideMiniMode = (hide = true) => {
+  if (miniState.value && hide) {
     miniState.value = false
-    e.stopPropagation()
   }
 }
+
 </script>
