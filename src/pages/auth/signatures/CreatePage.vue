@@ -2,7 +2,7 @@
   <XCreate
     v-model="form"
     :return-to="{ name: 'signatures-list' }"
-    path-form="../../../pages/auth/signatures/FormPage.vue"
+    path-form="signatures"
     title="Assinaturas"
     api-post="/api/signatures"
     redirect-to="signatures-list"

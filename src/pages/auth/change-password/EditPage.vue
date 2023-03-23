@@ -2,7 +2,7 @@
   <XEdit
     v-model="form"
     :return-to="{ name: 'dashboard' }"
-    path-form="../../../pages/auth/change-password/FormPage.vue"
+    path-form="change-password"
     title="Alterar Senha"
     api-put="/api/change-password"
     redirect-to="dashboard"

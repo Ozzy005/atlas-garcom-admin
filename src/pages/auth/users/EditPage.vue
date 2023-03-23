@@ -4,7 +4,7 @@
     :api-get="`/api/users/${route.params.id}`"
     :api-put="`/api/users/${route.params.id}`"
     :return-to="{ name: 'users-list' }"
-    path-form="../../../pages/auth/users/FormPage.vue"
+    path-form="users"
     title="Usuários"
     redirect-to="users-list"
   />

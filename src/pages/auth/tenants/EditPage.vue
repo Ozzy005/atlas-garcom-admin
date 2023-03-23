@@ -4,7 +4,7 @@
     :api-get="`/api/tenants/${route.params.id}`"
     :api-put="`/api/tenants/${route.params.id}`"
     :return-to="{ name: 'tenants-list' }"
-    path-form="../../../pages/auth/tenants/FormPage.vue"
+    path-form="tenants"
     title="Contratantes"
     redirect-to="tenants-list"
   />

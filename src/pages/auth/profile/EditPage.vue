@@ -2,7 +2,7 @@
   <XEdit
     v-model="form"
     :return-to="{ name: 'dashboard' }"
-    path-form="../../../pages/auth/profile/FormPage.vue"
+    path-form="profile"
     title="Editar Perfil"
     api-get="/api/profile"
     api-put="/api/profile"

@@ -4,7 +4,7 @@
     :api-get="`/api/measurement-units/${route.params.id}`"
     :api-put="`/api/measurement-units/${route.params.id}`"
     :return-to="{ name: 'measurement-units-list' }"
-    path-form="../../../pages/auth/measurement-units/FormPage.vue"
+    path-form="measurement-units"
     title="Unidades de Medidas"
     redirect-to="measurement-units-list"
   />

@@ -4,7 +4,7 @@
     :api-get="`/api/signatures/${route.params.id}`"
     :api-put="`/api/signatures/${route.params.id}`"
     :return-to="{ name: 'signatures-list' }"
-    path-form="../../../pages/auth/signatures/FormPage.vue"
+    path-form="signatures"
     title="Assinaturas"
     redirect-to="signatures-list"
   />

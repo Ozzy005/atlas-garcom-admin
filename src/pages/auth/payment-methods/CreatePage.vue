@@ -2,7 +2,7 @@
   <XCreate
     v-model="form"
     :return-to="{ name: 'payment-methods-list' }"
-    path-form="../../../pages/auth/payment-methods/FormPage.vue"
+    path-form="payment-methods"
     title="Métodos de Pagamento"
     api-post="/api/payment-methods"
     redirect-to="payment-methods-list"

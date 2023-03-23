@@ -4,7 +4,7 @@
     :api-get="`/api/roles/${route.params.id}`"
     :api-put="`/api/roles/${route.params.id}`"
     :return-to="{ name: 'roles-list' }"
-    path-form="../../../pages/auth/roles/FormPage.vue"
+    path-form="roles"
     title="Atribuições/Módulos"
     redirect-to="roles-list"
   />

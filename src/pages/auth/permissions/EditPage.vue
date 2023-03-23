@@ -4,7 +4,7 @@
     :api-get="`/api/permissions/${route.params.id}`"
     :api-put="`/api/permissions/${route.params.id}`"
     :return-to="{ name: 'permissions-list' }"
-    path-form="../../../pages/auth/permissions/FormPage.vue"
+    path-form="permissions"
     title="Permissões"
     redirect-to="permissions-list"
   />

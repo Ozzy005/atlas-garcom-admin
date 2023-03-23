@@ -4,7 +4,7 @@
     :api-get="`/api/payment-methods/${route.params.id}`"
     :api-put="`/api/payment-methods/${route.params.id}`"
     :return-to="{ name: 'payment-methods-list' }"
-    path-form="../../../pages/auth/payment-methods/FormPage.vue"
+    path-form="payment-methods"
     title="Contratantes"
     redirect-to="payment-methods-list"
   />

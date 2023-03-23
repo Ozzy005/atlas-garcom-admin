@@ -70,7 +70,7 @@ const form = computed({
   }
 })
 
-const FormPage = defineAsyncComponent(() => import(props.pathForm))
+const FormPage = defineAsyncComponent(() => import(`../../../pages/auth/${props.pathForm}/FormPage.vue`))
 const router = useRouter()
 const formRef = ref()
 

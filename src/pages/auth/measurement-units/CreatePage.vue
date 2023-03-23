@@ -2,7 +2,7 @@
   <XCreate
     v-model="form"
     :return-to="{ name: 'measurement-units-list' }"
-    path-form="../../../pages/auth/measurement-units/FormPage.vue"
+    path-form="measurement-units"
     title="Unidades de Medida"
     api-post="/api/measurement-units"
     redirect-to="measurement-units-list"

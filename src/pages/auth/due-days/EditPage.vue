@@ -4,7 +4,7 @@
     :api-get="`/api/due-days/${route.params.id}`"
     :api-put="`/api/due-days/${route.params.id}`"
     :return-to="{ name: 'due-days-list' }"
-    path-form="../../../pages/auth/due-days/FormPage.vue"
+    path-form="due-days"
     title="Dias de Vencimento"
     redirect-to="due-days-list"
   />

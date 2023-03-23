@@ -2,7 +2,7 @@
   <XCreate
     v-model="form"
     :return-to="{ name: 'roles-list' }"
-    path-form="../../../pages/auth/roles/FormPage.vue"
+    path-form="roles"
     title="Atribuições/Módulos"
     api-post="/api/roles"
     redirect-to="roles-list"

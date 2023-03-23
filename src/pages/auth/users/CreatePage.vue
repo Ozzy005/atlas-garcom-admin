@@ -2,7 +2,7 @@
   <XCreate
     v-model="form"
     :return-to="{ name: 'users-list' }"
-    path-form="../../../pages/auth/users/FormPage.vue"
+    path-form="users"
     title="Usuários"
     api-post="/api/users"
     redirect-to="users-list"

@@ -2,7 +2,7 @@
   <XCreate
     v-model="form"
     :return-to="{ name: 'due-days-list' }"
-    path-form="../../../pages/auth/due-days/FormPage.vue"
+    path-form="due-days"
     title="Contratantes"
     api-post="/api/due-days"
     redirect-to="due-days-list"
