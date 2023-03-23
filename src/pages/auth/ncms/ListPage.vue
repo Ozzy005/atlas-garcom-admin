@@ -1,9 +1,11 @@
 <!-- eslint-disable vue/no-v-text-v-html-on-component -->
 <template>
-  <XListPage
+  <XList
     :columns="columns"
-    crud="Ncms"
-    model="ncms"
+    title="Ncms"
+    route-group-name="ncms"
+    permissions-group-name="ncms"
+    api-group-name="ncms"
     filter-placeholder="Pesquisar por código/descrição"
   >
     <template #body-cell-description="props">
@@ -12,11 +14,11 @@
         v-html="props.row.description"
       />
     </template>
-  </XListPage>
+  </XList>
 </template>
 
 <script setup>
-import XListPage from 'src/components/crud/XListPage.vue'
+import XList from 'src/components/crud/list/XList.vue'
 
 const columns = [
   {

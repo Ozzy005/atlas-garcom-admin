@@ -27,10 +27,10 @@
 
 <script setup>
 import { computed } from 'vue'
-import XSaveBtn from 'src/components/common/buttons/XSbtBtn.vue'
-import XPwdInput from 'src/components/common/inputs/XPwdInput.vue'
-import XFormGroup from 'src/components/crud/XFormGroup.vue'
-import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
+import XSaveBtn from 'src/components/buttons/XSbtBtn.vue'
+import XPwdInput from 'src/components/inputs/XPwdInput.vue'
+import XFormGroup from 'src/components/crud/form/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/form/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

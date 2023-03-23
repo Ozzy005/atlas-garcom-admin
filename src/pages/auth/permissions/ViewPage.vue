@@ -1,52 +1,48 @@
 <template>
-  <q-page padding>
-    <ViewDefault
-      crud="Permissões"
-      model="permissions"
-    >
+  <XView
+    v-model="form"
+    :return-to="{ name: 'permissions-list' }"
+    title="Permissões"
+    api-get="permissions"
+  >
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Nome:"
-          :value="form.name"
-        />
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Nome:"
+        :value="form.name"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Email:"
-          :value="form.description"
-        />
-      </div>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Email:"
+        :value="form.description"
+      />
+    </XFieldGroup>
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Dt. Criação:"
-          :value="helpers.brDateTime(form.created_at)"
-        />
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Dt. Criação:"
+        :value="helpers.brDateTime(form.created_at)"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Dt. Edição"
-          :value="helpers.brDateTime(form.updated_at)"
-        />
-      </div>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Dt. Edição"
+        :value="helpers.brDateTime(form.updated_at)"
+      />
+    </XFieldGroup>
 
-    </ViewDefault>
-  </q-page>
+  </XView>
 </template>
 
 <script setup>
-import notify from 'src/composables/notify'
 import helpers from 'src/utils/helpers'
-import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
-import { api } from 'src/boot/axios'
-import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldDefault from 'src/components/crud/FieldDefault.vue'
-
-const route = useRoute()
+import { ref } from 'vue'
+import XView from 'src/components/crud/view/XView.vue'
+import XField from 'src/components/crud/view/XField.vue'
+import XFieldGroup from 'src/components/crud/view/XFieldGroup.vue'
 
 const form = ref({
   name: null,
@@ -54,16 +50,5 @@ const form = ref({
   created_at: null,
   updated_at: null
 })
-
-const getItem = async () => {
-  try {
-    const { data } = await api({ url: `/api/permissions/${route.params.id}` })
-    form.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-onMounted(() => getItem())
 
 </script>

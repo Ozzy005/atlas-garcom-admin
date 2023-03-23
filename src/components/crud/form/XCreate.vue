@@ -1,10 +1,13 @@
 <template>
   <q-page padding>
     <q-card class="column q-gap-lg q-pa-md">
-      <XHeader
-        :crud="crud"
-        :model="model"
-      />
+      <div class="row justify-between items-center q-gap-md">
+        <div class="text-h6">{{ title }}</div>
+        <XBackBtn
+          v-if="returnTo"
+          :to="returnTo"
+        />
+      </div>
       <q-form
         @submit="submit"
         ref="formRef"
@@ -23,20 +26,32 @@ import { ref, computed, defineAsyncComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
-import XHeader from 'src/components/crud/XHeader.vue'
+import XBackBtn from 'src/components/buttons/XBackBtn.vue'
 
 const props = defineProps({
   modelValue: {
     type: Object,
     required: true
   },
-  crud: {
+  pathForm: {
     type: String,
     required: true
   },
-  model: {
+  title: {
     type: String,
     required: true
+  },
+  apiPost: {
+    tpye: String,
+    required: true
+  },
+  returnTo: {
+    type: Object,
+    required: false
+  },
+  redirectTo: {
+    type: String,
+    required: false
   }
 })
 
@@ -51,14 +66,16 @@ const form = computed({
   }
 })
 
-const FormPage = defineAsyncComponent(() => import(`../../pages/auth/${props.model}/FormPage.vue`))
+const FormPage = defineAsyncComponent(() => import(props.pathForm))
 const router = useRouter()
 const formRef = ref()
 
 const submit = async () => {
   try {
-    const { data } = await api({ method: 'post', url: `/api/${props.model}`, data: form.value })
-    router.push({ name: props.afterSavingGoTo ?? `${props.model}-list` })
+    const { data } = await api({ method: 'post', url: props.apiPost, data: form.value })
+    if (props.redirectTo) {
+      router.push({ name: props.redirectTo })
+    }
     notify.success(data.message)
   } catch (error) {
     notify.error(error)

@@ -1,8 +1,10 @@
 <template>
-  <XListPage
+  <XList
     :columns="columns"
-    crud="Assinaturas"
-    model="signatures"
+    title="Assinaturas"
+    route-group-name="signatures"
+    permissions-group-name="signatures"
+    api-group-name="signatures"
     filter-placeholder="Pesquisar por nome/descrição"
   >
     <template #body-cell-recurrence="props">
@@ -21,14 +23,14 @@
         />
       </q-td>
     </template>
-  </XListPage>
+  </XList>
 </template>
 
 <script setup>
 import { useEnumsStore } from 'src/stores/enums'
-import XListPage from 'src/components/crud/XListPage.vue'
+import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
-import BadgeStatus from 'src/components/common/BadgeStatus.vue'
+import BadgeStatus from 'src/components/others/XBadge.vue'
 
 const enums = useEnumsStore()
 const columns = [

@@ -1,138 +1,134 @@
 <template>
-  <q-page padding>
-    <ViewDefault
-      crud="Contratantes"
-      model="tenants"
-    >
+  <XView
+    v-model="form"
+    :return-to="{ name: 'tenants-list' }"
+    title="Contratantes"
+    api-get="tenants"
+  >
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="CPF/CNPJ"
+        :value="helpers.nifMask(form.nif)"
+      />
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="CPF/CNPJ"
-          :value="helpers.nifMask(form.nif)"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Nome Completo/Razão Social:"
+        :value="form.full_name"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Nome Completo/Razão Social:"
-          :value="form.full_name"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Nome Social/Nome Fantasia:"
+        :value="form.name"
+      />
+    </XFieldGroup>
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Nome Social/Nome Fantasia:"
-          :value="form.name"
-        />
-      </div>
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Inscrição Estadual:"
+        :value="form.state_registration"
+      />
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Inscrição Estadual:"
-          :value="form.state_registration"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Inscrição Municipal:"
+        :value="form.city_registration"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Inscrição Municipal:"
-          :value="form.city_registration"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Dt Nasc./Abertura:"
+        :value="helpers.brDate(form.birthdate)"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Dt Nasc./Abertura:"
-          :value="helpers.brDate(form.birthdate)"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Status:"
+        :value="enums.getName('tenant-status', form.status)"
+      />
+    </XFieldGroup>
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Status:"
-          :value="enums.getName('tenant-status', form.status)"
-        />
-      </div>
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Email:"
+        :value="form.email"
+      />
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Email:"
-          :value="form.email"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Telefone:"
+        :value="helpers.phoneMask(form.phone)"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Telefone:"
-          :value="helpers.phoneMask(form.phone)"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Cidade:"
+        :value="form.city"
+      />
+    </XFieldGroup>
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Cidade:"
-          :value="form.city"
-        />
-      </div>
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="CEP:"
+        :value="helpers.zipCodeMask(form.zip_code)"
+      />
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="CEP:"
-          :value="helpers.zipCodeMask(form.zip_code)"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Endereço:"
+        :value="form.address"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Endereço:"
-          :value="form.address"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Bairro:"
+        :value="form.district"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Bairro:"
-          :value="form.district"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="N°:"
+        :value="form.number"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="N°:"
-          :value="form.number"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Complemento:"
+        :value="form.complement"
+      />
+    </XFieldGroup>
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Complemento:"
-          :value="form.complement"
-        />
-      </div>
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Dt. Criação:"
+        :value="helpers.brDateTime(form.created_at)"
+      />
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Dt. Criação:"
-          :value="helpers.brDateTime(form.created_at)"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Dt. Edição"
+        :value="helpers.brDateTime(form.updated_at)"
+      />
+    </XFieldGroup>
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Dt. Edição"
-          :value="helpers.brDateTime(form.updated_at)"
-        />
-      </div>
-
-    </ViewDefault>
-  </q-page>
+  </XView>
 </template>
 
 <script setup>
-import notify from 'src/composables/notify'
-import helpers from 'src/utils/helpers'
-import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
-import { api } from 'src/boot/axios'
-import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldDefault from 'src/components/crud/FieldDefault.vue'
+import { ref } from 'vue'
 import { useEnumsStore } from 'src/stores/enums'
+import XView from 'src/components/crud/view/XView.vue'
+import helpers from 'src/utils/helpers'
+import XField from 'src/components/crud/view/XField.vue'
+import XFieldGroup from 'src/components/crud/view/XFieldGroup.vue'
 
 const enums = useEnumsStore()
-const route = useRoute()
 const form = ref({
   nif: null,
   full_name: null,
@@ -151,19 +147,6 @@ const form = ref({
   complement: null,
   created_at: null,
   updated_at: null
-})
-
-const getItem = async () => {
-  try {
-    const { data } = await api({ url: `/api/tenants/${route.params.id}` })
-    form.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-onMounted(() => {
-  getItem()
 })
 
 </script>

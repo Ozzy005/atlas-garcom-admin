@@ -3,32 +3,37 @@
     <q-table
       ref="tableRef"
       v-model:pagination="pagination"
-      v-model:selected="selected"
+      v-model:selected="selectedItems"
+      @request="getItems"
+      @row-click="rowClick"
       :rows-per-page-options="[5, 10, 15, 20, 25, 50, 100]"
       :columns="columns"
       :rows="rows"
       :loading="loading"
       :filter="filter"
-      @request="getItems"
-      @row-click="rowClick"
       selection="multiple"
       row-key="id"
     >
       <template #top>
-        <div class="column q-gap-y-lg full-width">
-          <XListActions
-            v-model="rows"
-            :show-create="auth.hasPermission(`${model}_create`)"
-            :show-view="auth.hasPermission(`${model}_view`)"
-            :show-edit="auth.hasPermission(`${model}_edit`)"
-            :show-destroy="auth.hasPermission(`${model}_delete`)"
-            :items="selected"
-            :crud="crud"
-            :model="model"
-          />
-          <XListFilter
+        <div class="column full-width q-gap-lg">
+          <div
+            class="row items-center"
+            style="min-height: 41.15px;"
+          >
+            <span class="text-h6">{{ title }}</span>
+          </div>
+          <XActions
+            v-model:rows-value="rows"
             v-model:filter-value="filter"
-            :placeholder="filterPlaceholder"
+            :show-create="auth.hasPermission(`${permissionsGroupName}_create`)"
+            :show-view="auth.hasPermission(`${permissionsGroupName}_view`)"
+            :show-edit="auth.hasPermission(`${permissionsGroupName}_edit`)"
+            :show-destroy="auth.hasPermission(`${permissionsGroupName}_delete`)"
+            :title="title"
+            :filter-placeholder="filterPlaceholder"
+            :selectedItems="selectedItems"
+            :route-group-name="routeGroupName"
+            :api-group-name="apiGroupName"
           />
         </div>
       </template>
@@ -52,20 +57,27 @@ import { ref, onMounted } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
-import XListActions from 'src/components/crud/XListActions.vue'
-import XListFilter from 'src/components/crud/XListFilter.vue'
+import XActions from 'src/components/crud/list/XActions.vue'
 
 const props = defineProps({
   columns: {
     type: Array,
     required: true
   },
-  crud: {
+  title: {
     type: String,
     required: true
   },
-  model: {
+  routeGroupName: {
     type: String,
+    required: true
+  },
+  permissionsGroupName: {
+    tpye: String,
+    required: true
+  },
+  apiGroupName: {
+    tpye: String,
     required: true
   },
   filterPlaceholder: {
@@ -86,14 +98,14 @@ const pagination = ref({
 })
 const filter = ref()
 const loading = ref(false)
-const selected = ref([])
+const selectedItems = ref([])
 
 const rowClick = (event, row) => {
-  const exists = selected.value.find(item => item.id === row.id)
+  const exists = selectedItems.value.find(item => item.id === row.id)
   if (exists) {
-    selected.value = selected.value.filter(item => item.id !== row.id)
+    selectedItems.value = selectedItems.value.filter(item => item.id !== row.id)
   } else {
-    selected.value.push(row)
+    selectedItems.value.push(row)
   }
 }
 
@@ -103,7 +115,7 @@ const getItems = async (scope) => {
     loading.value = true
     const { data } = await api(
       {
-        url: `/api/${props.model}`,
+        url: `/api/${props.apiGroupName}`,
         params: {
           page,
           rowsPerPage,

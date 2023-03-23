@@ -7,38 +7,40 @@
     no-caps
   >
     <XTooltip
-      v-if="!label && tooltipLabel"
+      v-if="tooltipLabel"
       :label="tooltipLabel"
       :position="tooltipPosition"
+    />
+    <template
+      v-for="(_, slot) in $slots"
+      :key="slot"
+      v-slot:[slot]="scope"
     >
-      <template
-        v-for="(_, slot) in $slots"
+      <slot
+        v-bind="scope"
+        :name="slot"
         :key="slot"
-        v-slot:[slot]="scope"
       >
-        <slot
-          v-bind="scope"
-          :name="slot"
-          :key="slot"
-        >
-        </slot>
-      </template>
-    </XTooltip>
+      </slot>
+    </template>
   </q-btn>
 </template>
 
 <script setup>
-import XTooltip from '../XTooltip.vue'
+import XTooltip from 'src/components/others/XTooltip.vue'
 
 defineProps({
   label: {
-    type: String
+    type: String,
+    required: false
   },
   tooltipLabel: {
-    type: String
+    type: String,
+    required: false
   },
   tooltipPosition: {
-    type: String
+    type: String,
+    required: false
   }
 })
 </script>

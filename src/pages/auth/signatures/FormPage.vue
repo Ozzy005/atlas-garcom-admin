@@ -30,13 +30,13 @@
       <XColorInput
         v-model="form.color"
         :rules="[val => !!val || 'Cor é obrigatório!']"
-        class="col-md-auto"
+        class="col-md-2"
       />
 
       <XEnumSelect
         v-model="form.status"
         :rules="[val => !!val || 'Status é obrigatório!']"
-        class="col-md-auto"
+        class="col-md-2"
         label="Status"
         enum-name="status"
       />
@@ -125,15 +125,15 @@ import { computed, ref, onMounted, watch } from 'vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import helpers from 'src/utils/helpers'
-import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
-import XInput from 'src/components/common/inputs/XInput.vue'
-import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
-import XMoneyInput from 'src/components/common/inputs/XMoneyInput.vue'
-import XPctInput from 'src/components/common/inputs/XPctInput.vue'
-import XChipSelect from 'src/components/common/inputs/XChipSelect.vue'
-import XFormGroup from 'src/components/crud/XFormGroup.vue'
-import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
-import XColorInput from 'src/components/common/inputs/XColorInput.vue'
+import XSbtBtn from 'src/components/buttons/XSbtBtn.vue'
+import XInput from 'src/components/inputs/XInput.vue'
+import XEnumSelect from 'src/components/inputs/XEnumSelect.vue'
+import XMoneyInput from 'src/components/inputs/XMoneyInput.vue'
+import XPctInput from 'src/components/inputs/XPctInput.vue'
+import XChipSelect from 'src/components/inputs/XChipSelect.vue'
+import XFormGroup from 'src/components/crud/form/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/form/XBtnGroup.vue'
+import XColorInput from 'src/components/inputs/XColorInput.vue'
 
 const props = defineProps({
   modelValue: {

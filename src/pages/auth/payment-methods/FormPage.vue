@@ -35,11 +35,11 @@
 
 <script setup>
 import { computed } from 'vue'
-import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
-import XInput from 'src/components/common/inputs/XInput.vue'
-import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
-import XFormGroup from 'src/components/crud/XFormGroup.vue'
-import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
+import XSbtBtn from 'src/components/buttons/XSbtBtn.vue'
+import XInput from 'src/components/inputs/XInput.vue'
+import XEnumSelect from 'src/components/inputs/XEnumSelect.vue'
+import XFormGroup from 'src/components/crud/form/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/form/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

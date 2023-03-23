@@ -1,8 +1,10 @@
 <template>
-  <XListPage
+  <XList
     :columns="columns"
-    crud="Unidades de Medida"
-    model="measurement-units"
+    title="Unidades de Medida"
+    route-group-name="measurement-units"
+    permissions-group-name="measurement-units"
+    api-group-name="measurement-units"
     filter-placeholder="Pesquisar por nome/iniciais"
   >
     <template #body-cell-status="props">
@@ -13,14 +15,14 @@
         />
       </q-td>
     </template>
-  </XListPage>
+  </XList>
 </template>
 
 <script setup>
 import { useEnumsStore } from 'src/stores/enums'
-import XListPage from 'src/components/crud/XListPage.vue'
+import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
-import BadgeStatus from 'src/components/common/BadgeStatus.vue'
+import BadgeStatus from 'src/components/others/XBadge.vue'
 
 const enums = useEnumsStore()
 const columns = [

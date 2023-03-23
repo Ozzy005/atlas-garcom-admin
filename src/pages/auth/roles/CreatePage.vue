@@ -1,14 +1,17 @@
 <template>
-  <XCreatePage
+  <XCreate
     v-model="form"
-    crud="Atribuições/Módulos"
-    model="roles"
+    :return-to="{ name: 'roles-list' }"
+    path-form="../../../pages/auth/roles/FormPage.vue"
+    title="Atribuições/Módulos"
+    api-post="/api/roles"
+    redirect-to="roles-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XCreatePage from 'src/components/crud/XCreatePage.vue'
+import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
   name: null,

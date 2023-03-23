@@ -1,14 +1,17 @@
 <template>
-  <XCreatePage
+  <XCreate
     v-model="form"
-    crud="Dias de Vencimento"
-    model="due-days"
+    :return-to="{ name: 'due-days-list' }"
+    path-form="../../../pages/auth/due-days/FormPage.vue"
+    title="Contratantes"
+    api-post="/api/due-days"
+    redirect-to="due-days-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XCreatePage from 'src/components/crud/XCreatePage.vue'
+import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
   day: null,

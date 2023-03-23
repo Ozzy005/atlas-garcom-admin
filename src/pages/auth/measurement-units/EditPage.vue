@@ -1,14 +1,21 @@
 <template>
-  <XEditPage
+  <XEdit
     v-model="form"
-    crud="Unidades de Medida"
-    model="measurement-units"
+    :api-get="`/api/measurement-units/${route.params.id}`"
+    :api-put="`/api/measurement-units/${route.params.id}`"
+    :return-to="{ name: 'measurement-units-list' }"
+    path-form="../../../pages/auth/measurement-units/FormPage.vue"
+    title="Unidades de Medidas"
+    redirect-to="measurement-units-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XEditPage from 'src/components/crud/XEditPage.vue'
+import XEdit from 'src/components/crud/form/XEdit.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const form = ref({
   name: null,

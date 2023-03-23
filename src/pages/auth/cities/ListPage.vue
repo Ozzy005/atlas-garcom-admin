@@ -1,14 +1,16 @@
 <template>
-  <XListPage
+  <XList
     :columns="columns"
-    crud="Cidades"
-    model="cities"
+    title="Cidades"
+    route-group-name="cities"
+    permissions-group-name="cities"
+    api-group-name="cities"
     filter-placeholder="Pesquisar por cidade"
   />
 </template>
 
 <script setup>
-import XListPage from 'src/components/crud/XListPage.vue'
+import XList from 'src/components/crud/list/XList.vue'
 
 const columns = [
   {

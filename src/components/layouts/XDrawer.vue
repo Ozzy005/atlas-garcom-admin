@@ -1,16 +1,16 @@
 <template>
   <q-drawer
-    v-model="leftDrawerOpen"
+    v-model="drawer.drawerOpen"
     :breakpoint="1200"
     :mini-width="80"
-    :mini="miniState"
+    :mini="drawer.miniState"
     ref="drawerRef"
     show-if-above
-    elevated
+    bordered
   >
     <div
       class="text-h6 text-center q-my-md cursor-pointer"
-      @click="() => hideMiniMode()"
+      @click="() => hideMiniMode(true, true)"
     >
       Menu
     </div>
@@ -23,7 +23,7 @@
         v-if="auth.hasPermissions(['dashboard_view'])"
         @click="() => hideMiniMode(false)"
         :to="{ name: 'dashboard' }"
-        active-class="text-secondary"
+        active-class="text-primary"
       >
         <q-item-section avatar>
           <q-icon name="dashboard" />
@@ -32,7 +32,7 @@
           <q-item-label>Dashboard</q-item-label>
         </q-item-section>
         <XTooltip
-          v-if="miniState"
+          v-if="drawer.miniState"
           label="Dashboard"
           position="right"
         />
@@ -50,26 +50,16 @@
               <q-icon
                 name="mdi-account-group"
                 size="sm"
-                :color="[
-                  'tenants-list',
-                  'tenants-create',
-                  'tenants-view',
-                  'tenants-edit'
-                ].includes($route.name) ? 'secondary' : ''"
+                :color="people.includes($route.name) ? 'primary' : ''"
               />
             </q-avatar>
           </q-item-section>
 
-          <q-item-section :class="[
-            'tenants-list',
-            'tenants-create',
-            'tenants-view',
-            'tenants-edit'
-          ].includes($route.name) ? 'text-secondary' : ''">
+          <q-item-section :class="people.includes($route.name) ? 'text-primary' : ''">
             Pessoas
           </q-item-section>
           <XTooltip
-            v-if="miniState"
+            v-if="drawer.miniState"
             label="Pessoas"
             position="right"
           />
@@ -80,7 +70,7 @@
             v-if="auth.hasPermissions(['tenants_view'])"
             :to="{ name: 'tenants-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-account-tie" />
@@ -107,35 +97,17 @@
               <q-icon
                 name="mdi-sitemap"
                 size="sm"
-                :color="[
-                  'signatures-list',
-                  'signatures-create',
-                  'signatures-view',
-                  'signatures-edit',
-                  'due-days-list',
-                  'due-days-create',
-                  'due-days-view',
-                  'due-days-edit'
-                ].includes($route.name) ? 'secondary' : ''"
+                :color="operational.includes($route.name) ? 'primary' : ''"
               />
             </q-avatar>
           </q-item-section>
 
-          <q-item-section :class="[
-            'signatures-list',
-            'signatures-create',
-            'signatures-view',
-            'signatures-edit',
-            'due-days-list',
-            'due-days-create',
-            'due-days-view',
-            'due-days-edit'
-          ].includes($route.name) ? 'text-secondary' : ''">
+          <q-item-section :class="operational.includes($route.name) ? 'text-primary' : ''">
             Operacional
           </q-item-section>
 
           <XTooltip
-            v-if="miniState"
+            v-if="drawer.miniState"
             label="Operacional"
             position="right"
           />
@@ -146,7 +118,7 @@
             v-if="auth.hasPermissions(['signatures_view'])"
             :to="{ name: 'signatures-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-file-document" />
@@ -160,7 +132,7 @@
             v-if="auth.hasPermissions(['due-days_view'])"
             :to="{ name: 'due-days-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-calendar-multiselect" />
@@ -190,47 +162,17 @@
               <q-icon
                 name="mdi-menu"
                 size="sm"
-                :color="[
-                  'payment-methods-list',
-                  'payment-methods-create',
-                  'payment-methods-view',
-                  'payment-methods-edit',
-                  'measurement-units-list',
-                  'measurement-units-create',
-                  'measurement-units-view',
-                  'measurement-units-edit',
-                  'ncms-list',
-                  'ncms-view',
-                  'states-list',
-                  'states-view',
-                  'cities-list',
-                  'cities-view',
-                ].includes($route.name) ? 'secondary' : ''"
+                :color="general.includes($route.name) ? 'primary' : ''"
               />
             </q-avatar>
           </q-item-section>
 
-          <q-item-section :class="[
-            'payment-methods-list',
-            'payment-methods-create',
-            'payment-methods-view',
-            'payment-methods-edit',
-            'measurement-units-list',
-            'measurement-units-create',
-            'measurement-units-view',
-            'measurement-units-edit',
-            'ncms-list',
-            'ncms-view',
-            'states-list',
-            'states-view',
-            'cities-list',
-            'cities-view',
-          ].includes($route.name) ? 'text-secondary' : ''">
+          <q-item-section :class="general.includes($route.name) ? 'text-primary' : ''">
             Geral
           </q-item-section>
 
           <XTooltip
-            v-if="miniState"
+            v-if="drawer.miniState"
             label="Geral"
             position="right"
           />
@@ -241,7 +183,7 @@
             v-if="auth.hasPermissions(['payment-methods_view'])"
             :to="{ name: 'payment-methods-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-wallet" />
@@ -255,7 +197,7 @@
             v-if="auth.hasPermissions(['measurement-units_view'])"
             :to="{ name: 'measurement-units-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-ruler" />
@@ -269,7 +211,7 @@
             v-if="auth.hasPermissions(['ncms_view'])"
             :to="{ name: 'ncms-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-tag" />
@@ -283,7 +225,7 @@
             v-if="auth.hasPermissions(['states_view'])"
             :to="{ name: 'states-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-diving-scuba-flag" />
@@ -297,7 +239,7 @@
             v-if="auth.hasPermissions(['cities_view'])"
             :to="{ name: 'cities-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-city" />
@@ -325,41 +267,17 @@
               <q-icon
                 name="mdi-account-cog"
                 size="sm"
-                :color="[
-                  'users-list',
-                  'users-create',
-                  'users-view',
-                  'users-edit',
-                  'roles-list',
-                  'roles-create',
-                  'roles-view',
-                  'roles-edit',
-                  'permissions-list',
-                  'permissions-view',
-                  'permissions-edit'
-                ].includes($route.name) ? 'secondary' : ''"
+                :color="management.includes($route.name) ? 'primary' : ''"
               />
             </q-avatar>
           </q-item-section>
 
-          <q-item-section :class="[
-            'users-list',
-            'users-create',
-            'users-view',
-            'users-edit',
-            'roles-list',
-            'roles-create',
-            'roles-view',
-            'roles-edit',
-            'permissions-list',
-            'permissions-view',
-            'permissions-edit'
-          ].includes($route.name) ? 'text-secondary' : ''">
+          <q-item-section :class="management.includes($route.name) ? 'text-primary' : ''">
             Gerenciamento
           </q-item-section>
 
           <XTooltip
-            v-if="miniState"
+            v-if="drawer.miniState"
             label="Gerenciamento"
             position="right"
           />
@@ -370,7 +288,7 @@
             v-if="auth.hasPermissions(['users_view'])"
             :to="{ name: 'users-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-account-supervisor" />
@@ -384,7 +302,7 @@
             v-if="auth.hasPermissions(['roles_view'])"
             :to="{ name: 'roles-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-account-lock" />
@@ -398,7 +316,7 @@
             v-if="auth.hasPermissions(['permissions_view'])"
             :to="{ name: 'permissions-list' }"
             :inset-level="0.5"
-            active-class="text-secondary"
+            active-class="text-primary"
           >
             <q-item-section avatar>
               <q-icon name="mdi-lock" />
@@ -427,49 +345,104 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
-import XTooltip from '../common/XTooltip.vue'
-import XBtn from '../common/buttons/XBtn.vue'
+import { useDrawerStore } from 'src/stores/drawer'
+import XTooltip from 'src/components/others/XTooltip.vue'
+import XBtn from 'src/components/buttons/XBtn.vue'
+import { useRoute } from 'vue-router'
 
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    required: true
-  }
-})
-
-const emit = defineEmits(['update:modelValue'])
-
-const leftDrawerOpen = computed({
-  get () {
-    return props.modelValue
-  },
-  set (value) {
-    emit('update:modelValue', value)
-  }
-})
-
+const drawer = useDrawerStore()
 const auth = useAuthStore()
+const route = useRoute()
 const drawerRef = ref()
-const miniState = ref(true)
 const peopleExpansionItemRef = ref()
 const operationalExpansionItemRef = ref()
 const generalExpansionItemRef = ref()
 const managementExpansionItemRef = ref()
 
+const people = [
+  'tenants-list',
+  'tenants-create',
+  'tenants-view',
+  'tenants-edit'
+]
+
+const operational = [
+  'signatures-list',
+  'signatures-create',
+  'signatures-view',
+  'signatures-edit',
+  'due-days-list',
+  'due-days-create',
+  'due-days-view',
+  'due-days-edit'
+]
+
+const general = [
+  'payment-methods-list',
+  'payment-methods-create',
+  'payment-methods-view',
+  'payment-methods-edit',
+  'measurement-units-list',
+  'measurement-units-create',
+  'measurement-units-view',
+  'measurement-units-edit',
+  'ncms-list',
+  'ncms-view',
+  'states-list',
+  'states-view',
+  'cities-list',
+  'cities-view'
+]
+
+const management = [
+  'users-list',
+  'users-create',
+  'users-view',
+  'users-edit',
+  'roles-list',
+  'roles-create',
+  'roles-view',
+  'roles-edit',
+  'permissions-list',
+  'permissions-view',
+  'permissions-edit'
+]
+
 const showMiniMode = () => {
-  miniState.value = true
+  drawer.miniState = true
   peopleExpansionItemRef.value.hide()
   operationalExpansionItemRef.value.hide()
   generalExpansionItemRef.value.hide()
   managementExpansionItemRef.value.hide()
 }
 
-const hideMiniMode = (hide = true) => {
-  if (miniState.value && hide) {
-    miniState.value = false
+const hideMiniMode = (hide = true, expand = false) => {
+  if (drawer.miniState && hide) {
+    drawer.miniState = false
+    if (expand) {
+      expandSelectedItem()
+    }
   }
 }
+
+const expandSelectedItem = () => {
+  if (!drawer.miniState) {
+    if (people.includes(route.name)) {
+      peopleExpansionItemRef.value.show()
+    } else if (operational.includes(route.name)) {
+      operationalExpansionItemRef.value.show()
+    } else if (general.includes(route.name)) {
+      generalExpansionItemRef.value.show()
+    } else if (management.includes(route.name)) {
+      managementExpansionItemRef.value.show()
+    }
+  }
+}
+
+onMounted(() => {
+  expandSelectedItem()
+})
 
 </script>

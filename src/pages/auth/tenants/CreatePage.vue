@@ -1,14 +1,17 @@
 <template>
-  <XCreatePage
+  <XCreate
     v-model="form"
-    crud="Contratantes"
-    model="tenants"
+    :return-to="{ name: 'tenants-list' }"
+    path-form="../../../pages/auth/tenants/FormPage.vue"
+    title="Contratantes"
+    api-post="/api/tenants"
+    redirect-to="tenants-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XCreatePage from 'src/components/crud/XCreatePage.vue'
+import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
   nif: null,

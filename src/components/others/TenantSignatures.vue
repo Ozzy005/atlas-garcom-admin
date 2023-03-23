@@ -1,20 +1,13 @@
-<style lang="scss" scoped>
-.active-card {
-  filter: brightness(60%);
-}
-</style>
-
 <template>
   <div class="row q-gap-md">
 
     <q-card
-      class="cursor-pointer"
-      :class="{ 'active-card': signature.id === signatureId }"
-      style="width: 300px; min-height: 400px; user-select: none;"
-      :style="{ backgroundColor: signature.color }"
-      @click="() => { signatureId = signature.id, dueDays = signature.due_days, dueDayId = null }"
       v-for="(signature) in signatures"
       :key="signature.id"
+      :style="{ backgroundColor: signature.id === signatureId ? colors.lighten(signature.color, -30) : signature.color }"
+      @click="() => { signatureId = signature.id, dueDays = signature.due_days, dueDayId = null }"
+      class="cursor-pointer text-black"
+      style="width: 300px; min-height: 400px; user-select: none;"
     >
 
       <q-card-section
@@ -74,6 +67,7 @@
 </template>
 
 <script setup>
+import { colors } from 'quasar'
 import { computed, onMounted, ref } from 'vue'
 import notify from 'src/composables/notify'
 import { api } from 'src/boot/axios'

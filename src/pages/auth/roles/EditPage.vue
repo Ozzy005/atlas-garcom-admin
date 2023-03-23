@@ -1,14 +1,21 @@
 <template>
-  <XEditPage
+  <XEdit
     v-model="form"
-    crud="Atribuições/Módulos"
-    model="roles"
+    :api-get="`/api/roles/${route.params.id}`"
+    :api-put="`/api/roles/${route.params.id}`"
+    :return-to="{ name: 'roles-list' }"
+    path-form="../../../pages/auth/roles/FormPage.vue"
+    title="Atribuições/Módulos"
+    redirect-to="roles-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XEditPage from 'src/components/crud/XEditPage.vue'
+import XEdit from 'src/components/crud/form/XEdit.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const form = ref({
   name: null,

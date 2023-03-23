@@ -1,14 +1,21 @@
 <template>
-  <XEditPage
+  <XEdit
     v-model="form"
-    crud="Contratantes"
-    model="tenants"
+    :api-get="`/api/tenants/${route.params.id}`"
+    :api-put="`/api/tenants/${route.params.id}`"
+    :return-to="{ name: 'tenants-list' }"
+    path-form="../../../pages/auth/tenants/FormPage.vue"
+    title="Contratantes"
+    redirect-to="tenants-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XEditPage from 'src/components/crud/XEditPage.vue'
+import XEdit from 'src/components/crud/form/XEdit.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const form = ref({
   nif: null,

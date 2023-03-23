@@ -1,11 +1,24 @@
 <template>
-  <div class="row q-gap-x-xs q-gap-y-md items-center">
-    <span class="text-h6">{{ crud }}</span>
-    <q-space />
+  <div class="row justify-between items-center q-gap-md">
+
+    <q-input
+      v-model="filter"
+      :placeholder="filterPlaceholder"
+      class="col-md-5"
+      debounce="300"
+      dense
+      outlined
+      clearable
+    >
+      <template #append>
+        <q-icon name="search" />
+      </template>
+    </q-input>
+
     <div class="row q-gap-sm">
       <XBtn
         @click="destroy"
-        :disable="!items.length"
+        :disable="!selectedItems.length"
         v-if="showDestroy"
         tooltip-label="Excluir"
         icon="mdi-close"
@@ -13,25 +26,26 @@
       />
       <XBtn
         @click="edit"
-        :disable="!(items.length === 1)"
+        :disable="!(selectedItems.length === 1)"
         v-if="showEdit"
         tooltip-label="Editar"
         icon="mdi-pencil"
       />
       <XBtn
         @click="view"
-        :disable="!(items.length === 1)"
+        :disable="!(selectedItems.length === 1)"
         v-if="showView"
         tooltip-label="Visualizar"
         icon="mdi-eye"
       />
       <XBtn
-        :to="{ name: `${props.model}-create` }"
+        :to="{ name: `${props.routeGroupName}-create` }"
         v-if="showCreate"
         tooltip-label="Adicionar"
         icon="mdi-plus"
       />
     </div>
+
   </div>
 </template>
 
@@ -41,23 +55,35 @@ import notify from 'src/composables/notify'
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
-import XBtn from '../common/buttons/XBtn.vue'
+import XBtn from 'src/components/buttons/XBtn.vue'
 
 const props = defineProps({
-  modelValue: {
+  rowsValue: {
     type: Array,
     required: true
   },
-  crud: {
+  title: {
     type: String,
     required: true
   },
-  model: {
+  filterValue: {
+    type: String,
+    required: false
+  },
+  filterPlaceholder: {
     type: String,
     required: true
   },
-  items: {
+  selectedItems: {
     type: Array,
+    required: true
+  },
+  routeGroupName: {
+    type: String,
+    required: true
+  },
+  apiGroupName: {
+    type: String,
     required: true
   },
   showCreate: {
@@ -78,37 +104,46 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:rowsValue', 'update:filterValue'])
 
 const rows = computed({
   get () {
-    return props.modelValue
+    return props.rowsValue
   },
   set (value) {
-    emit('update:modelValue', value)
+    emit('update:rowsValue', value)
+  }
+})
+
+const filter = computed({
+  get () {
+    return props.filterValue
+  },
+  set (value) {
+    emit('update:filterValue', value)
   }
 })
 
 const router = useRouter()
 const $q = useQuasar()
 
-const items = computed(() => {
-  return props.items.map(item => item.id)
+const selectedItems = computed(() => {
+  return props.selectedItems.map(item => item.id)
 })
 
-const item = computed(() => {
-  if (props.items.length) {
-    return props.items[0]
+const selectedItem = computed(() => {
+  if (props.selectedItems.length) {
+    return props.selectedItems[0]
   }
   return null
 })
 
 const view = () => {
-  router.push({ name: `${props.model}-view`, params: { id: item.value.id } })
+  router.push({ name: `${props.routeGroupName}-view`, params: { id: selectedItem.value.id } })
 }
 
 const edit = () => {
-  router.push({ name: `${props.model}-edit`, params: { id: item.value.id } })
+  router.push({ name: `${props.routeGroupName}-edit`, params: { id: selectedItem.value.id } })
 }
 
 const destroy = () => {
@@ -119,8 +154,8 @@ const destroy = () => {
     persistent: true
   }).onOk(async () => {
     try {
-      const { data } = await api({ method: 'delete', url: `/api/${props.model}`, data: { items: items.value } })
-      rows.value = rows.value.filter(val => !(items.value.includes(val.id)))
+      const { data } = await api({ method: 'delete', url: `/api/${props.apiGroupName}`, data: { items: selectedItems.value } })
+      rows.value = rows.value.filter(val => !(selectedItems.value.includes(val.id)))
       notify.success(data.message)
     } catch (error) {
       notify.error(error)

@@ -18,11 +18,11 @@
 
 <script setup>
 import { computed } from 'vue'
-import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
-import XEmailInput from 'src/components/common/inputs/person/XEmailInput.vue'
-import XNameInput from 'src/components/common/inputs/person/XNameInput.vue'
-import XFormGroup from 'src/components/crud/XFormGroup.vue'
-import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
+import XSbtBtn from 'src/components/buttons/XSbtBtn.vue'
+import XEmailInput from 'src/components/inputs/person/XEmailInput.vue'
+import XNameInput from 'src/components/inputs/person/XNameInput.vue'
+import XFormGroup from 'src/components/crud/form/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/form/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

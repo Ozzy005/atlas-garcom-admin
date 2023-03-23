@@ -1,14 +1,17 @@
 <template>
-  <XCreatePage
+  <XCreate
     v-model="form"
-    crud="Métodos de Pagamento"
-    model="payment-methods"
+    :return-to="{ name: 'payment-methods-list' }"
+    path-form="../../../pages/auth/payment-methods/FormPage.vue"
+    title="Métodos de Pagamento"
+    api-post="/api/payment-methods"
+    redirect-to="payment-methods-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XCreatePage from 'src/components/crud/XCreatePage.vue'
+import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
   code: null,

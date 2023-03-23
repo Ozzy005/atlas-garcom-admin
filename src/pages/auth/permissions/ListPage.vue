@@ -1,14 +1,16 @@
 <template>
-  <XListPage
+  <XList
     :columns="columns"
-    crud="Permissões"
-    model="permissions"
-    filter-placeholder="Pesquisar por nome e descrição"
+    title="Permissões"
+    route-group-name="permissions"
+    permissions-group-name="permissions"
+    api-group-name="permissions"
+    filter-placeholder="Pesquisar por nome/descrição"
   />
 </template>
 
 <script setup>
-import XListPage from 'src/components/crud/XListPage.vue'
+import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
 
 const columns = [

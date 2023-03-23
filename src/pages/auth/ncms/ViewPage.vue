@@ -1,72 +1,68 @@
 <template>
-  <q-page padding>
-    <ViewDefault
-      crud="Ncms"
-      model="ncms"
-    >
+  <XView
+    v-model="form"
+    :return-to="{ name: 'ncms-list' }"
+    title="Ncms"
+    api-get="ncms"
+  >
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Código:"
-          :value="form.code"
-        />
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Código:"
+        :value="form.code"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Descrição:"
-          :value="form.description"
-        />
-      </div>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Descrição:"
+        :value="form.description"
+      />
+    </XFieldGroup>
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Data de Início:"
-          :value="helpers.brDate(form.date_start)"
-        />
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Data de Início:"
+        :value="helpers.brDate(form.date_start)"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Data Final:"
-          :value="helpers.brDate(form.date_end)"
-        />
-      </div>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Data Final:"
+        :value="helpers.brDate(form.date_end)"
+      />
+    </XFieldGroup>
 
-      <div class="col-12 row q-gap-md">
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Ato Legal:"
-          :value="form.ato_type"
-        />
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Ato Legal:"
+        :value="form.ato_type"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Número:"
-          :value="form.ato_number"
-        />
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Número:"
+        :value="form.ato_number"
+      />
 
-        <FieldDefault
-          class="col-md-grow col-xs-12"
-          field="Ano:"
-          :value="form.ato_year"
-        />
-      </div>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Ano:"
+        :value="form.ato_year"
+      />
+    </XFieldGroup>
 
-    </ViewDefault>
-  </q-page>
+  </XView>
 </template>
 
 <script setup>
-import notify from 'src/composables/notify'
-import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
-import { api } from 'src/boot/axios'
-import ViewDefault from 'src/components/crud/ViewDefault.vue'
-import FieldDefault from 'src/components/crud/FieldDefault.vue'
+import { ref } from 'vue'
+import XView from 'src/components/crud/view/XView.vue'
+import XField from 'src/components/crud/view/XField.vue'
 import helpers from 'src/utils/helpers'
-
-const route = useRoute()
+import XFieldGroup from 'src/components/crud/view/XFieldGroup.vue'
 
 const form = ref({
   code: null,
@@ -77,16 +73,5 @@ const form = ref({
   ato_number: null,
   ato_year: null
 })
-
-const getItem = async () => {
-  try {
-    const { data } = await api({ url: `/api/ncms/${route.params.id}` })
-    form.value = data.data
-  } catch (error) {
-    notify.error(error)
-  }
-}
-
-onMounted(() => getItem())
 
 </script>

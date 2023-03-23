@@ -40,8 +40,8 @@ import { ref } from 'vue'
 import notify from 'src/composables/notify'
 import { useAuthStore } from 'src/stores/auth'
 import { useRoute, useRouter } from 'vue-router'
-import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
-import XPwdInput from 'src/components/common/inputs/XPwdInput.vue'
+import XSbtBtn from 'src/components/buttons/XSbtBtn.vue'
+import XPwdInput from 'src/components/inputs/XPwdInput.vue'
 
 const auth = useAuthStore()
 const router = useRouter()

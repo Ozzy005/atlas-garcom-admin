@@ -1,14 +1,21 @@
 <template>
-  <XEditPage
+  <XEdit
     v-model="form"
-    crud="Permissões"
-    model="permissions"
+    :api-get="`/api/permissions/${route.params.id}`"
+    :api-put="`/api/permissions/${route.params.id}`"
+    :return-to="{ name: 'permissions-list' }"
+    path-form="../../../pages/auth/permissions/FormPage.vue"
+    title="Permissões"
+    redirect-to="permissions-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XEditPage from 'src/components/crud/XEditPage.vue'
+import XEdit from 'src/components/crud/form/XEdit.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const form = ref({
   name: null,

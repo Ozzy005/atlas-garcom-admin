@@ -64,12 +64,12 @@
 import { computed, ref, onMounted } from 'vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
-import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
-import XInput from 'src/components/common/inputs/XInput.vue'
-import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
-import XBtn from 'src/components/common/buttons/XBtn.vue'
-import XFormGroup from 'src/components/crud/XFormGroup.vue'
-import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
+import XSbtBtn from 'src/components/buttons/XSbtBtn.vue'
+import XInput from 'src/components/inputs/XInput.vue'
+import XEnumSelect from 'src/components/inputs/XEnumSelect.vue'
+import XBtn from 'src/components/buttons/XBtn.vue'
+import XFormGroup from 'src/components/crud/form/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/form/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

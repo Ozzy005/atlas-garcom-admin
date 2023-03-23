@@ -1,14 +1,17 @@
 <template>
-  <XCreatePage
+  <XCreate
     v-model="form"
-    crud="Unidades de Medida"
-    model="measurement-units"
+    :return-to="{ name: 'measurement-units-list' }"
+    path-form="../../../pages/auth/measurement-units/FormPage.vue"
+    title="Unidades de Medida"
+    api-post="/api/measurement-units"
+    redirect-to="measurement-units-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XCreatePage from 'src/components/crud/XCreatePage.vue'
+import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
   name: null,

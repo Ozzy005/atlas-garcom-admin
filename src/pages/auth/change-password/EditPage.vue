@@ -1,18 +1,17 @@
 <template>
-  <XEditPage
+  <XEdit
     v-model="form"
-    :fetch-item="false"
-    :route-has-parameter="false"
-    return-to="dashboard"
-    after-saving-go-to="dashboard"
-    crud="Editar senha"
-    model="change-password"
+    :return-to="{ name: 'dashboard' }"
+    path-form="../../../pages/auth/change-password/FormPage.vue"
+    title="Alterar Senha"
+    api-put="/api/change-password"
+    redirect-to="dashboard"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XEditPage from 'src/components/crud/XEditPage.vue'
+import XEdit from 'src/components/crud/form/XEdit.vue'
 
 const form = ref({
   current_password: null,

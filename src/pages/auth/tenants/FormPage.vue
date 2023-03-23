@@ -126,7 +126,7 @@
           v-model="form.due_day_id"
           :rules="[val => !!val || 'Dia de Vencimento é obrigatório!']"
           :options="dueDays"
-          class="col-md-auto"
+          class="col-md-2"
           label="Dia de Vencimento"
           option-label="description"
         />
@@ -158,28 +158,28 @@
 <script setup>
 import { computed, ref, watchEffect } from 'vue'
 import notify from 'src/composables/notify'
-import TenantSginatures from 'src/components/common/TenantSignatures.vue'
-import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
-import XBackBtn from 'src/components/common/buttons/XBackBtn.vue'
-import XCtnBtn from 'src/components/common/buttons/XCtnBtn.vue'
-import XNifInput from 'src/components/common/inputs/person/XNifInput.vue'
-import XFullNameInput from 'src/components/common/inputs/person/XFullNameInput.vue'
-import XNameInput from 'src/components/common/inputs/person/XNameInput.vue'
-import XStateRegistrationInput from 'src/components/common/inputs/person/XStateRegistrationInput.vue'
-import XCityRegistrationInput from 'src/components/common/inputs/person/XCityRegistrationInput.vue'
-import XBirthdateInput from 'src/components/common/inputs/person/XBirthdateInput.vue'
-import XEnumSelect from 'src/components/common/inputs/XEnumSelect.vue'
-import XEmailInput from 'src/components/common/inputs/person/XEmailInput.vue'
-import XPhoneInput from 'src/components/common/inputs/person/XPhoneInput.vue'
-import XCitySelect from 'src/components/common/inputs/person/XCitySelect.vue'
-import XZipcodeInput from 'src/components/common/inputs/person/XZipcodeInput.vue'
-import XAddressInput from 'src/components/common/inputs/person/XAddressInput.vue'
-import XDistrictInput from 'src/components/common/inputs/person/XDistrictInput.vue'
-import XNumberInput from 'src/components/common/inputs/person/XNumberInput.vue'
-import XComplementInput from 'src/components/common/inputs/person/XComplementInput.vue'
-import XSelect from 'src/components/common/inputs/XSelect.vue'
-import XFormGroup from 'src/components/crud/XFormGroup.vue'
-import XBtnGroup from 'src/components/crud/XBtnGroup.vue'
+import TenantSginatures from 'src/components/others/TenantSignatures.vue'
+import XSbtBtn from 'src/components/buttons/XSbtBtn.vue'
+import XBackBtn from 'src/components/buttons/XBackBtn.vue'
+import XCtnBtn from 'src/components/buttons/XCtnBtn.vue'
+import XNifInput from 'src/components/inputs/person/XNifInput.vue'
+import XFullNameInput from 'src/components/inputs/person/XFullNameInput.vue'
+import XNameInput from 'src/components/inputs/person/XNameInput.vue'
+import XStateRegistrationInput from 'src/components/inputs/person/XStateRegistrationInput.vue'
+import XCityRegistrationInput from 'src/components/inputs/person/XCityRegistrationInput.vue'
+import XBirthdateInput from 'src/components/inputs/person/XBirthdateInput.vue'
+import XEnumSelect from 'src/components/inputs/XEnumSelect.vue'
+import XEmailInput from 'src/components/inputs/person/XEmailInput.vue'
+import XPhoneInput from 'src/components/inputs/person/XPhoneInput.vue'
+import XCitySelect from 'src/components/inputs/person/XCitySelect.vue'
+import XZipcodeInput from 'src/components/inputs/person/XZipcodeInput.vue'
+import XAddressInput from 'src/components/inputs/person/XAddressInput.vue'
+import XDistrictInput from 'src/components/inputs/person/XDistrictInput.vue'
+import XNumberInput from 'src/components/inputs/person/XNumberInput.vue'
+import XComplementInput from 'src/components/inputs/person/XComplementInput.vue'
+import XSelect from 'src/components/inputs/XSelect.vue'
+import XFormGroup from 'src/components/crud/form/XFormGroup.vue'
+import XBtnGroup from 'src/components/crud/form/XBtnGroup.vue'
 
 const props = defineProps({
   modelValue: {

@@ -1,9 +1,11 @@
 <template>
-  <XListPage
+  <XList
     :columns="columns"
-    crud="Contratantes"
-    model="tenants"
-    filter-placeholder="Pesquisar nome completo/razão social/cpf/cnpj/email"
+    title="Contratantes"
+    route-group-name="tenants"
+    permissions-group-name="tenants"
+    api-group-name="tenants"
+    filter-placeholder="Pesquisar por nome completo/razão social/cpf/cnpj/email"
   >
     <template #body-cell-status="props">
       <q-td :props="props">
@@ -13,14 +15,14 @@
         />
       </q-td>
     </template>
-  </XListPage>
+  </XList>
 </template>
 
 <script setup>
 import { useEnumsStore } from 'src/stores/enums'
-import XListPage from 'src/components/crud/XListPage.vue'
+import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
-import BadgeStatus from 'src/components/common/BadgeStatus.vue'
+import BadgeStatus from 'src/components/others/XBadge.vue'
 
 const enums = useEnumsStore()
 const columns = [

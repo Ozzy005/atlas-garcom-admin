@@ -1,11 +1,13 @@
 <template>
   <q-page padding>
     <q-card class="column q-gap-lg q-pa-md">
-      <XHeader
-        :crud="crud"
-        :model="model"
-        :return-to="returnTo"
-      />
+      <div class="row justify-between items-center q-gap-md">
+        <div class="text-h6">{{ title }}</div>
+        <XBackBtn
+          v-if="returnTo"
+          :to="returnTo"
+        />
+      </div>
       <q-form
         @submit="submit"
         ref="formRef"
@@ -21,33 +23,39 @@
 
 <script setup>
 import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
-import XHeader from 'src/components/crud/XHeader.vue'
+import XBackBtn from 'src/components/buttons/XBackBtn.vue'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   modelValue: {
     type: Object,
     required: true
   },
-  crud: {
+  pathForm: {
     type: String,
     required: true
   },
-  model: {
+  title: {
     type: String,
     required: true
   },
-  routeHasParameter: {
-    type: Boolean,
-    default: true
+  apiGet: {
+    tpye: String,
+    required: false
   },
-  returnTo: String,
-  afterSavingGoTo: String,
-  fetchItem: {
-    type: Boolean,
-    default: true
+  apiPut: {
+    tpye: String,
+    required: true
+  },
+  returnTo: {
+    type: Object,
+    required: false
+  },
+  redirectTo: {
+    type: String,
+    required: false
   }
 })
 
@@ -62,15 +70,13 @@ const form = computed({
   }
 })
 
-const FormPage = defineAsyncComponent(() => import(`../../pages/auth/${props.model}/FormPage.vue`))
+const FormPage = defineAsyncComponent(() => import(props.pathForm))
 const router = useRouter()
-const route = useRoute()
 const formRef = ref()
 
 const getItem = async () => {
   try {
-    const url = props.routeHasParameter ? `/api/${props.model}/${route.params.id}` : `/api/${props.model}`
-    const { data } = await api({ url })
+    const { data } = await api(props.apiGet)
     form.value = data.data
   } catch (error) {
     notify.error(error)
@@ -79,9 +85,10 @@ const getItem = async () => {
 
 const submit = async () => {
   try {
-    const url = props.routeHasParameter ? `/api/${props.model}/${route.params.id}` : `/api/${props.model}`
-    const { data } = await api({ method: 'put', url, data: form.value })
-    router.push({ name: props.afterSavingGoTo ?? `${props.model}-list` })
+    const { data } = await api({ method: 'put', url: props.apiPut, data: form.value })
+    if (props.redirectTo) {
+      router.push({ name: props.redirectTo })
+    }
     notify.success(data.message)
   } catch (error) {
     notify.error(error)
@@ -89,7 +96,7 @@ const submit = async () => {
 }
 
 onMounted(() => {
-  if (props.fetchItem) {
+  if (props.apiGet) {
     getItem()
   }
 })

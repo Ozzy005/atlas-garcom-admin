@@ -1,14 +1,17 @@
 <template>
-  <XCreatePage
+  <XCreate
     v-model="form"
-    crud="Usuários"
-    model="users"
+    :return-to="{ name: 'users-list' }"
+    path-form="../../../pages/auth/users/FormPage.vue"
+    title="Usuários"
+    api-post="/api/users"
+    redirect-to="users-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XCreatePage from 'src/components/crud/XCreatePage.vue'
+import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
   nif: null,

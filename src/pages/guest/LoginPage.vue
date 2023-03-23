@@ -51,10 +51,10 @@ import { ref } from 'vue'
 import notify from 'src/composables/notify'
 import { useAuthStore } from 'src/stores/auth'
 import { useRouter } from 'vue-router'
-import XSbtBtn from 'src/components/common/buttons/XSbtBtn.vue'
-import XBtn from 'src/components/common/buttons/XBtn.vue'
-import XPwdInput from 'src/components/common/inputs/XPwdInput.vue'
-import XEmailInput from 'src/components/common/inputs/person/XEmailInput.vue'
+import XSbtBtn from 'src/components/buttons/XSbtBtn.vue'
+import XBtn from 'src/components/buttons/XBtn.vue'
+import XPwdInput from 'src/components/inputs/XPwdInput.vue'
+import XEmailInput from 'src/components/inputs/person/XEmailInput.vue'
 
 const auth = useAuthStore()
 const router = useRouter()

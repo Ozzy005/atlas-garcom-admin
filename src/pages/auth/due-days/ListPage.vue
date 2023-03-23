@@ -1,8 +1,10 @@
 <template>
-  <XListPage
+  <XList
     :columns="columns"
-    crud="Dias de Vencimento"
-    model="due-days"
+    title="Dias de Vencimento"
+    route-group-name="due-days"
+    permissions-group-name="due-days"
+    api-group-name="due-days"
     filter-placeholder="Pesquisar por dia/descrição"
   >
     <template #body-cell-status="props">
@@ -13,14 +15,14 @@
         />
       </q-td>
     </template>
-  </XListPage>
+  </XList>
 </template>
 
 <script setup>
 import { useEnumsStore } from 'src/stores/enums'
-import XListPage from 'src/components/crud/XListPage.vue'
+import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
-import BadgeStatus from 'src/components/common/BadgeStatus.vue'
+import BadgeStatus from 'src/components/others/XBadge.vue'
 
 const enums = useEnumsStore()
 const columns = [

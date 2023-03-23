@@ -1,14 +1,21 @@
 <template>
-  <XEditPage
+  <XEdit
     v-model="form"
-    crud="Assinaturas"
-    model="signatures"
+    :api-get="`/api/signatures/${route.params.id}`"
+    :api-put="`/api/signatures/${route.params.id}`"
+    :return-to="{ name: 'signatures-list' }"
+    path-form="../../../pages/auth/signatures/FormPage.vue"
+    title="Assinaturas"
+    redirect-to="signatures-list"
   />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import XEditPage from 'src/components/crud/XEditPage.vue'
+import XEdit from 'src/components/crud/form/XEdit.vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const form = ref({
   name: null,
