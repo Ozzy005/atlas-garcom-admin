@@ -33,6 +33,7 @@
         dense
       />
       <q-fab
+        v-model="xList.actionsButtonStatus"
         :class="$q.screen.lt.md ? 'order-first' : ''"
         color="primary"
         icon="keyboard_arrow_down"

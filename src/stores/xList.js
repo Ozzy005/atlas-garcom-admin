@@ -29,7 +29,8 @@ export const useXListStore = defineStore('xList', {
     /* SEPARADOR */
     fullScreenMode: false,
     showFullscreenModeTooltip: true,
-    gridMode: Screen.lt.md
+    gridMode: Screen.lt.md,
+    actionsButtonStatus: false
   }),
   getters: {
     selectedRowsId () {
@@ -101,6 +102,8 @@ export const useXListStore = defineStore('xList', {
       } else {
         this.selectedRows.push(row)
       }
+
+      this.actionsButtonStatus = !!this.selectedRows.length
     },
 
     /* SEPARADOR */
