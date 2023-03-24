@@ -13,7 +13,7 @@
   box-shadow: 0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12) !important;
 }
 
-.q-table--grid::v-deep .q-table__grid-content {
+.q-table--grid :deep(.q-table__grid-content) {
   padding: 4px 14px 0px 14px;
 }
 </style>
