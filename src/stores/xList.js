@@ -71,7 +71,7 @@ export const useXListStore = defineStore('xList', {
     async getItems (scope) {
       try {
         const { page, rowsPerPage, sortBy, descending } = scope.pagination
-        this.loading = true
+        this.tableLoadingMode = true
         const { data } = await api(
           {
             url: `/api/${this.apiGroupName}`,
@@ -90,7 +90,7 @@ export const useXListStore = defineStore('xList', {
         this.pagination.rowsNumber = data.data.total
         this.pagination.sortBy = sortBy
         this.pagination.descending = descending
-        this.loading = false
+        this.tableLoadingMode = false
       } catch (error) {
         notify.error(error)
       }
