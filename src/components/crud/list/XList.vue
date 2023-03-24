@@ -11,6 +11,7 @@
       :rows="rows"
       :loading="loading"
       :filter="filter"
+      :fullscreen="fullscreen"
       selection="multiple"
       row-key="id"
     >
@@ -25,6 +26,7 @@
           <XActions
             v-model:rows-value="rows"
             v-model:filter-value="filter"
+            v-model:fullscreen-value="fullscreen"
             :show-create="auth.hasPermission(`${permissionsGroupName}_create`)"
             :show-view="auth.hasPermission(`${permissionsGroupName}_view`)"
             :show-edit="auth.hasPermission(`${permissionsGroupName}_edit`)"
@@ -99,6 +101,7 @@ const pagination = ref({
 const filter = ref()
 const loading = ref(false)
 const selectedItems = ref([])
+const fullscreen = ref(false)
 
 const rowClick = (event, row) => {
   const exists = selectedItems.value.find(item => item.id === row.id)

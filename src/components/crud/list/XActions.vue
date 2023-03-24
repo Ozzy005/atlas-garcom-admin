@@ -44,6 +44,11 @@
         tooltip-label="Adicionar"
         icon="mdi-plus"
       />
+      <XBtn
+        @click="fullscreenClick"
+        :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
+        :tooltip-label="showFullscreenTooltip ? (fullscreen ? 'Sair do modo fullscreen' : 'Colocar em modo fullscreen') : null"
+      />
     </div>
 
   </div>
@@ -52,12 +57,16 @@
 <script setup>
 import { useQuasar } from 'quasar'
 import notify from 'src/composables/notify'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
 import XBtn from 'src/components/buttons/XBtn.vue'
 
 const props = defineProps({
+  fullscreenValue: {
+    type: Boolean,
+    required: true
+  },
   rowsValue: {
     type: Array,
     required: true
@@ -104,7 +113,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:rowsValue', 'update:filterValue'])
+const emit = defineEmits(['update:rowsValue', 'update:filterValue', 'update:fullscreenValue'])
 
 const rows = computed({
   get () {
@@ -124,8 +133,24 @@ const filter = computed({
   }
 })
 
+const fullscreen = computed({
+  get () {
+    return props.fullscreenValue
+  },
+  set (value) {
+    emit('update:fullscreenValue', value)
+  }
+})
+
 const router = useRouter()
 const $q = useQuasar()
+const showFullscreenTooltip = ref(true)
+
+const fullscreenClick = () => {
+  fullscreen.value = !fullscreen.value
+  showFullscreenTooltip.value = false
+  setTimeout(() => { showFullscreenTooltip.value = true })
+}
 
 const selectedItems = computed(() => {
   return props.selectedItems.map(item => item.id)
