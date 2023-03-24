@@ -1,13 +1,20 @@
 <style lang="scss" scoped>
 .q-table--grid {
-  color: #000 !important;
-  background-color: #fff !important;
-  border-radius: 4px !important;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12) !important;
+  color: #000;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+}
+
+.q-table--dark {
+  color: #fff !important;
+  background-color: var(--q-dark) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 1px 5px rgba(255, 255, 255, 0.2), 0 2px 2px rgba(255, 255, 255, 0.14), 0 3px 1px -2px rgba(255, 255, 255, 0.12) !important;
 }
 
 .q-table--grid::v-deep .q-table__grid-content {
-  padding: 4px 14px 0px 14px !important;
+  padding: 4px 14px 0px 14px;
 }
 </style>
 
