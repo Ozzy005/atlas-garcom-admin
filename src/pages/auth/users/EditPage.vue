@@ -2,6 +2,7 @@
   <XEdit
     v-model="form"
     :api-get="`/api/users/${route.params.id}`"
+    :api-get-params="{ with: ['roles'] }"
     :api-put="`/api/users/${route.params.id}`"
     :return-to="{ name: 'users-list' }"
     path-form="users"

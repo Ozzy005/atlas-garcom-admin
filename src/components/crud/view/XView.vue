@@ -29,8 +29,12 @@ const props = defineProps({
     required: true
   },
   apiGet: {
-    tpye: String,
+    type: String,
     required: true
+  },
+  apiGetParams: {
+    type: String,
+    required: false
   },
   returnTo: {
     type: Object,
@@ -53,7 +57,7 @@ const route = useRoute()
 
 const getItem = async () => {
   try {
-    const { data } = await api({ url: `/api/${props.apiGet}/${route.params.id}` })
+    const { data } = await api({ url: `/api/${props.apiGet}/${route.params.id}`, params: props.apiGetParams })
     form.value = data.data
   } catch (error) {
     notify.error(error)

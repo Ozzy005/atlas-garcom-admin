@@ -2,6 +2,7 @@
   <XView
     v-model="form"
     :return-to="{ name: 'users-list' }"
+    :api-get-params="{ with: ['roles'] }"
     title="Usuários"
     api-get="users"
   >

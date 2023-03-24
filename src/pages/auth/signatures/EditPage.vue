@@ -2,6 +2,7 @@
   <XEdit
     v-model="form"
     :api-get="`/api/signatures/${route.params.id}`"
+    :api-get-params="{ with: ['dueDays', 'modules'] }"
     :api-put="`/api/signatures/${route.params.id}`"
     :return-to="{ name: 'signatures-list' }"
     path-form="signatures"

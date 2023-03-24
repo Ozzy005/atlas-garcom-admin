@@ -2,6 +2,7 @@
   <XView
     v-model="form"
     :return-to="{ name: 'signatures-list' }"
+    :api-get-params="{ with: ['dueDays', 'modules'] }"
     title="Assinaturas"
     api-get="signatures"
   >

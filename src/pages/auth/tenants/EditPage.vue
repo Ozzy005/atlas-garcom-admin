@@ -2,6 +2,7 @@
   <XEdit
     v-model="form"
     :api-get="`/api/tenants/${route.params.id}`"
+    :api-get-params="{ with: ['signature.dueDays'] }"
     :api-put="`/api/tenants/${route.params.id}`"
     :return-to="{ name: 'tenants-list' }"
     path-form="tenants"
