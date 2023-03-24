@@ -168,7 +168,7 @@ watch(
     form.value.discounted_price = helpers.floatToMoney(vl)
     form.value.total_price = helpers.floatToMoney(vl * (form.value.recurrence ?? 1))
     if (!form.value.has_discount) {
-      form.value.discount = '0'
+      form.value.discount = 0
     }
   }
 )

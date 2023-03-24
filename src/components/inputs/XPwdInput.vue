@@ -18,10 +18,13 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import XInput from './XInput.vue'
+import XInput from 'src/components/inputs/XInput.vue'
 
 const props = defineProps({
-  modelValue: [String, Number],
+  modelValue: {
+    type: String,
+    required: false
+  },
   rules: {
     type: Array,
     default: () => []

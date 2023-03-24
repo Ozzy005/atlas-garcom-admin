@@ -24,11 +24,14 @@
 
 <script setup>
 import { computed } from 'vue'
-import XInput from './XInput.vue'
+import XInput from 'src/components/inputs/XInput.vue'
 import { vMaska } from 'maska'
 
 const props = defineProps({
-  modelValue: [String, Number]
+  modelValue: {
+    type: [String, Number],
+    required: false
+  }
 })
 
 const emit = defineEmits(['update:modelValue'])

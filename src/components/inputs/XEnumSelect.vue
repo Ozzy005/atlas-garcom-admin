@@ -20,10 +20,13 @@
 <script setup>
 import { computed } from 'vue'
 import { useEnumsStore } from 'src/stores/enums'
-import XSelect from './XSelect.vue'
+import XSelect from 'src/components/inputs/XSelect.vue'
 
 const props = defineProps({
-  modelValue: Number,
+  modelValue: {
+    type: Number,
+    required: false
+  },
   enumName: {
     type: String,
     required: true

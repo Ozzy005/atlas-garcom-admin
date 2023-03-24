@@ -18,21 +18,21 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const form = ref({
-  nif: null,
-  full_name: null,
-  name: null,
-  state_registration: null,
-  city_registration: null,
-  birthdate: null,
+  nif: '',
+  full_name: '',
+  name: '',
+  state_registration: '',
+  city_registration: '',
+  birthdate: '',
   status: null,
-  email: null,
-  phone: null,
+  email: '',
+  phone: '',
   city_id: null,
-  zip_code: null,
-  address: null,
-  district: null,
-  number: null,
-  complement: null,
+  zip_code: '',
+  address: '',
+  district: '',
+  number: '',
+  complement: '',
   roles_ids: []
 })
 

@@ -21,11 +21,14 @@
 
 <script setup>
 import { computed } from 'vue'
-import XMoneyInput from './XMoneyInput.vue'
+import XMoneyInput from 'src/components/inputs/XMoneyInput.vue'
 import helpers from 'src/utils/helpers'
 
 const props = defineProps({
-  modelValue: [String, Number]
+  modelValue: {
+    type: [String, Number],
+    required: false
+  }
 })
 
 const emit = defineEmits(['update:modelValue'])

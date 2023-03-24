@@ -21,10 +21,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import XInput from '../XInput.vue'
+import XInput from 'src/components/inputs/XInput.vue'
 
 const props = defineProps({
-  modelValue: String,
+  modelValue: {
+    type: String,
+    required: false
+  },
   required: {
     type: Boolean,
     default: false

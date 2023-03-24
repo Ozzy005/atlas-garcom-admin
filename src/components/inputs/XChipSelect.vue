@@ -22,12 +22,12 @@
 
 <script setup>
 import { computed } from 'vue'
-import XSelect from './XSelect.vue'
+import XSelect from 'src/components/inputs/XSelect.vue'
 
 const props = defineProps({
   modelValue: {
     type: Array,
-    default: () => []
+    required: false
   }
 })
 

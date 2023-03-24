@@ -18,15 +18,15 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const form = ref({
-  name: null,
-  description: null,
-  color: null,
+  name: '',
+  description: '',
+  color: '',
   recurrence: null,
-  price: null,
+  price: 0,
   has_discount: false,
-  discount: null,
-  discounted_price: null,
-  total_price: null,
+  discount: 0,
+  discounted_price: 0,
+  total_price: 0,
   due_days_ids: [],
   modules_ids: [],
   status: null

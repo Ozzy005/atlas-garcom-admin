@@ -29,13 +29,16 @@
 import { ref, computed } from 'vue'
 import notify from 'src/composables/notify'
 import { api } from 'src/boot/axios'
-import XSelect from '../XSelect.vue'
+import XSelect from 'src/components/inputs/XSelect.vue'
 
 const props = defineProps({
-  modelValue: Number,
+  modelValue: {
+    type: Number,
+    required: false
+  },
   cities: {
     type: Array,
-    default: () => []
+    required: true
   },
   required: {
     type: Boolean,

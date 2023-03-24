@@ -121,7 +121,7 @@ const modules = ref([])
 
 const getSignatures = async () => {
   try {
-    const { data } = await api({ url: '/api/signatures', params: { status: 1 } })
+    const { data } = await api({ url: '/api/signatures', params: { status: 1, with: ['dueDays', 'modules'] } })
     signatures.value = data.data
     signatures.value.forEach(item => {
       item.modules = item.modules.map(item => item.id)

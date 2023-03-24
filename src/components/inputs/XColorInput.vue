@@ -1,9 +1,10 @@
 <template>
   <XInput
     v-model="value"
-    :rules="[...rules, val => !val || /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(val) || 'Insira uma cor hexadecimal válida!']"
     label="Cor"
-    maxlength="7"
+    data-maska="!#HHHHHH"
+    data-maska-tokens="H:[0-9a-fA-F]"
+    v-maska
   >
     <template v-slot:prepend>
       <q-icon
@@ -35,13 +36,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import XInput from './XInput.vue'
+import XInput from 'src/components/inputs/XInput.vue'
+import { vMaska } from 'maska'
 
 const props = defineProps({
-  modelValue: String,
-  rules: {
-    type: Array,
-    default: () => []
+  modelValue: {
+    type: String,
+    required: false
   }
 })
 

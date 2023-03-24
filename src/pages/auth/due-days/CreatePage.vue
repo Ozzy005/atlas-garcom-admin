@@ -15,7 +15,7 @@ import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
   day: null,
-  description: null,
+  description: '',
   status: null
 })
 

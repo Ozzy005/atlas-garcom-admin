@@ -14,23 +14,23 @@ import { ref } from 'vue'
 import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
-  nif: null,
-  full_name: null,
-  name: null,
-  state_registration: null,
-  city_registration: null,
-  birthdate: null,
+  nif: '',
+  full_name: '',
+  name: '',
+  state_registration: '',
+  city_registration: '',
+  birthdate: '',
   status: null,
-  email: null,
-  phone: null,
+  email: '',
+  phone: '',
   city_id: null,
-  zip_code: null,
-  address: null,
-  district: null,
-  number: null,
-  complement: null,
-  password: null,
-  password_confirmation: null,
+  zip_code: '',
+  address: '',
+  district: '',
+  number: '',
+  complement: '',
+  password: '',
+  password_confirmation: '',
   roles_ids: []
 })
 

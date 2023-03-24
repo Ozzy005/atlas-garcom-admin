@@ -4,7 +4,6 @@
     :rules="[val => (!!val || !required) || 'CEP é obrigatório!']"
     label="CEP"
     mask="#####-###"
-    unmasked-value
   >
     <template
       v-for="(_, slot) in $slots"
@@ -22,10 +21,13 @@
 
 <script setup>
 import { computed } from 'vue'
-import XInput from '../XInput.vue'
+import XInput from 'src/components/inputs/XInput.vue'
 
 const props = defineProps({
-  modelValue: String,
+  modelValue: {
+    type: String,
+    required: false
+  },
   required: {
     type: Boolean,
     default: true

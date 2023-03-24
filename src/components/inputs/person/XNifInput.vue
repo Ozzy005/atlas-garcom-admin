@@ -5,11 +5,9 @@
       val => (!!val || !required) || 'CPF/CNPJ é obrigatório!',
       val => (!required || helpers.cpfCnpj(val)) || 'CPF/CNPJ é inválido!'
     ]"
-    :mask="nifMask"
     label="CPF/CNPJ"
-    maxlength="18"
-    unmasked-value
-    reverse-fill-mask
+    data-maska="['###.###.###-##', '##.###.###/####-##']"
+    v-maska
   >
     <template
       v-for="(_, slot) in $slots"
@@ -27,11 +25,15 @@
 
 <script setup>
 import { computed } from 'vue'
-import XInput from '../XInput.vue'
+import XInput from 'src/components/inputs/XInput.vue'
 import helpers from 'src/utils/helpers'
+import { vMaska } from 'maska'
 
 const props = defineProps({
-  modelValue: String,
+  modelValue: {
+    type: String,
+    required: false
+  },
   required: {
     type: Boolean,
     default: true
@@ -47,13 +49,6 @@ const value = computed({
   set (value) {
     emit('update:modelValue', value)
   }
-})
-
-const nifMask = computed(() => {
-  if (value.value) {
-    return value.value.length > 11 ? '##.###.###/####-##' : '###.###.###-##'
-  }
-  return '##.###.###/####-##'
 })
 
 </script>

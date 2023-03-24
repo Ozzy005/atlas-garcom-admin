@@ -25,7 +25,10 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  modelValue: [String, Number]
+  modelValue: {
+    type: [String, Number],
+    required: false
+  }
 })
 
 const emit = defineEmits(['update:modelValue'])
