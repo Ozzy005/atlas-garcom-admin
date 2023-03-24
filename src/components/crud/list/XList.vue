@@ -1,3 +1,16 @@
+<style lang="scss" scoped>
+.q-table--grid {
+  color: #000 !important;
+  background-color: #fff !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12) !important;
+}
+
+.q-table--grid::v-deep .q-table__grid-content {
+  padding: 4px 14px 0px 14px !important;
+}
+</style>
+
 <template>
   <q-page padding>
     <q-table
@@ -12,6 +25,7 @@
       :loading="loading"
       :filter="filter"
       :fullscreen="fullscreen"
+      :grid="grid"
       selection="multiple"
       row-key="id"
     >
@@ -27,6 +41,7 @@
             v-model:rows-value="rows"
             v-model:filter-value="filter"
             v-model:fullscreen-value="fullscreen"
+            v-model:grid-value="grid"
             :show-create="auth.hasPermission(`${permissionsGroupName}_create`)"
             :show-view="auth.hasPermission(`${permissionsGroupName}_view`)"
             :show-edit="auth.hasPermission(`${permissionsGroupName}_edit`)"
@@ -60,6 +75,7 @@ import { useAuthStore } from 'src/stores/auth'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import XActions from 'src/components/crud/list/XActions.vue'
+import { useQuasar } from 'quasar'
 
 const props = defineProps({
   columns: {
@@ -88,6 +104,7 @@ const props = defineProps({
   }
 })
 
+const $q = useQuasar()
 const auth = useAuthStore()
 const tableRef = ref()
 const rows = ref([])
@@ -102,6 +119,7 @@ const filter = ref()
 const loading = ref(false)
 const selectedItems = ref([])
 const fullscreen = ref(false)
+const grid = ref($q.screen.lt.md)
 
 const rowClick = (event, row) => {
   const exists = selectedItems.value.find(item => item.id === row.id)

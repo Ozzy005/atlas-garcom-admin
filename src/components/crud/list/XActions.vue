@@ -4,7 +4,7 @@
     <q-input
       v-model="filter"
       :placeholder="filterPlaceholder"
-      class="col-md-5"
+      class="col-md-5 col-xs-12"
       debounce="300"
       dense
       outlined
@@ -49,6 +49,11 @@
         :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
         :tooltip-label="showFullscreenTooltip ? (fullscreen ? 'Sair do modo fullscreen' : 'Colocar em modo fullscreen') : null"
       />
+      <XBtn
+        @click="grid = !grid"
+        :tooltip-label="grid ? 'Sair do modo grade' : 'Colocar em modo grade'"
+        icon="mdi-grid"
+      />
     </div>
 
   </div>
@@ -64,6 +69,10 @@ import XBtn from 'src/components/buttons/XBtn.vue'
 
 const props = defineProps({
   fullscreenValue: {
+    type: Boolean,
+    required: true
+  },
+  gridValue: {
     type: Boolean,
     required: true
   },
@@ -113,7 +122,12 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:rowsValue', 'update:filterValue', 'update:fullscreenValue'])
+const emit = defineEmits([
+  'update:rowsValue',
+  'update:filterValue',
+  'update:fullscreenValue',
+  'update:gridValue'
+])
 
 const rows = computed({
   get () {
@@ -139,6 +153,15 @@ const fullscreen = computed({
   },
   set (value) {
     emit('update:fullscreenValue', value)
+  }
+})
+
+const grid = computed({
+  get () {
+    return props.gridValue
+  },
+  set (value) {
+    emit('update:gridValue', value)
   }
 })
 
