@@ -1,13 +1,6 @@
 <!-- eslint-disable vue/no-v-text-v-html-on-component -->
 <template>
-  <XList
-    :columns="columns"
-    title="Ncms"
-    route-group-name="ncms"
-    permissions-group-name="ncms"
-    api-group-name="ncms"
-    filter-placeholder="Pesquisar por código/descrição"
-  >
+  <XList>
     <template #body-cell-description="props">
       <q-td
         :props="props"
@@ -19,8 +12,16 @@
 
 <script setup>
 import XList from 'src/components/crud/list/XList.vue'
+import { useXListStore } from 'src/stores/xList'
 
-const columns = [
+const xList = useXListStore()
+xList.reset()
+xList.title = 'Ncms'
+xList.routeGroupName = 'ncms'
+xList.permissionsGroupName = 'ncms'
+xList.apiGroupName = 'ncms'
+xList.filterPlaceholder = 'Pesquisar por código/descrição'
+xList.columns = [
   {
     label: 'ID',
     name: 'id',

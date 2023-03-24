@@ -1,11 +1,11 @@
 <template>
   <q-badge
-    class="q-pa-none"
-    style="height: 20px; width: 20px; border-radius: 10px;"
+    class="q-py-xs q-px-md"
     :style="{ 'background-color': color }"
   >
+    <span class="fs-13">{{ name }}</span>
     <q-tooltip
-      class="fs-16"
+      class="fs-14"
       :offset="[10, 10]"
       :hide-delay="1000"
     >

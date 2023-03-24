@@ -1,15 +1,8 @@
 <template>
-  <XList
-    :columns="columns"
-    title="Assinaturas"
-    route-group-name="signatures"
-    permissions-group-name="signatures"
-    api-group-name="signatures"
-    filter-placeholder="Pesquisar por nome/descrição"
-  >
+  <XList>
     <template #body-cell-recurrence="props">
       <q-td :props="props">
-        <BadgeStatus
+        <XBadge
           :name="enums.getName('recurrences', props.row.recurrence)"
           :color="enums.getColor('recurrences', props.row.recurrence)"
         />
@@ -17,7 +10,7 @@
     </template>
     <template #body-cell-status="props">
       <q-td :props="props">
-        <BadgeStatus
+        <XBadge
           :name="enums.getName('status', props.row.status)"
           :color="enums.getColor('status', props.row.status)"
         />
@@ -30,10 +23,18 @@
 import { useEnumsStore } from 'src/stores/enums'
 import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
-import BadgeStatus from 'src/components/others/XBadge.vue'
+import XBadge from 'src/components/others/XBadge.vue'
+import { useXListStore } from 'src/stores/xList'
 
 const enums = useEnumsStore()
-const columns = [
+const xList = useXListStore()
+xList.reset()
+xList.title = 'Assinaturas'
+xList.routeGroupName = 'signatures'
+xList.permissionsGroupName = 'signatures'
+xList.apiGroupName = 'signatures'
+xList.filterPlaceholder = 'Pesquisar por nome/descrição'
+xList.columns = [
   {
     label: 'ID',
     name: 'id',
@@ -85,14 +86,16 @@ const columns = [
     name: 'recurrence',
     field: 'recurrence',
     align: 'center',
-    sortable: true
+    sortable: true,
+    format: (val) => xList.gridMode ? enums.getName('recurrences', val) : val
   },
   {
     label: 'Status',
     name: 'status',
     field: 'status',
     align: 'center',
-    sortable: true
+    sortable: true,
+    format: (val) => xList.gridMode ? enums.getName('status', val) : val
   }
 ]
 

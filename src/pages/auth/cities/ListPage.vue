@@ -1,18 +1,19 @@
 <template>
-  <XList
-    :columns="columns"
-    title="Cidades"
-    route-group-name="cities"
-    permissions-group-name="cities"
-    api-group-name="cities"
-    filter-placeholder="Pesquisar por cidade"
-  />
+  <XList />
 </template>
 
 <script setup>
 import XList from 'src/components/crud/list/XList.vue'
+import { useXListStore } from 'src/stores/xList'
 
-const columns = [
+const xList = useXListStore()
+xList.reset()
+xList.title = 'Cidades'
+xList.routeGroupName = 'cities'
+xList.permissionsGroupName = 'cities'
+xList.apiGroupName = 'cities'
+xList.filterPlaceholder = 'Pesquisar por cidade'
+xList.columns = [
   {
     label: 'ID',
     name: 'id',

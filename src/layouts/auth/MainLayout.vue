@@ -19,7 +19,7 @@
         <XBtn
           @click="$q.fullscreen.toggle()"
           :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
-          :tooltip-label="$q.fullscreen.isActive ? 'Sair do modo fullscreen' : 'Colocar em modo fullscreen'"
+          :tooltip-label="$q.fullscreen.isActive ? 'Sair do modo tela cheia' : 'Colocar em modo tela cheia'"
           color="white"
           flat
         />

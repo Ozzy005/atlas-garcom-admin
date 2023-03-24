@@ -1,15 +1,8 @@
 <template>
-  <XList
-    :columns="columns"
-    title="Unidades de Medida"
-    route-group-name="measurement-units"
-    permissions-group-name="measurement-units"
-    api-group-name="measurement-units"
-    filter-placeholder="Pesquisar por nome/iniciais"
-  >
+  <XList>
     <template #body-cell-status="props">
       <q-td :props="props">
-        <BadgeStatus
+        <XBadge
           :name="enums.getName('status', props.row.status)"
           :color="enums.getColor('status', props.row.status)"
         />
@@ -22,10 +15,18 @@
 import { useEnumsStore } from 'src/stores/enums'
 import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
-import BadgeStatus from 'src/components/others/XBadge.vue'
+import XBadge from 'src/components/others/XBadge.vue'
+import { useXListStore } from 'src/stores/xList'
 
 const enums = useEnumsStore()
-const columns = [
+const xList = useXListStore()
+xList.reset()
+xList.title = 'Unidades de Medida'
+xList.routeGroupName = 'measurement-units'
+xList.permissionsGroupName = 'measurement-units'
+xList.apiGroupName = 'measurement-units'
+xList.filterPlaceholder = 'Pesquisar por nome/iniciais'
+xList.columns = [
   {
     label: 'ID',
     name: 'id',
@@ -69,7 +70,8 @@ const columns = [
     name: 'status',
     field: 'status',
     align: 'center',
-    sortable: true
+    sortable: true,
+    format: (val) => xList.gridMode ? enums.getName('status', val) : val
   }
 ]
 </script>

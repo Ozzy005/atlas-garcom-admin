@@ -1,15 +1,8 @@
 <template>
-  <XList
-    :columns="columns"
-    title="Dias de Vencimento"
-    route-group-name="due-days"
-    permissions-group-name="due-days"
-    api-group-name="due-days"
-    filter-placeholder="Pesquisar por dia/descrição"
-  >
+  <XList>
     <template #body-cell-status="props">
       <q-td :props="props">
-        <BadgeStatus
+        <XBadge
           :name="enums.getName('status', props.row.status)"
           :color="enums.getColor('status', props.row.status)"
         />
@@ -22,10 +15,18 @@
 import { useEnumsStore } from 'src/stores/enums'
 import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
-import BadgeStatus from 'src/components/others/XBadge.vue'
+import XBadge from 'src/components/others/XBadge.vue'
+import { useXListStore } from 'src/stores/xList'
 
 const enums = useEnumsStore()
-const columns = [
+const xList = useXListStore()
+xList.reset()
+xList.title = 'Dias de Vencimento'
+xList.routeGroupName = 'due-days'
+xList.permissionsGroupName = 'due-days'
+xList.apiGroupName = 'due-days'
+xList.filterPlaceholder = 'Pesquisar por dia/descrição'
+xList.columns = [
   {
     label: 'ID',
     name: 'id',
@@ -69,7 +70,8 @@ const columns = [
     name: 'status',
     field: 'status',
     align: 'center',
-    sortable: true
+    sortable: true,
+    format: (val) => xList.gridMode ? enums.getName('status', val) : val
   }
 ]
 

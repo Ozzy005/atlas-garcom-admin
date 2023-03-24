@@ -13,6 +13,11 @@
       @click="() => hideMiniMode(true, true)"
     >
       Menu
+      <XTooltip
+        v-if="drawer.miniState"
+        label="Mostrar Menu"
+        position="right"
+      />
     </div>
 
     <q-separator />

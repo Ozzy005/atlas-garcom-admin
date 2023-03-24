@@ -1,19 +1,20 @@
 <template>
-  <XList
-    :columns="columns"
-    title="Permissões"
-    route-group-name="permissions"
-    permissions-group-name="permissions"
-    api-group-name="permissions"
-    filter-placeholder="Pesquisar por nome/descrição"
-  />
+  <XList />
 </template>
 
 <script setup>
 import XList from 'src/components/crud/list/XList.vue'
 import helpers from 'src/utils/helpers'
+import { useXListStore } from 'src/stores/xList'
 
-const columns = [
+const xList = useXListStore()
+xList.reset()
+xList.title = 'Permissões'
+xList.routeGroupName = 'permissions'
+xList.permissionsGroupName = 'permissions'
+xList.apiGroupName = 'permissions'
+xList.filterPlaceholder = 'Pesquisar por nome/descrição'
+xList.columns = [
   {
     label: 'ID',
     name: 'id',
