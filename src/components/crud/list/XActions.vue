@@ -20,6 +20,7 @@
     <div class="col-md-auto col-xs-12 row q-gap-sm">
       <XBtn
         @click="xList.tableRef.requestServerInteraction()"
+        :loading="xList.tableLoadingMode"
         icon="mdi-reload"
         tooltip-label="Atualizar registros"
         tooltip-position="top"
