@@ -5,6 +5,7 @@ import notify from 'src/composables/notify'
 
 export const useXListStore = defineStore('xList', {
   state: () => ({
+    tableRef: null,
     columns: [],
     rows: [],
     selectedRows: [],

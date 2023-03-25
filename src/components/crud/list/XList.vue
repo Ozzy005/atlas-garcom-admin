@@ -63,12 +63,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import XActions from 'src/components/crud/list/XActions.vue'
 import { useXListStore } from 'src/stores/xList'
 
 const xList = useXListStore()
-const tableRef = ref()
+const tableRef = computed({
+  get () {
+    return xList.tableRef
+  },
+  set (value) {
+    xList.tableRef = value
+  }
+})
 
 onMounted(() => {
   tableRef.value.requestServerInteraction()

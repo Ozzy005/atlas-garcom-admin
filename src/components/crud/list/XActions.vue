@@ -19,6 +19,13 @@
 
     <div class="col-md-auto col-xs-12 row q-gap-sm">
       <XBtn
+        @click="xList.tableRef.requestServerInteraction()"
+        icon="mdi-reload"
+        tooltip-label="Atualizar registros"
+        tooltip-position="top"
+        dense
+      />
+      <XBtn
         @click="xList.toggleFullscreenMode()"
         :icon="xList.fullscreenModeIcon"
         :tooltip-label="xList.fullscreenModeTooltipLabel"
