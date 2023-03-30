@@ -172,7 +172,7 @@ const roles = ref([])
 
 const getRoles = async () => {
   try {
-    const { data } = await api({ url: '/api/roles' })
+    const { data } = await api({ url: '/api/public/roles' })
     roles.value = data.data
   } catch (error) {
     notify.error(error)

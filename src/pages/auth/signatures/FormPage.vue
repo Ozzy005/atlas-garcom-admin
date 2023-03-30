@@ -175,7 +175,7 @@ watch(
 
 const getModules = async () => {
   try {
-    const { data } = await api({ url: '/api/roles', params: { type: 2 } })
+    const { data } = await api({ url: '/api/public/roles', params: { type: 2 } })
     modules.value = data.data
   } catch (error) {
     notify.error(error)
@@ -184,7 +184,7 @@ const getModules = async () => {
 
 const getDueDays = async () => {
   try {
-    const { data } = await api({ url: '/api/due-days', params: { status: 1 } })
+    const { data } = await api({ url: '/api/public/due-days', params: { status: 1 } })
     dueDays.value = data.data
   } catch (error) {
     notify.error(error)

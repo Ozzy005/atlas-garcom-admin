@@ -132,7 +132,7 @@ const collapse = () => {
 
 const getPermissions = async () => {
   try {
-    const { data } = await api({ url: '/api/permissions-tree' })
+    const { data } = await api({ url: '/api/public/permissions-tree' })
     permissions.value = data.data
   } catch (error) {
     notify.error(error)

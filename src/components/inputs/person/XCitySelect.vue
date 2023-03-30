@@ -71,7 +71,7 @@ const filterCity = (val, update, abort) => {
   update(async () => {
     try {
       loading.value = true
-      const { data } = await api({ url: '/api/cities', params: { search: val } })
+      const { data } = await api({ url: '/api/public/cities', params: { search: val } })
       options.value = data.data
       loading.value = false
     } catch (error) {
