@@ -9,7 +9,7 @@
         />
       </div>
       <q-form
-        @submit="submit"
+        @submit="!!submitFunction ? submitFunction() : submit()"
         ref="formRef"
       >
         <FormPage
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineAsyncComponent } from 'vue'
+import { ref, computed, defineAsyncComponent, isProxy, toRaw } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
@@ -52,6 +52,10 @@ const props = defineProps({
   redirectTo: {
     type: String,
     required: false
+  },
+  submitFunction: {
+    type: Function,
+    required: false
   }
 })
 
@@ -72,7 +76,22 @@ const formRef = ref()
 
 const submit = async () => {
   try {
-    const { data } = await api({ method: 'post', url: props.apiPost, data: form.value })
+    const formData = new FormData()
+    for (const [key, value] of Object.entries(form.value)) {
+      if (isProxy(value)) {
+        toRaw(value).forEach((v, i) => formData.append(`${key}[${i}]`, v))
+      } else if (Array.isArray(form.value)) {
+        value.forEach((v, i) => formData.append(`${key}[${i}]`, v))
+      } else {
+        formData.append(key, value ?? '')
+      }
+    }
+    const { data } = await api({
+      method: 'post',
+      url: props.apiPost,
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
     if (props.redirectTo) {
       router.push({ name: props.redirectTo })
     }

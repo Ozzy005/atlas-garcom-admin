@@ -90,7 +90,8 @@
       <q-expansion-item
         v-if="auth.hasPermissions([
           'signatures_view',
-          'due-days_view'
+          'due-days_view',
+          'categories_view'
         ])"
         @click="() => hideMiniMode()"
         ref="operationalExpansionItemRef"
@@ -144,6 +145,20 @@
             </q-item-section>
             <q-item-section>
               <q-item-label>Dias de<br>Vencimento</q-item-label>
+            </q-item-section>
+          </q-item>
+          <!-- Categorias -->
+          <q-item
+            v-if="auth.hasPermissions(['categories_view'])"
+            :to="{ name: 'categories-list' }"
+            :inset-level="0.5"
+            active-class="text-primary"
+          >
+            <q-item-section avatar>
+              <q-icon name="mdi-view-column" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Categorias</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -381,7 +396,11 @@ const operational = [
   'due-days-list',
   'due-days-create',
   'due-days-view',
-  'due-days-edit'
+  'due-days-edit',
+  'categories-list',
+  'categories-create',
+  'categories-view',
+  'categories-edit'
 ]
 
 const general = [

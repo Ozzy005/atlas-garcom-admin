@@ -126,6 +126,33 @@ const routes = [
         ]
       },
       {
+        path: 'categories',
+        name: 'categories',
+        component: () => import('src/layouts/crud/MainLayout.vue'),
+        children: [
+          {
+            path: '',
+            name: 'categories-list',
+            component: () => import('src/pages/auth/categories/ListPage.vue')
+          },
+          {
+            path: 'create',
+            name: 'categories-create',
+            component: () => import('src/pages/auth/categories/CreatePage.vue')
+          },
+          {
+            path: ':id',
+            name: 'categories-view',
+            component: () => import('src/pages/auth/categories/ViewPage.vue')
+          },
+          {
+            path: ':id/edit',
+            name: 'categories-edit',
+            component: () => import('src/pages/auth/categories/EditPage.vue')
+          }
+        ]
+      },
+      {
         path: 'payment-methods',
         name: 'payment-methods',
         component: () => import('src/layouts/crud/MainLayout.vue'),

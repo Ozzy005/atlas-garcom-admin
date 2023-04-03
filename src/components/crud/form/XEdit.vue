@@ -9,7 +9,7 @@
         />
       </div>
       <q-form
-        @submit="submit"
+        @submit="!!submitFunction ? submitFunction() : submit()"
         ref="formRef"
       >
         <FormPage
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
+import { ref, computed, onMounted, defineAsyncComponent, toRaw, isProxy } from 'vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import XBackBtn from 'src/components/buttons/XBackBtn.vue'
@@ -60,6 +60,14 @@ const props = defineProps({
   redirectTo: {
     type: String,
     required: false
+  },
+  submitFunction: {
+    type: Function,
+    required: false
+  },
+  getItemFunction: {
+    type: Function,
+    required: false
   }
 })
 
@@ -89,7 +97,23 @@ const getItem = async () => {
 
 const submit = async () => {
   try {
-    const { data } = await api({ method: 'put', url: props.apiPut, data: form.value })
+    const formData = new FormData()
+    for (const [key, value] of Object.entries(form.value)) {
+      if (isProxy(value)) {
+        toRaw(value).forEach((v, i) => formData.append(`${key}[${i}]`, v))
+      } else if (Array.isArray(form.value)) {
+        value.forEach((v, i) => formData.append(`${key}[${i}]`, v))
+      } else {
+        formData.append(key, value ?? '')
+      }
+    }
+    formData.append('_method', 'put')
+    const { data } = await api({
+      method: 'post',
+      url: props.apiPut,
+      data: formData,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
     if (props.redirectTo) {
       router.push({ name: props.redirectTo })
     }
@@ -101,7 +125,7 @@ const submit = async () => {
 
 onMounted(() => {
   if (props.apiGet) {
-    getItem()
+    props.getItemFunction ? props.getItemFunction() : getItem()
   }
 })
 
