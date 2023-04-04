@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineAsyncComponent, isProxy, toRaw } from 'vue'
+import { ref, computed, defineAsyncComponent } from 'vue'
 import { useRouter } from 'vue-router'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
@@ -76,21 +76,10 @@ const formRef = ref()
 
 const submit = async () => {
   try {
-    const formData = new FormData()
-    for (const [key, value] of Object.entries(form.value)) {
-      if (isProxy(value)) {
-        toRaw(value).forEach((v, i) => formData.append(`${key}[${i}]`, v))
-      } else if (Array.isArray(form.value)) {
-        value.forEach((v, i) => formData.append(`${key}[${i}]`, v))
-      } else {
-        formData.append(key, value ?? '')
-      }
-    }
     const { data } = await api({
       method: 'post',
       url: props.apiPost,
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' }
+      data: form.value
     })
     if (props.redirectTo) {
       router.push({ name: props.redirectTo })

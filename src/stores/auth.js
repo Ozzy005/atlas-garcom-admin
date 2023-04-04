@@ -11,6 +11,23 @@ export const useAuthStore = defineStore('auth', {
     permissions: []
 
   }),
+  getters: {
+    isAdmin () {
+      return this.user ? !!this.user.is_admin : false
+    },
+    isProviderEmployee () {
+      return this.user ? !!this.user.is_provider_employee : false
+    },
+    isTenant () {
+      return this.user ? !!this.user.is_tenant : false
+    },
+    isTenantEmployee () {
+      return this.user ? !!this.user.is_tenant_employee : false
+    },
+    isTenantOrTenantEmployee () {
+      return this.user ? !!this.user.is_tenant || !!this.user._is_tenant_employee : false
+    }
+  },
   actions: {
     async getPermissions () {
       try {

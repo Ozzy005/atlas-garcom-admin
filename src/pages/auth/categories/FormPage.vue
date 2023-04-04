@@ -2,7 +2,8 @@
   <XFormGroup>
 
     <XFileInput
-      v-model="form.image"
+      v-model:file-value="form.file"
+      v-model:image-value="form.image"
       :rules="[val => !!val || 'Imagem da Categoria é obrigatória!']"
       accept=".jpeg, .jpg, .png"
       max-file-size="1048576"

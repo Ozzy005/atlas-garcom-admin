@@ -14,8 +14,8 @@ import { ref } from 'vue'
 import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
-  name: '',
-  description: '',
+  name: null,
+  description: null,
   type: null,
   permissions_ids: []
 })

@@ -19,8 +19,8 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const form = ref({
-  name: '',
-  description: '',
+  name: null,
+  description: null,
   type: null,
   permissions_ids: []
 })

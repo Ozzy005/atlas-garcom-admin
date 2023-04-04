@@ -149,7 +149,7 @@
           </q-item>
           <!-- Categorias -->
           <q-item
-            v-if="auth.hasPermissions(['categories_view'])"
+            v-if="auth.hasPermissions(['categories_view']) && auth.isTenantOrTenantEmployee"
             :to="{ name: 'categories-list' }"
             :inset-level="0.5"
             active-class="text-primary"
@@ -436,10 +436,18 @@ const management = [
 
 const showMiniMode = () => {
   drawer.miniState = true
-  peopleExpansionItemRef.value.hide()
-  operationalExpansionItemRef.value.hide()
-  generalExpansionItemRef.value.hide()
-  managementExpansionItemRef.value.hide()
+  if (peopleExpansionItemRef.value) {
+    peopleExpansionItemRef.value.hide()
+  }
+  if (operationalExpansionItemRef.value) {
+    operationalExpansionItemRef.value.hide()
+  }
+  if (generalExpansionItemRef.value) {
+    generalExpansionItemRef.value.hide()
+  }
+  if (managementExpansionItemRef.value) {
+    managementExpansionItemRef.value.hide()
+  }
 }
 
 const hideMiniMode = (hide = true, expand = false) => {

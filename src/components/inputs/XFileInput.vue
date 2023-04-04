@@ -1,6 +1,6 @@
 <template>
   <q-file
-    v-model="value"
+    v-model="file"
     @rejected="onRejected"
     :rules="[val => true]"
     :accept="accept"
@@ -32,10 +32,15 @@
 <script setup>
 import { computed } from 'vue'
 import notify from 'src/composables/notify'
+import helpers from 'src/utils/helpers'
 
 const props = defineProps({
-  modelValue: {
+  fileValue: {
     type: [File, FileList],
+    required: false
+  },
+  imageValue: {
+    type: String,
     required: false
   },
   accept: {
@@ -48,14 +53,26 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:fileValue', 'update:imageValue'])
 
-const value = computed({
+const file = computed({
   get () {
-    return props.modelValue
+    return props.fileValue
   },
   set (value) {
-    emit('update:modelValue', value)
+    helpers.toBase64(value).then(base64 => {
+      image.value = base64
+    })
+    emit('update:fileValue', value)
+  }
+})
+
+const image = computed({
+  get () {
+    return props.imageValue
+  },
+  set (value) {
+    emit('update:imageValue', value)
   }
 })
 

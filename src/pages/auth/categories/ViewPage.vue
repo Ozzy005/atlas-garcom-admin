@@ -66,12 +66,12 @@ import XFieldGroup from 'src/components/crud/view/XFieldGroup.vue'
 const enums = useEnumsStore()
 
 const form = ref({
-  image: '',
-  name: '',
-  description: '',
+  image: null,
+  name: null,
+  description: null,
   status: null,
-  created_at: '',
-  updated_at: ''
+  created_at: null,
+  updated_at: null
 })
 
 </script>

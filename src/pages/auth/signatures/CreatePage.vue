@@ -14,15 +14,15 @@ import { ref } from 'vue'
 import XCreate from 'src/components/crud/form/XCreate.vue'
 
 const form = ref({
-  name: '',
-  description: '',
-  color: '',
+  name: null,
+  description: null,
+  color: null,
   recurrence: null,
-  price: 0,
+  price: '0',
   has_discount: false,
-  discount: 0,
-  discounted_price: 0,
-  total_price: 0,
+  discount: '0',
+  discounted_price: '0',
+  total_price: '0',
   due_days_ids: [],
   modules_ids: [],
   status: null

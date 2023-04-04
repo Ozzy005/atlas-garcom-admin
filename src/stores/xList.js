@@ -9,7 +9,7 @@ export const useXListStore = defineStore('xList', {
     columns: [],
     rows: [],
     selectedRows: [],
-    filter: '',
+    filter: null,
     tableLoadingMode: false,
     pagination: {
       page: 1,
@@ -21,11 +21,11 @@ export const useXListStore = defineStore('xList', {
     rowsPerPageOptions: [5, 10, 15, 20, 25, 50, 100],
 
     /* SEPARADOR */
-    title: '',
-    routeGroupName: '',
-    permissionsGroupName: '',
-    apiGroupName: '',
-    filterPlaceholder: '',
+    title: null,
+    routeGroupName: null,
+    permissionsGroupName: null,
+    apiGroupName: null,
+    filterPlaceholder: null,
 
     /* SEPARADOR */
     fullScreenMode: false,
@@ -60,7 +60,7 @@ export const useXListStore = defineStore('xList', {
     reset () {
       this.rows = []
       this.selectedRows = []
-      this.filter = ''
+      this.filter = null
       this.pagination = {
         page: 1,
         rowsPerPage: 10,

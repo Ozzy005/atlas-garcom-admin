@@ -21,9 +21,10 @@ import notify from 'src/composables/notify'
 const route = useRoute()
 
 const form = ref({
+  file: null,
   image: null,
-  name: '',
-  description: '',
+  name: null,
+  description: null,
   status: null
 })
 

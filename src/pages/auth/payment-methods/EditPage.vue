@@ -18,8 +18,8 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const form = ref({
-  code: '',
-  name: '',
+  code: null,
+  name: null,
   status: null
 })
 

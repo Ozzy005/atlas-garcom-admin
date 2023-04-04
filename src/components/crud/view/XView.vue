@@ -33,7 +33,7 @@ const props = defineProps({
     required: true
   },
   apiGetParams: {
-    type: String,
+    type: Object,
     required: false
   },
   returnTo: {

@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, defineAsyncComponent, toRaw, isProxy } from 'vue'
+import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
 import { api } from 'src/boot/axios'
 import notify from 'src/composables/notify'
 import XBackBtn from 'src/components/buttons/XBackBtn.vue'
@@ -97,22 +97,10 @@ const getItem = async () => {
 
 const submit = async () => {
   try {
-    const formData = new FormData()
-    for (const [key, value] of Object.entries(form.value)) {
-      if (isProxy(value)) {
-        toRaw(value).forEach((v, i) => formData.append(`${key}[${i}]`, v))
-      } else if (Array.isArray(form.value)) {
-        value.forEach((v, i) => formData.append(`${key}[${i}]`, v))
-      } else {
-        formData.append(key, value ?? '')
-      }
-    }
-    formData.append('_method', 'put')
     const { data } = await api({
-      method: 'post',
+      method: 'put',
       url: props.apiPut,
-      data: formData,
-      headers: { 'Content-Type': 'multipart/form-data' }
+      data: form.value
     })
     if (props.redirectTo) {
       router.push({ name: props.redirectTo })

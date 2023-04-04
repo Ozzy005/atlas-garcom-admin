@@ -19,7 +19,7 @@ const route = useRoute()
 
 const form = ref({
   day: null,
-  description: '',
+  description: null,
   status: null
 })
 
