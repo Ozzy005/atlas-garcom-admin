@@ -99,6 +99,33 @@ const routes = [
         ]
       },
       {
+        path: 'complements',
+        name: 'complements',
+        component: () => import('src/layouts/crud/MainLayout.vue'),
+        children: [
+          {
+            path: '',
+            name: 'complements-list',
+            component: () => import('src/pages/auth/complements/ListPage.vue')
+          },
+          {
+            path: 'create',
+            name: 'complements-create',
+            component: () => import('src/pages/auth/complements/CreatePage.vue')
+          },
+          {
+            path: ':id',
+            name: 'complements-view',
+            component: () => import('src/pages/auth/complements/ViewPage.vue')
+          },
+          {
+            path: ':id/edit',
+            name: 'complements-edit',
+            component: () => import('src/pages/auth/complements/EditPage.vue')
+          }
+        ]
+      },
+      {
         path: 'due-days',
         name: 'due-days',
         component: () => import('src/layouts/crud/MainLayout.vue'),

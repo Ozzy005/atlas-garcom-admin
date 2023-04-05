@@ -91,7 +91,8 @@
         v-if="auth.hasPermissions([
           'signatures_view',
           'due-days_view',
-          'categories_view'
+          'categories_view',
+          'complements_view'
         ])"
         @click="() => hideMiniMode()"
         ref="operationalExpansionItemRef"
@@ -159,6 +160,20 @@
             </q-item-section>
             <q-item-section>
               <q-item-label>Categorias</q-item-label>
+            </q-item-section>
+          </q-item>
+          <!-- Complementos -->
+          <q-item
+            v-if="auth.hasPermissions(['complements_view']) && auth.isTenantOrTenantEmployee"
+            :to="{ name: 'complements-list' }"
+            :inset-level="0.5"
+            active-class="text-primary"
+          >
+            <q-item-section avatar>
+              <q-icon name="mdi-cart-plus" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Complementos</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -400,7 +415,11 @@ const operational = [
   'categories-list',
   'categories-create',
   'categories-view',
-  'categories-edit'
+  'categories-edit',
+  'complements-list',
+  'complements-create',
+  'complements-view',
+  'complements-edit'
 ]
 
 const general = [
