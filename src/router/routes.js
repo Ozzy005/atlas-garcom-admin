@@ -99,6 +99,60 @@ const routes = [
         ]
       },
       {
+        path: 'categories',
+        name: 'categories',
+        component: () => import('src/layouts/crud/MainLayout.vue'),
+        children: [
+          {
+            path: '',
+            name: 'categories-list',
+            component: () => import('src/pages/auth/categories/ListPage.vue')
+          },
+          {
+            path: 'create',
+            name: 'categories-create',
+            component: () => import('src/pages/auth/categories/CreatePage.vue')
+          },
+          {
+            path: ':id',
+            name: 'categories-view',
+            component: () => import('src/pages/auth/categories/ViewPage.vue')
+          },
+          {
+            path: ':id/edit',
+            name: 'categories-edit',
+            component: () => import('src/pages/auth/categories/EditPage.vue')
+          }
+        ]
+      },
+      {
+        path: 'products',
+        name: 'products',
+        component: () => import('src/layouts/crud/MainLayout.vue'),
+        children: [
+          {
+            path: '',
+            name: 'products-list',
+            component: () => import('src/pages/auth/products/ListPage.vue')
+          },
+          {
+            path: 'create',
+            name: 'products-create',
+            component: () => import('src/pages/auth/products/CreatePage.vue')
+          },
+          {
+            path: ':id',
+            name: 'products-view',
+            component: () => import('src/pages/auth/products/ViewPage.vue')
+          },
+          {
+            path: ':id/edit',
+            name: 'products-edit',
+            component: () => import('src/pages/auth/products/EditPage.vue')
+          }
+        ]
+      },
+      {
         path: 'complements',
         name: 'complements',
         component: () => import('src/layouts/crud/MainLayout.vue'),
@@ -149,33 +203,6 @@ const routes = [
             path: ':id/edit',
             name: 'due-days-edit',
             component: () => import('src/pages/auth/due-days/EditPage.vue')
-          }
-        ]
-      },
-      {
-        path: 'categories',
-        name: 'categories',
-        component: () => import('src/layouts/crud/MainLayout.vue'),
-        children: [
-          {
-            path: '',
-            name: 'categories-list',
-            component: () => import('src/pages/auth/categories/ListPage.vue')
-          },
-          {
-            path: 'create',
-            name: 'categories-create',
-            component: () => import('src/pages/auth/categories/CreatePage.vue')
-          },
-          {
-            path: ':id',
-            name: 'categories-view',
-            component: () => import('src/pages/auth/categories/ViewPage.vue')
-          },
-          {
-            path: ':id/edit',
-            name: 'categories-edit',
-            component: () => import('src/pages/auth/categories/EditPage.vue')
           }
         ]
       },

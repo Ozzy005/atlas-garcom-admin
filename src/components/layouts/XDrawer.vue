@@ -162,6 +162,20 @@
               <q-item-label>Categorias</q-item-label>
             </q-item-section>
           </q-item>
+          <!-- Produtos -->
+          <q-item
+            v-if="auth.hasPermissions(['products_view']) && auth.isTenantOrTenantEmployee"
+            :to="{ name: 'products-list' }"
+            :inset-level="0.5"
+            active-class="text-primary"
+          >
+            <q-item-section avatar>
+              <q-icon name="mdi-cart" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>Produtos</q-item-label>
+            </q-item-section>
+          </q-item>
           <!-- Complementos -->
           <q-item
             v-if="auth.hasPermissions(['complements_view']) && auth.isTenantOrTenantEmployee"
@@ -416,6 +430,10 @@ const operational = [
   'categories-create',
   'categories-view',
   'categories-edit',
+  'products-list',
+  'products-create',
+  'products-view',
+  'products-edit',
   'complements-list',
   'complements-create',
   'complements-view',

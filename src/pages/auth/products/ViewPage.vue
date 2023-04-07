@@ -1,15 +1,16 @@
 <template>
   <XView
     v-model="form"
-    :return-to="{ name: 'categories-list' }"
-    title="Categorias"
-    api-get="categories"
+    :return-to="{ name: 'products-list' }"
+    :api-get-params="{ with: ['category', 'productPrices.measurementUnit', 'complements.measurementUnit'] }"
+    title="Produtos"
+    api-get="products"
   >
 
     <XFieldGroup>
       <XField
         class="col-md-shrink col-xs-12"
-        field="Imagem da Categoria:"
+        field="Imagem do Produto:"
       >
         <q-img
           :src="form.image_url"
@@ -28,8 +29,8 @@
 
       <XField
         class="col-md-grow col-xs-12"
-        field="Descrição:"
-        :value="form.description"
+        field="Categoria:"
+        :value="form.category?.name"
       />
 
       <XField
@@ -38,6 +39,38 @@
         :value="enums.getName('status', form.status)"
       />
     </XFieldGroup>
+
+    <XFieldGroup>
+      <XField
+        class="col-md-grow col-xs-12"
+        field="Descrição:"
+        :value="form.description"
+      />
+    </XFieldGroup>
+
+    <XField
+      class="col-12"
+      field="Preços:"
+    >
+      <q-chip
+        v-for="(item, index) in form.product_prices"
+        :key="index"
+      >
+        {{ `${item.quantity} ${item.measurement_unit.initials} - ${item.name} - R$ ${helpers.floatToMoney(item.price)}` }}
+      </q-chip>
+    </XField>
+
+    <XField
+      class="col-12"
+      field="Complementos:"
+    >
+      <q-chip
+        v-for="(item, index) in form.complements"
+        :key="index"
+      >
+      {{ `${item.quantity} ${item.measurement_unit.initials} - ${item.name} - R$ ${helpers.floatToMoney(item.price)}` }}
+      </q-chip>
+    </XField>
 
     <XFieldGroup>
       <XField
@@ -66,12 +99,14 @@ import XFieldGroup from 'src/components/crud/view/XFieldGroup.vue'
 const enums = useEnumsStore()
 
 const form = ref({
+  file: null,
   image: null,
   name: null,
   description: null,
+  category: null,
   status: null,
-  created_at: null,
-  updated_at: null
+  product_prices: [],
+  complements: []
 })
 
 </script>

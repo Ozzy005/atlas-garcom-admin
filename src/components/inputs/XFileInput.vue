@@ -60,9 +60,11 @@ const file = computed({
     return props.fileValue
   },
   set (value) {
-    helpers.toBase64(value).then(base64 => {
-      image.value = base64
-    })
+    if (value) {
+      helpers.toBase64(value).then(base64 => {
+        image.value = base64
+      })
+    }
     emit('update:fileValue', value)
   }
 })

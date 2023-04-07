@@ -1,13 +1,13 @@
 <template>
   <XEdit
     v-model="form"
-    :api-get="`/api/categories/${route.params.id}`"
-    :api-put="`/api/categories/${route.params.id}`"
-    :return-to="{ name: 'categories-list' }"
+    :api-get="`/api/products/${route.params.id}`"
+    :api-put="`/api/products/${route.params.id}`"
+    :return-to="{ name: 'products-list' }"
     :get-item-function="getItem"
-    path-form="categories"
-    title="Categorias"
-    redirect-to="categories-list"
+    path-form="products"
+    title="Produtos"
+    redirect-to="products-list"
   />
 </template>
 
@@ -26,12 +26,18 @@ const form = ref({
   image: null,
   name: null,
   description: null,
+  category_id: null,
+  product_prices: [],
+  complements_ids: [],
   status: null
 })
 
 const getItem = async () => {
   try {
-    const { data } = await api({ url: `/api/categories/${route.params.id}` })
+    const { data } = await api({
+      url: `/api/products/${route.params.id}`,
+      params: { with: ['productPrices', 'complements'] }
+    })
 
     fetch(data.data.image_url)
       .then(async response => {
